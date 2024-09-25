@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 
 public class GameLogic {
     public GameLogic() {
-
+        
     }
 
     public void update(float currentTime, float deltaTime) {
