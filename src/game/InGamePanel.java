@@ -61,13 +61,11 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-		System.out.println("Key pressed: " + e.getKeyCode());
 		gameLogic.keyPressed(e);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-		System.out.println("Key released: " + e.getKeyCode());
 		gameLogic.keyReleased(e);
     }
 
