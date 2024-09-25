@@ -13,7 +13,7 @@ public class Tileset {
 
     Tileset() {
         try {
-            tileTexture = ImageIO.read(new File("texture/tileSet.png"));
+            tileTexture = ImageIO.read(new File("textures/tileSet.png"));
         } catch (Exception e) {
             System.out.println("Could not load tile textures");
         }
