@@ -8,7 +8,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Character {
-    
+
     private float x;
     private float y;
 
@@ -36,10 +36,14 @@ public class Character {
     }
 
     public void update(float deltaTime) {
-        if(rightPressed) velX += 1;
-        if(leftPressed)  velX -= 1;
-        if(upPressed) velY -= 1;
-        if(downPressed)  velY += 1;
+        if (rightPressed)
+            velX += 1;
+        if (leftPressed)
+            velX -= 1;
+        if (upPressed)
+            velY -= 1;
+        if (downPressed)
+            velY += 1;
 
         x += deltaTime * 300 * velX;
         y += deltaTime * 300 * velY;
@@ -49,23 +53,30 @@ public class Character {
     }
 
     public void drawSelf(Graphics2D g) {
-        g.drawImage(image, (int)x, (int)y, 100, 100, null);
+        g.drawImage(image, (int) x, (int) y, 100, 100, null);
     }
 
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == 37) leftPressed = true;
-        if(e.getKeyCode() == 38) upPressed = true;
-        if(e.getKeyCode() == 39) rightPressed = true;
-        if(e.getKeyCode() == 40) downPressed = true;
+        if (e.getKeyCode() == 37)
+            leftPressed = true;
+        if (e.getKeyCode() == 38)
+            upPressed = true;
+        if (e.getKeyCode() == 39)
+            rightPressed = true;
+        if (e.getKeyCode() == 40)
+            downPressed = true;
     }
 
     public void keyReleased(KeyEvent e) {
-        if(e.getKeyCode() == 37) leftPressed = false;
-        if(e.getKeyCode() == 38) upPressed = false;
-        if(e.getKeyCode() == 39) rightPressed = false;
-        if(e.getKeyCode() == 40) downPressed = false;
+        if (e.getKeyCode() == 37)
+            leftPressed = false;
+        if (e.getKeyCode() == 38)
+            upPressed = false;
+        if (e.getKeyCode() == 39)
+            rightPressed = false;
+        if (e.getKeyCode() == 40)
+            downPressed = false;
 
     }
-    
 
 }

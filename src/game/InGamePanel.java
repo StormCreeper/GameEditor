@@ -6,37 +6,37 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 
-public class InGamePanel extends JPanel implements Runnable, KeyListener{
+public class InGamePanel extends JPanel implements Runnable, KeyListener {
 
-    private long startingNanoTime;
+	private long startingNanoTime;
 	private long lastNanoTime;
-	
+
 	private float currentTime;
 	private float deltaTime;
 
 	private final GameLogic gameLogic;
-	
+
 	Thread thread;
 
 	public InGamePanel() {
 		gameLogic = new GameLogic(this);
 	}
-	
-    @Override
+
+	@Override
 	public void addNotify() {
 		super.addNotify();
-		if(thread == null) {
+		if (thread == null) {
 			thread = new Thread(this);
 			thread.start();
 		}
 	}
-	
+
 	@Override
 	public void run() {
 		startingNanoTime = System.nanoTime();
 		addKeyListener(this);
 		requestFocus();
-		while(true) {
+		while (true) {
 			long currentNanoTime = System.nanoTime() - startingNanoTime;
 			deltaTime = (currentNanoTime - lastNanoTime) * 1e-9f;
 			currentTime = currentNanoTime * 1e-9f;
@@ -45,7 +45,7 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener{
 			repaint();
 		}
 	}
-	
+
 	private void updateGame() {
 		gameLogic.update(currentTime, deltaTime);
 	}
@@ -55,19 +55,19 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener{
 		gameLogic.draw((Graphics2D) g);
 	}
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-		
-    }
+	@Override
+	public void keyTyped(KeyEvent e) {
 
-    @Override
-    public void keyPressed(KeyEvent e) {
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
 		gameLogic.keyPressed(e);
-    }
+	}
 
-    @Override
-    public void keyReleased(KeyEvent e) {
+	@Override
+	public void keyReleased(KeyEvent e) {
 		gameLogic.keyReleased(e);
-    }
+	}
 
 }
