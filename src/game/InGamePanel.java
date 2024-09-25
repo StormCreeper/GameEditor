@@ -14,17 +14,12 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener{
 	private float currentTime;
 	private float deltaTime;
 
-	private float pos = 0;
-
-	private GameLogic gameLogic = new GameLogic();
+	private final GameLogic gameLogic;
 	
 	Thread thread;
 
-	private Tileset tileset;
-
 	public InGamePanel() {
-		tileset = new Tileset(16, 7);
-		tileset.loadTextures();
+		gameLogic = new GameLogic(this);
 	}
 	
     @Override
@@ -51,8 +46,6 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener{
 	}
 	
 	private void updateGame() {
-		pos = 110 + 100 * (float)Math.sin((double)currentTime);
-
 		gameLogic.update(currentTime, deltaTime);
 	}
 
