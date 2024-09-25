@@ -1,5 +1,7 @@
 package editor;
 
-public class ObjectSelectionPanel {
+import javax.swing.JComponent;
+
+public class ObjectSelectionPanel extends JComponent {
 
 }

@@ -1,5 +1,7 @@
 package editor;
 
-public class ToolBar {
+import javax.swing.JPanel;
+
+public class ToolBar extends JPanel {
 
 }
