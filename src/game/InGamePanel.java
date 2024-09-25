@@ -2,16 +2,18 @@ package game;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 
-public class InGamePanel extends JPanel implements Runnable{
+public class InGamePanel extends JPanel implements Runnable, KeyListener{
 
     private long startingNanoTime;
 	private long lastNanoTime;
 	
 	private float currentTime;
 	private float deltaTime;
-	
+
 	private float pos = 0;
 	
 	Thread thread;
@@ -31,6 +33,8 @@ public class InGamePanel extends JPanel implements Runnable{
 	@Override
 	public void run() {
 		startingNanoTime = System.nanoTime();
+		addKeyListener(this);
+		requestFocus();
 		while(true) {
 			long currentNanoTime = System.nanoTime() - startingNanoTime;
 			deltaTime = (currentNanoTime - lastNanoTime) * 1e-9f;
@@ -54,5 +58,20 @@ public class InGamePanel extends JPanel implements Runnable{
 		g.setColor(Color.yellow);
 		g.fillRect((int) pos, 10, 100, 100);
 	}
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+		
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+		System.out.println("Key pressed: " + e.getKeyCode());
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+		System.out.println("Key released: " + e.getKeyCode());
+    }
 
 }
