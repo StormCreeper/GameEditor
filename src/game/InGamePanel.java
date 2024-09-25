@@ -15,6 +15,8 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener{
 	private float deltaTime;
 
 	private float pos = 0;
+
+	private GameLogic gameLogic = new GameLogic();
 	
 	Thread thread;
 
@@ -46,6 +48,8 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener{
 	
 	private void updateGame() {
 		pos = 110 + 100 * (float)Math.sin((double)currentTime);
+
+		gameLogic.update(currentTime, deltaTime);
 	}
 
 	@Override
@@ -67,11 +71,13 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
 		System.out.println("Key pressed: " + e.getKeyCode());
+		gameLogic.keyPressed(e);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
 		System.out.println("Key released: " + e.getKeyCode());
+		gameLogic.keyReleased(e);
     }
 
 }
