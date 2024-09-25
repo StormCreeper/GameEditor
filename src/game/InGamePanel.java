@@ -1,12 +1,9 @@
 package game;
 
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-
 import javax.swing.JPanel;
 
 public class InGamePanel extends JPanel implements Runnable, KeyListener{
@@ -61,18 +58,7 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener{
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		g.clearRect(0, 0, getWidth(), getHeight());
-		
-		/*g.setColor(Color.red);
-		g.fillRect(0, 0, getWidth(), getHeight());
-		
-		g.setColor(Color.yellow);
-		g.fillRect((int) pos, 10, 100, 100);*/
-
-		ArrayList<BufferedImage> textureArray = tileset.getTextureArray();
-		for(int i = 0; i<textureArray.size(); i++) {
-			g.drawImage(textureArray.get(i), (tileset.getTileSize()+5)*i, 0, this);
-		}
+		gameLogic.draw((Graphics2D) g);
 	}
 
     @Override
