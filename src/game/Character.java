@@ -9,11 +9,11 @@ import javax.imageio.ImageIO;
 
 public class Character {
 
-    private float x;
-    private float y;
+    private double x;
+    private double y;
 
-    private float velX;
-    private float velY;
+    private double velX;
+    private double velY;
 
     private boolean upPressed;
     private boolean downPressed;
@@ -35,7 +35,7 @@ public class Character {
         velY = 0;
     }
 
-    public void update(float deltaTime) {
+    public void update(double deltaTime) {
         if (rightPressed)
             velX += 1;
         if (leftPressed)

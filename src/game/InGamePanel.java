@@ -11,8 +11,8 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener {
 	private long startingNanoTime;
 	private long lastNanoTime;
 
-	private float currentTime;
-	private float deltaTime;
+	private double currentTime;
+	private double deltaTime;
 
 	private final GameLogic gameLogic;
 

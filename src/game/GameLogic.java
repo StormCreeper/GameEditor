@@ -18,7 +18,7 @@ public class GameLogic {
     /**
      * To have access to getWidth(), getHeight()
      */
-    private JPanel parent;
+    private final JPanel parent;
 
     public GameLogic(JPanel parent) {
         this.parent = parent;
@@ -36,7 +36,7 @@ public class GameLogic {
      * @param currentTime time in seconds elapsed since the program start
      * @param deltaTime   time in seconds since last frame
      */
-    public void update(float currentTime, float deltaTime) {
+    public void update(double currentTime, double deltaTime) {
         character.update(deltaTime);
     }
 
