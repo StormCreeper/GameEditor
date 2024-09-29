@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 public class GameLogic {
 
     private final Tileset tileset;
+    private final Tilemap tilemap;
     private final Character character;
 
     /**
@@ -25,6 +26,14 @@ public class GameLogic {
 
         tileset = new Tileset(16, 7);
         tileset.loadTextures();
+
+        tilemap = new Tilemap(7, 7, 100, tileset);
+
+        for (int j = 0; j < 7; j++) {
+            for (int i = 0; i < 7; i++) {
+                tilemap.setTile(i, j, (i + j) % 7);
+            }
+        }
 
         character = new Character("textures/chara.png");
 
@@ -50,11 +59,7 @@ public class GameLogic {
 
         // All drawing goes here
 
-        for (int j = 0; j < 7; j++) {
-            for (int i = 0; i < 7; i++) {
-                g.drawImage(tileset.getTextureArray().get((i + j) % 7), i * 100, j * 100, 90, 90, null);
-            }
-        }
+        tilemap.drawSelf(g);
 
         character.drawSelf(g);
     }
