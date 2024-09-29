@@ -26,7 +26,6 @@ public class Character {
         try {
             image = ImageIO.read(new File("textures/chara.png"));
         } catch (IOException ex) {
-            ex.printStackTrace();
         }
 
         x = 0;
