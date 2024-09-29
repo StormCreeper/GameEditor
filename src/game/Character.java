@@ -56,24 +56,24 @@ public class Character {
     }
 
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == 37)
+        if (e.getKeyCode() == KeyEvent.VK_LEFT)
             leftPressed = true;
-        if (e.getKeyCode() == 38)
+        if (e.getKeyCode() == KeyEvent.VK_UP)
             upPressed = true;
-        if (e.getKeyCode() == 39)
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT)
             rightPressed = true;
-        if (e.getKeyCode() == 40)
+        if (e.getKeyCode() == KeyEvent.VK_DOWN)
             downPressed = true;
     }
 
     public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == 37)
+        if (e.getKeyCode() == KeyEvent.VK_LEFT)
             leftPressed = false;
-        if (e.getKeyCode() == 38)
+        if (e.getKeyCode() == KeyEvent.VK_UP)
             upPressed = false;
-        if (e.getKeyCode() == 39)
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT)
             rightPressed = false;
-        if (e.getKeyCode() == 40)
+        if (e.getKeyCode() == KeyEvent.VK_DOWN)
             downPressed = false;
 
     }
