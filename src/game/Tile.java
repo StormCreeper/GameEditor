@@ -1,13 +1,21 @@
 package game;
 
-import java.awt.image.*;
+import java.awt.image.BufferedImage;
 
 public class Tile {
 
     private int xPosition;
     private int yPosition;
 
-    private BufferedImage tileTexture;
+    private int tileTextureId;
+
+    private final Tileset tileset;
+
+    public Tile(int x, int y, Tileset tileset) {
+        this.tileset = tileset;
+        xPosition = x;
+        yPosition = y;
+    }
 
     public void setXPosition(int x) {
         xPosition = x;
@@ -25,11 +33,15 @@ public class Tile {
         return yPosition;
     }
 
-    public void setTexture(BufferedImage texture) {
-        tileTexture = texture;
+    public void setTextureID(int id) {
+        tileTextureId = id;
     }
 
-    public BufferedImage getBufferedImage() {
-        return tileTexture;
+    public int getImageID() {
+        return tileTextureId;
+    }
+
+    public BufferedImage getImage() {
+        return tileset.getTexture(tileTextureId);
     }
 }
