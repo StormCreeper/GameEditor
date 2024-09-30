@@ -37,6 +37,10 @@ public class Tileset {
 
     }
 
+    public int getNbTextures(){
+        return nbTextures;
+    }
+
     public ArrayList<BufferedImage> getTextureArray() {
         return textureArray;
     }
