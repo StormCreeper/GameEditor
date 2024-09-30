@@ -6,14 +6,18 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 public class ObjectSelectionPanel extends JPanel {
+    private final EditorPanel parent;
+
     private Tileset tileSet;
     private int selectedTextureId = 0;
     private ArrayList<TextureButton> textureButtons = new ArrayList<>();
     
 
-    public ObjectSelectionPanel(Tileset tileSet){
+    public ObjectSelectionPanel(EditorPanel parent, Tileset tileSet){
         super();
         setLayout(new FlowLayout());
+
+        this.parent = parent;
 
         this.tileSet = tileSet;
 
@@ -22,6 +26,10 @@ public class ObjectSelectionPanel extends JPanel {
             textureButtons.add(tb);
             add(tb);
         }
+    }
+
+    public int getSelectedTextureId(){
+        return selectedTextureId;
     }
 
     public void setSelectedTextureId(int id){

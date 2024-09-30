@@ -19,9 +19,13 @@ public class EditorPanel extends JPanel {
         tileSet = new Tileset(16,7);
         tileSet.loadTextures();
 
-        add(gamePanel = new GameEditorPanel(width, height, tileSet), BorderLayout.CENTER);
-        add(objectSelectionPanel = new ObjectSelectionPanel(tileSet), BorderLayout.SOUTH); // 7 : nb of textures
+        add(gamePanel = new GameEditorPanel(this, width, height, tileSet), BorderLayout.CENTER);
+        add(objectSelectionPanel = new ObjectSelectionPanel(this, tileSet), BorderLayout.SOUTH); // 7 : nb of textures
         add(toolBar = new ToolBar(), BorderLayout.EAST);
+    }
+
+    public int getSelectedTextureId(){
+        return objectSelectionPanel.getSelectedTextureId();
     }
 
 }

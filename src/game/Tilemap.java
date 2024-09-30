@@ -47,6 +47,10 @@ public class Tilemap {
         tileMap[i][j].setTextureID(tileID);
     }
 
+    public int getTileSize(){
+        return tileSize;
+    }
+
     public void loadFromFile(String filename) {
         File file = new File(filename);
 
