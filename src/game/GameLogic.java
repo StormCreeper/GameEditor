@@ -15,6 +15,7 @@ public class GameLogic {
     private final Tileset tileset;
     private final Tilemap tilemap;
     private final Character character;
+    private final Camera camera;
 
     /**
      * To have access to getWidth(), getHeight()
@@ -37,6 +38,8 @@ public class GameLogic {
 
         character = new Character("textures/chara.png");
 
+        camera = new Camera(character, 10.0);
+
     }
 
     /**
@@ -47,6 +50,7 @@ public class GameLogic {
      */
     public void update(double currentTime, double deltaTime) {
         character.update(deltaTime);
+        camera.update(deltaTime);
     }
 
     /**
@@ -58,6 +62,8 @@ public class GameLogic {
         g.clearRect(0, 0, parent.getWidth(), parent.getHeight());
 
         // All drawing goes here
+
+        camera.updateCanvas(g);
 
         tilemap.drawSelf(g);
 

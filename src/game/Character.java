@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -76,6 +77,12 @@ public class Character {
         if (e.getKeyCode() == KeyEvent.VK_DOWN)
             downPressed = false;
 
+    }
+
+    // Getters and Setters
+
+    public Point2D getPosition() {
+        return new Point2D.Double(x, y);
     }
 
 }
