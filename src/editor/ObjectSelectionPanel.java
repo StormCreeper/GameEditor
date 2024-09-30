@@ -11,12 +11,11 @@ public class ObjectSelectionPanel extends JPanel {
     private ArrayList<TextureButton> textureButtons = new ArrayList<>();
     
 
-    public ObjectSelectionPanel(int nbTextures){
+    public ObjectSelectionPanel(Tileset tileSet){
         super();
         setLayout(new FlowLayout());
 
-        tileSet = new Tileset(16,nbTextures);
-        tileSet.loadTextures();
+        this.tileSet = tileSet;
 
         for(int i=0; i<tileSet.getNbTextures(); i++){
             TextureButton tb = new TextureButton(this, i, tileSet.getTexture(i));

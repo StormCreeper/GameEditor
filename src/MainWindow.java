@@ -52,7 +52,7 @@ public class MainWindow  extends JFrame{
 
     public void switchToEditor(){
         remove(getContentPane());
-        setContentPane(new EditorPanel());
+        setContentPane(new EditorPanel(10,10));
         revalidate();
         repaint();
     }
