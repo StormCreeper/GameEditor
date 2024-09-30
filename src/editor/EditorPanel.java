@@ -13,7 +13,7 @@ public class EditorPanel extends JPanel {
         setLayout(new BorderLayout());
 
         add(gamePanel = new GameEditorPanel(), BorderLayout.CENTER);
-        add(objectSelectionPanel = new ObjectSelectionPanel(), BorderLayout.SOUTH);
+        add(objectSelectionPanel = new ObjectSelectionPanel(7), BorderLayout.SOUTH); // 7 : nb of textures
         add(toolBar = new ToolBar(), BorderLayout.EAST);
     }
 

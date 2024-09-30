@@ -13,7 +13,7 @@ public class Tileset {
     private ArrayList<BufferedImage> textureArray = new ArrayList<>();
     private int nbTextures;
 
-    Tileset(int tileSize, int nbTextures) {
+    public Tileset(int tileSize, int nbTextures) {
 
         this.tileSize = tileSize;
         this.nbTextures = nbTextures;
