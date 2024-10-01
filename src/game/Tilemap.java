@@ -1,15 +1,19 @@
 package game;
 
 import java.awt.Graphics2D;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Tilemap {
-    private final Tile[][] tileMap;
+    private Tile[][] tileMap;
     private final Tileset tileset;
 
-    private final int numTilesX, numTilesY;
+    private int numTilesX, numTilesY;
     private int tileSize;
 
     public Tilemap(int numTilesX, int numTilesY, int tileSize, Tileset tileset) {
@@ -61,14 +65,29 @@ public class Tilemap {
     public void loadFromFile(String filename) {
         File file = new File(filename);
 
+        String data = "";
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
-                String data = scanner.nextLine();
-                System.out.println(data);
+                data = data + "\n" + scanner.nextLine();
+                //This causes an empty line at the beginning
             }
         } catch (FileNotFoundException ex) {
             System.err.println("Could not load " + filename + " :(");
         }
+
+        String[] lines = data.split("\n");
+
+        numTilesX = lines[1].length()/2; //We divide by 2 to account for the spaces
+        numTilesY = lines.length-1; //-1 for empty line at beginning
+
+        for (int j = 0; j<numTilesY ; j++) {
+            String[] tileList = lines[1+j].split(" "); //+ 1 for empty line at beginning
+
+            for (int i = 0 ; i<numTilesX ; i++) {
+                tileMap[i][j].setTextureID(Integer.parseInt(tileList[i]));
+            }
+        }
+
     }
 
     public void drawSelf(Graphics2D g) {
@@ -77,5 +96,22 @@ public class Tilemap {
                 g.drawImage(tileMap[i][j].getImage(), i * tileSize, j * tileSize, tileSize, tileSize, null);
             }
         }
+    }
+
+    public void save(String filePath) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + ".txt"));
+
+            for(int j = 0; j < numTilesY; j++) {
+                for(int i = 0; i < numTilesX; i++) {
+                    writer.write(String.valueOf(tileMap[i][j].getImageID()));
+                    writer.write(" ");
+                }
+                writer.write('\n');
+            }
+
+            writer.close();
+        }
+        catch(IOException e) {System.out.println("Could not save to file" + filePath);}
     }
 }

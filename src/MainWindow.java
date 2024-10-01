@@ -5,7 +5,9 @@ import game.Tileset;
 
 import java.awt.Dimension;
 import java.awt.event.*;
+import java.io.File;
 import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 
 public class MainWindow  extends JFrame{
 
@@ -60,6 +62,17 @@ public class MainWindow  extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e){
                 System.out.println("Saving level");
+
+                JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView());
+                fileChooser.setCurrentDirectory(new File("maps/"));
+                int returnValue = fileChooser.showSaveDialog(null);
+                
+                String filePath = null;
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
+                    filePath = file.getAbsolutePath();
+                }
+                tileMap.save(filePath);
             }
         });
 
@@ -67,6 +80,21 @@ public class MainWindow  extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e){
                 System.out.println("Loading level");
+
+                JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView());
+                fileChooser.setCurrentDirectory(new File("maps/"));
+
+		        int returnValue = fileChooser.showOpenDialog(null);
+
+		        String filePath=null;
+		        if (returnValue == JFileChooser.APPROVE_OPTION) {
+			        File file = fileChooser.getSelectedFile();
+			        filePath = file.getAbsolutePath();
+		        }
+
+                tileMap.loadFromFile(filePath);
+
+                repaint();
             }
         });
 
