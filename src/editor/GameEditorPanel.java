@@ -13,11 +13,11 @@ public class GameEditorPanel extends JComponent {
     private Tilemap tileMap;
     private Tileset tileSet;
 
-    public GameEditorPanel(EditorPanel parent, int width, int height, Tileset tileSet){
+    public GameEditorPanel(EditorPanel parent, int width, int height, Tileset tileSet, Tilemap tileMap){
         this.parent = parent;
 
         this.tileSet = tileSet;
-        tileMap = new Tilemap(width, height, 50, tileSet);
+        this.tileMap = tileMap;
 
         addMouseListener(new MouseAdapter(){
             @Override

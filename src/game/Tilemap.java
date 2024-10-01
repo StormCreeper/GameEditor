@@ -24,6 +24,13 @@ public class Tilemap {
                 tileMap[i][j] = new Tile(i, j, this.tileset);
             }
         }
+
+        for (int j = 0; j < numTilesY; j++) {
+            for (int i = 0; i < numTilesX; i++) {
+                //Init tilemap with different tiles
+                setTile(i, j, (i + j) % 7);
+            }
+        }
     }
 
     public Tile getTile(int i, int j) {

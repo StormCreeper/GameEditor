@@ -1,5 +1,6 @@
 package editor;
 
+import game.Tilemap;
 import game.Tileset;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
@@ -11,15 +12,16 @@ public class EditorPanel extends JPanel {
     private ToolBar toolBar;
 
     private Tileset tileSet;
+    private Tilemap tileMap;
 
-    public EditorPanel(int width, int height) {
+    public EditorPanel(int width, int height, Tileset tileSet, Tilemap tileMap) {
         super();
         setLayout(new BorderLayout());
 
-        tileSet = new Tileset(16,7);
-        tileSet.loadTextures();
+        this.tileSet = tileSet;
+        this.tileMap = tileMap;
 
-        add(gamePanel = new GameEditorPanel(this, width, height, tileSet), BorderLayout.CENTER);
+        add(gamePanel = new GameEditorPanel(this, width, height, tileSet, tileMap), BorderLayout.CENTER);
         add(objectSelectionPanel = new ObjectSelectionPanel(this, tileSet), BorderLayout.SOUTH); // 7 : nb of textures
         add(toolBar = new ToolBar(), BorderLayout.EAST);
     }

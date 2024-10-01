@@ -18,8 +18,8 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener {
 
 	Thread thread;
 
-	public InGamePanel() {
-		gameLogic = new GameLogic(this);
+	public InGamePanel(Tileset tileset, Tilemap tileMap) {
+		gameLogic = new GameLogic(this, tileset, tileMap);
 	}
 
 	@Override

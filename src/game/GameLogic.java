@@ -22,19 +22,11 @@ public class GameLogic {
      */
     private final JPanel parent;
 
-    public GameLogic(JPanel parent) {
+    public GameLogic(JPanel parent, Tileset tileset, Tilemap tilemap) {
         this.parent = parent;
 
-        tileset = new Tileset(16, 7);
-        tileset.loadTextures();
-
-        tilemap = new Tilemap(7, 7, 100, tileset);
-
-        for (int j = 0; j < 7; j++) {
-            for (int i = 0; i < 7; i++) {
-                tilemap.setTile(i, j, (i + j) % 7);
-            }
-        }
+        this.tileset = tileset;
+        this.tilemap = tilemap;
 
         character = new Character("textures/chara.png");
 
