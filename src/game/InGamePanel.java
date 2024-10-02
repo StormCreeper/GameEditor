@@ -2,8 +2,7 @@ package game;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import javax.swing.JPanel;
 
 public class InGamePanel extends JPanel implements Runnable, KeyListener {
@@ -20,6 +19,23 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener {
 
 	public InGamePanel(Tileset tileset, Tilemap tileMap) {
 		gameLogic = new GameLogic(this, tileset, tileMap);
+		addMouseListener(new MouseAdapter(){
+			@Override
+			public void mousePressed(MouseEvent e){
+			}
+			
+
+			@Override
+			public void mouseReleased(MouseEvent e){
+
+			}
+		});
+		addMouseMotionListener(new MouseAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e){
+
+			}
+		});
 	}
 
 	@Override

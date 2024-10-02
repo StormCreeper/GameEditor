@@ -14,7 +14,9 @@ public class GameLogic {
 
     private final Tileset tileset;
     private final Tilemap tilemap;
+
     private final Character character;
+    
     private final Camera camera;
 
     /**
