@@ -30,4 +30,8 @@ public class EditorPanel extends JPanel {
         return objectSelectionPanel.getSelectedTextureId();
     }
 
+    public void addLine() {
+        tileMap.addLine();
+    }
+
 }
