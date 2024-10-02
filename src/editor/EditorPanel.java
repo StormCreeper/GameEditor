@@ -4,7 +4,6 @@ import game.Tilemap;
 import game.Tileset;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 public class EditorPanel extends JPanel {
 
@@ -15,8 +14,6 @@ public class EditorPanel extends JPanel {
     private Tileset tileSet;
     private Tilemap tileMap;
 
-    JScrollPane scrollPane;
-
     public EditorPanel(int width, int height, Tileset tileSet, Tilemap tileMap) {
         super();
         setLayout(new BorderLayout());
@@ -26,13 +23,7 @@ public class EditorPanel extends JPanel {
 
         gamePanel = new GameEditorPanel(this, width, height, tileSet, tileMap);
 
-        scrollPane = new JScrollPane();
-        scrollPane.setViewportView(gamePanel);
-        // Always show scrollbars
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
-        add(scrollPane, BorderLayout.CENTER);
+        add(gamePanel, BorderLayout.CENTER);
         add(objectSelectionPanel = new ObjectSelectionPanel(this, tileSet), BorderLayout.SOUTH); // 7 : nb of textures
         add(toolBar = new ToolBar(this), BorderLayout.EAST);
     }

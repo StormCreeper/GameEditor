@@ -69,11 +69,6 @@ public class GameEditorPanel extends JComponent {
         tileMap.drawSelf((Graphics2D) g);
     }
 
-    public void computeSize() {
-        setPreferredSize(
-                new Dimension(tileMap.getTileSize() * tileMap.getNumX(), tileMap.getTileSize() * tileMap.getNumY()));
-    }
-
     public void centerView() {
         offset = new Point2D.Double(0, 0);
         repaint();
