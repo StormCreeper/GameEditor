@@ -90,9 +90,9 @@ public class MainWindow  extends JFrame{
 		        if (returnValue == JFileChooser.APPROVE_OPTION) {
 			        File file = fileChooser.getSelectedFile();
 			        filePath = file.getAbsolutePath();
+                    tileMap.loadFromFile(filePath);
 		        }
-
-                tileMap.loadFromFile(filePath);
+     
 
                 repaint();
             }

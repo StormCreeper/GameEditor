@@ -85,6 +85,7 @@ public class Tilemap {
             String[] tileList = lines[1+j].split(" "); //+ 1 for empty line at beginning
 
             for (int i = 0 ; i<numTilesX ; i++) {
+                tileMap[i][j] = new Tile(i, j, tileset);
                 tileMap[i][j].setTextureID(Integer.parseInt(tileList[i]));
             }
         }
