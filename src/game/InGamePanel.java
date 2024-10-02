@@ -22,18 +22,22 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener {
 		addMouseListener(new MouseAdapter(){
 			@Override
 			public void mousePressed(MouseEvent e){
+				System.out.println("Mouse pressed !");
+				gameLogic.mousePressed(e);
 			}
-			
+
 
 			@Override
 			public void mouseReleased(MouseEvent e){
-
+				System.out.println("Mouse released !");
+				gameLogic.mouseReleased(e);
 			}
 		});
 		addMouseMotionListener(new MouseAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent e){
-
+				System.out.println("Mouse dragged !");
+				gameLogic.mouseDragged(e);
 			}
 		});
 	}

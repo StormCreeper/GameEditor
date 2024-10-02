@@ -2,7 +2,7 @@ package game;
 
 import game.Character;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import javax.swing.JPanel;
 
 /**
@@ -16,7 +16,7 @@ public class GameLogic {
     private final Tilemap tilemap;
 
     private final Character character;
-    
+
     private final Camera camera;
 
     /**
@@ -80,5 +80,17 @@ public class GameLogic {
      */
     public void keyReleased(KeyEvent e) {
         character.keyReleased(e);
+    }
+
+    public void mousePressed(MouseEvent e){
+        
+    }
+
+    public void mouseReleased(MouseEvent e){
+        
+    }
+
+    public void mouseDragged(MouseEvent e){
+        
     }
 }

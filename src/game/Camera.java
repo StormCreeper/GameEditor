@@ -17,6 +17,10 @@ public class Camera {
         this.position = (Point2D.Double) target.getPosition();
     }
 
+    public Point2D.Double getPosition(){
+        return position;
+    }
+
     public void update(double deltaTime) {
         // position.x = target.getPosition().getX();
         // position.y = target.getPosition().getY();
