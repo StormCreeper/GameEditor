@@ -132,4 +132,20 @@ public class Tilemap {
             }
         }
     }
+
+    public void addColumn() {
+        numTilesX += 1;
+        Tile[][] temp = tileMap.clone();
+        tileMap = new Tile[numTilesX][numTilesY];
+
+        for (int j = 0; j<numTilesY ; j++) {
+            
+            for (int i = 0 ; i<numTilesX ; i++) {
+                tileMap[i][j] = new Tile(i, j, tileset);
+                if(i!=numTilesX-1) {
+                    tileMap[i][j].setTextureID(temp[i][j].getImageID());
+                }
+            }
+        }
+    }
 }

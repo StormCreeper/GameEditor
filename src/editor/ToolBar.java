@@ -23,6 +23,14 @@ public class ToolBar extends JPanel {
             }
         });
 
+        addColumnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                parent.addColumn();
+                parent.repaint();
+            }
+        });
+
         this.add(addLineButton);
         this.add(addColumnButton);
     }

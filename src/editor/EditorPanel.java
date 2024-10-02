@@ -34,4 +34,8 @@ public class EditorPanel extends JPanel {
         tileMap.addLine();
     }
 
+    public void addColumn()  {
+        tileMap.addColumn();
+    }
+
 }
