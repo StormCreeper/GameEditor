@@ -23,7 +23,7 @@ public class EditorPanel extends JPanel {
 
         add(gamePanel = new GameEditorPanel(this, width, height, tileSet, tileMap), BorderLayout.CENTER);
         add(objectSelectionPanel = new ObjectSelectionPanel(this, tileSet), BorderLayout.SOUTH); // 7 : nb of textures
-        add(toolBar = new ToolBar(), BorderLayout.EAST);
+        add(toolBar = new ToolBar(this), BorderLayout.EAST);
     }
 
     public int getSelectedTextureId(){
