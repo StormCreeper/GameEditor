@@ -30,7 +30,7 @@ public class Tilemap {
 
         for (int j = 0; j < numTilesY; j++) {
             for (int i = 0; i < numTilesX; i++) {
-                //Init tilemap with different tiles
+                // Init tilemap with different tiles
                 setTile(i, j, (i + j) % 7);
             }
         }
@@ -57,7 +57,7 @@ public class Tilemap {
         tileMap[i][j].setTextureID(tileID);
     }
 
-    public int getTileSize(){
+    public int getTileSize() {
         return tileSize;
     }
 
@@ -68,7 +68,7 @@ public class Tilemap {
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 data = data + "\n" + scanner.nextLine();
-                //This causes an empty line at the beginning
+                // This causes an empty line at the beginning
             }
         } catch (FileNotFoundException ex) {
             System.err.println("Could not load " + filename + " :(");
@@ -76,15 +76,15 @@ public class Tilemap {
 
         String[] lines = data.split("\n");
 
-        numTilesX = lines[1].length()/2; //We divide by 2 to account for the spaces
-        numTilesY = lines.length-1; //-1 for empty line at beginning
+        numTilesX = lines[1].length() / 2; // We divide by 2 to account for the spaces
+        numTilesY = lines.length - 1; // -1 for empty line at beginning
 
         tileMap = new Tile[numTilesX][numTilesY];
 
-        for (int j = 0; j<numTilesY ; j++) {
-            String[] tileList = lines[1+j].split(" "); //+ 1 for empty line at beginning
+        for (int j = 0; j < numTilesY; j++) {
+            String[] tileList = lines[1 + j].split(" "); // + 1 for empty line at beginning
 
-            for (int i = 0 ; i<numTilesX ; i++) {
+            for (int i = 0; i < numTilesX; i++) {
                 tileMap[i][j] = new Tile(i, j, tileset);
                 tileMap[i][j].setTextureID(Integer.parseInt(tileList[i]));
             }
@@ -104,8 +104,8 @@ public class Tilemap {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + ".txt"));
 
-            for(int j = 0; j < numTilesY; j++) {
-                for(int i = 0; i < numTilesX; i++) {
+            for (int j = 0; j < numTilesY; j++) {
+                for (int i = 0; i < numTilesX; i++) {
                     writer.write(String.valueOf(tileMap[i][j].getImageID()));
                     writer.write(" ");
                 }
@@ -113,8 +113,9 @@ public class Tilemap {
             }
 
             writer.close();
+        } catch (IOException e) {
+            System.out.println("Could not save to file" + filePath);
         }
-        catch(IOException e) {System.out.println("Could not save to file" + filePath);}
     }
 
     public void addLine() {
@@ -122,11 +123,11 @@ public class Tilemap {
         Tile[][] temp = tileMap.clone();
         tileMap = new Tile[numTilesX][numTilesY];
 
-        for (int j = 0; j<numTilesY ; j++) {
-            
-            for (int i = 0 ; i<numTilesX ; i++) {
+        for (int j = 0; j < numTilesY; j++) {
+
+            for (int i = 0; i < numTilesX; i++) {
                 tileMap[i][j] = new Tile(i, j, tileset);
-                if(j!=numTilesY-1) {
+                if (j != numTilesY - 1) {
                     tileMap[i][j].setTextureID(temp[i][j].getImageID());
                 }
             }
@@ -138,14 +139,22 @@ public class Tilemap {
         Tile[][] temp = tileMap.clone();
         tileMap = new Tile[numTilesX][numTilesY];
 
-        for (int j = 0; j<numTilesY ; j++) {
-            
-            for (int i = 0 ; i<numTilesX ; i++) {
+        for (int j = 0; j < numTilesY; j++) {
+
+            for (int i = 0; i < numTilesX; i++) {
                 tileMap[i][j] = new Tile(i, j, tileset);
-                if(i!=numTilesX-1) {
+                if (i != numTilesX - 1) {
                     tileMap[i][j].setTextureID(temp[i][j].getImageID());
                 }
             }
         }
+    }
+
+    public int getNumX() {
+        return numTilesX;
+    }
+
+    public int getNumY() {
+        return numTilesY;
     }
 }
