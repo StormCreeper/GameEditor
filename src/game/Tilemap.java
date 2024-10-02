@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Tilemap {
@@ -79,6 +78,8 @@ public class Tilemap {
 
         numTilesX = lines[1].length()/2; //We divide by 2 to account for the spaces
         numTilesY = lines.length-1; //-1 for empty line at beginning
+
+        tileMap = new Tile[numTilesX][numTilesY];
 
         for (int j = 0; j<numTilesY ; j++) {
             String[] tileList = lines[1+j].split(" "); //+ 1 for empty line at beginning
