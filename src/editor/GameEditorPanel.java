@@ -28,7 +28,7 @@ public class GameEditorPanel extends JComponent {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) {
+                if (SwingUtilities.isLeftMouseButton(e)) {
                     Point p = e.getPoint();
                     mousePressedOn((int) (p.x - offset.x), (int) (p.y - offset.y));
                     repaint();
