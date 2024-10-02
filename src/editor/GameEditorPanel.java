@@ -21,15 +21,24 @@ public class GameEditorPanel extends JComponent {
 
         addMouseListener(new MouseAdapter(){
             @Override
-            public void mouseClicked(MouseEvent e){
+            public void mousePressed(MouseEvent e){
                 Point p = e.getPoint();
-                handleClick(p.x, p.y);             
+                mousePressedOn(p.x, p.y);             
+                repaint();
+            }
+        });
+
+        addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e){
+                Point p = e.getPoint();
+                mousePressedOn(p.x, p.y);
                 repaint();
             }
         });
     }
 
-    private void handleClick(int px, int py){
+    private void mousePressedOn(int px, int py){
         int tileSize = tileMap.getTileSize();
         int i = px/tileSize;
         int j = py/tileSize;
