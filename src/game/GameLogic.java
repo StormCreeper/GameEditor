@@ -43,6 +43,7 @@ public class GameLogic {
      * @param deltaTime   time in seconds since last frame
      */
     public void update(double currentTime, double deltaTime) {
+        System.out.println("Delta time : " + deltaTime);
         character.update(deltaTime);
         camera.update(deltaTime);
     }

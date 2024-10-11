@@ -24,7 +24,7 @@ public class EditorPanel extends JPanel {
         gamePanel = new GameEditorPanel(this, width, height, tileSet, tileMap);
 
         add(gamePanel, BorderLayout.CENTER);
-        add(objectSelectionPanel = new ObjectSelectionPanel(this, tileSet), BorderLayout.SOUTH); // 7 : nb of textures
+        add(objectSelectionPanel = new ObjectSelectionPanel(this, tileSet), BorderLayout.SOUTH); 
         add(toolBar = new ToolBar(this), BorderLayout.EAST);
     }
 

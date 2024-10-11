@@ -17,14 +17,16 @@ public class Tilemap {
 
     public Tilemap(int numTilesX, int numTilesY, int tileSize, Tileset tileset) {
         this.tileset = tileset;
+
         this.numTilesX = numTilesX;
         this.numTilesY = numTilesY;
+
         this.tileSize = tileSize;
 
         tileMap = new Tile[numTilesX][numTilesY];
         for (int i = 0; i < numTilesX; i++) {
             for (int j = 0; j < numTilesY; j++) {
-                tileMap[i][j] = new Tile(i, j, this.tileset);
+                tileMap[i][j] = new Tile();
             }
         }
 
@@ -50,11 +52,11 @@ public class Tilemap {
         tileMap[i][j] = tile;
     }
 
-    public void setTile(int i, int j, int tileID) {
+    public void setTile(int i, int j, int textureID) {
         if (i < 0 || i >= numTilesX || j < 0 || j >= numTilesY) {
             return;
         }
-        tileMap[i][j].setTextureID(tileID);
+        tileMap[i][j].setTextureID(0, textureID);
     }
 
     public int getTileSize() {
@@ -85,8 +87,8 @@ public class Tilemap {
             String[] tileList = lines[1 + j].split(" "); // + 1 for empty line at beginning
 
             for (int i = 0; i < numTilesX; i++) {
-                tileMap[i][j] = new Tile(i, j, tileset);
-                tileMap[i][j].setTextureID(Integer.parseInt(tileList[i]));
+                tileMap[i][j] = new Tile();
+                tileMap[i][j].setTextureID(0, Integer.parseInt(tileList[i]));
             }
         }
 
@@ -95,7 +97,7 @@ public class Tilemap {
     public void drawSelf(Graphics2D g) {
         for (int j = 0; j < numTilesY; j++) {
             for (int i = 0; i < numTilesX; i++) {
-                g.drawImage(tileMap[i][j].getImage(), i * tileSize, j * tileSize, tileSize, tileSize, null);
+                g.drawImage(tileset.getTexture(tileMap[i][j].getTextureID(0)), i * tileSize, j * tileSize, tileSize, tileSize, null);
             }
         }
     }
@@ -106,7 +108,7 @@ public class Tilemap {
 
             for (int j = 0; j < numTilesY; j++) {
                 for (int i = 0; i < numTilesX; i++) {
-                    writer.write(String.valueOf(tileMap[i][j].getImageID()));
+                    writer.write(String.valueOf(tileMap[i][j].getTextureID(0)));
                     writer.write(" ");
                 }
                 writer.write('\n');
@@ -126,9 +128,9 @@ public class Tilemap {
         for (int j = 0; j < numTilesY; j++) {
 
             for (int i = 0; i < numTilesX; i++) {
-                tileMap[i][j] = new Tile(i, j, tileset);
+                tileMap[i][j] = new Tile();
                 if (j != numTilesY - 1) {
-                    tileMap[i][j].setTextureID(temp[i][j].getImageID());
+                    tileMap[i][j].setTextureID(0, temp[i][j].getTextureID(0));
                 }
             }
         }
@@ -142,9 +144,9 @@ public class Tilemap {
         for (int j = 0; j < numTilesY; j++) {
 
             for (int i = 0; i < numTilesX; i++) {
-                tileMap[i][j] = new Tile(i, j, tileset);
+                tileMap[i][j] = new Tile();
                 if (i != numTilesX - 1) {
-                    tileMap[i][j].setTextureID(temp[i][j].getImageID());
+                    tileMap[i][j].setTextureID(0, temp[i][j].getTextureID(0));
                 }
             }
         }

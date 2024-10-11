@@ -1,47 +1,25 @@
 package game;
 
-import java.awt.image.BufferedImage;
-
 public class Tile {
 
-    private int xPosition;
-    private int yPosition;
+    // The tile texture ids for each layer : floor, collision, decoration
+    private int[] tileTextureIds = new int[3]; 
 
-    private int tileTextureId;
-
-    private final Tileset tileset;
-
-    public Tile(int x, int y, Tileset tileset) {
-        this.tileset = tileset;
-        xPosition = x;
-        yPosition = y;
+    public Tile() {
+        this(0,0,0);
     }
 
-    public void setXPosition(int x) {
-        xPosition = x;
+    public Tile(int floorTextureId, int collisionTextureId, int decorationTextureId) {
+        tileTextureIds[0] = floorTextureId;
+        tileTextureIds[1] = collisionTextureId;
+        tileTextureIds[2] = decorationTextureId;
     }
 
-    public int getXPosition() {
-        return xPosition;
+    public void setTextureID(int layer, int id) {
+        tileTextureIds[layer] = id;
     }
 
-    public void setYPosition(int y) {
-        yPosition = y;
-    }
-
-    public int getYPosition() {
-        return yPosition;
-    }
-
-    public void setTextureID(int id) {
-        tileTextureId = id;
-    }
-
-    public int getImageID() {
-        return tileTextureId;
-    }
-
-    public BufferedImage getImage() {
-        return tileset.getTexture(tileTextureId);
+    public int getTextureID(int layer) {
+        return tileTextureIds[layer];
     }
 }
