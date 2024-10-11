@@ -10,6 +10,13 @@ import javax.swing.filechooser.FileSystemView;
 
 public class MainWindow  extends JFrame{
 
+    private enum Mode {
+        GAME,
+        EDITOR
+    }
+
+    private Mode mode = Mode.GAME;
+
     private Tileset tileSet;
     private Tilemap tileMap;
     private int mapWidth = 10;
@@ -44,14 +51,14 @@ public class MainWindow  extends JFrame{
         gameMode.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                switchToGame();
+                switchMode(Mode.GAME);
             }
         });
 
         editorMode.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                switchToEditor();
+                switchMode(Mode.EDITOR);
             }
         });
 
@@ -101,25 +108,34 @@ public class MainWindow  extends JFrame{
         setVisible(true);
     }
 
-    public void switchToGame(){
-        if(getContentPane() instanceof EditorPanel){
-            System.out.println("Switching to game");
-            remove(getContentPane());
-            setContentPane(new InGamePanel(tileSet, tileMap));
-            revalidate();
-            repaint();
+    public void switchMode(Mode mode){
+        if(mode != this.mode){
+            this.mode = mode;
+            if(mode == Mode.GAME){
+                switchToGame();
+            }else{
+                switchToEditor();
+            }
         }
     }
 
-    public void switchToEditor(){
-        if(getContentPane() instanceof InGamePanel){
-            System.out.println("Switching to editor");
-            ((InGamePanel)getContentPane()).stopGame();
-            remove(getContentPane());
-            setContentPane(new EditorPanel(mapWidth,mapHeight, tileSet, tileMap));
-            revalidate();
-            repaint();
-        }
+    private void switchToGame(){
+        System.out.println("Switching to game");
+        remove(getContentPane());
+        setContentPane(new InGamePanel(tileSet, tileMap));
+        revalidate();
+        repaint();
+        
+    }
+
+    private void switchToEditor(){
+        System.out.println("Switching to editor");
+        ((InGamePanel)getContentPane()).stopGame();
+        remove(getContentPane());
+        setContentPane(new EditorPanel(mapWidth,mapHeight, tileSet, tileMap));
+        revalidate();
+        repaint();
+        
     }
 
 }
