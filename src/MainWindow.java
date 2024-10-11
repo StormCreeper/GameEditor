@@ -2,7 +2,6 @@ import editor.EditorPanel;
 import game.InGamePanel;
 import game.Tilemap;
 import game.Tileset;
-
 import java.awt.Dimension;
 import java.awt.event.*;
 import java.io.File;
@@ -45,7 +44,6 @@ public class MainWindow  extends JFrame{
         gameMode.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                System.out.println("Switch to game");
                 switchToGame();
             }
         });
@@ -53,7 +51,6 @@ public class MainWindow  extends JFrame{
         editorMode.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                System.out.println("Switch to editor");
                 switchToEditor();
             }
         });
@@ -105,17 +102,24 @@ public class MainWindow  extends JFrame{
     }
 
     public void switchToGame(){
-        remove(getContentPane());
-        setContentPane(new InGamePanel(tileSet, tileMap));
-        revalidate();
-        repaint();
+        if(getContentPane() instanceof EditorPanel){
+            System.out.println("Switching to game");
+            remove(getContentPane());
+            setContentPane(new InGamePanel(tileSet, tileMap));
+            revalidate();
+            repaint();
+        }
     }
 
     public void switchToEditor(){
-        remove(getContentPane());
-        setContentPane(new EditorPanel(mapWidth,mapHeight, tileSet, tileMap));
-        revalidate();
-        repaint();
+        if(getContentPane() instanceof InGamePanel){
+            System.out.println("Switching to editor");
+            ((InGamePanel)getContentPane()).stopGame();
+            remove(getContentPane());
+            setContentPane(new EditorPanel(mapWidth,mapHeight, tileSet, tileMap));
+            revalidate();
+            repaint();
+        }
     }
 
 }

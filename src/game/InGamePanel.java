@@ -16,6 +16,7 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener {
 	private final GameLogic gameLogic;
 
 	Thread thread;
+	boolean isRunning = true;
 
 	public InGamePanel(Tileset tileset, Tilemap tileMap) {
 		gameLogic = new GameLogic(this, tileset, tileMap);
@@ -51,12 +52,16 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener {
 		}
 	}
 
+	public void stopGame() {
+		isRunning = false;
+	}
+
 	@Override
 	public void run() {
 		startingNanoTime = System.nanoTime();
 		addKeyListener(this);
 		requestFocus();
-		while (true) {
+		while (isRunning) {
 			long currentNanoTime = System.nanoTime() - startingNanoTime;
 			deltaTime = (currentNanoTime - lastNanoTime) * 1e-9f;
 			currentTime = currentNanoTime * 1e-9f;
