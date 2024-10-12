@@ -8,10 +8,9 @@ import javax.swing.*;
 public class ObjectSelectionPanel extends JPanel {
     private final EditorPanel parent;
 
-    private Tileset tileSet;
-    private int selectedTextureId = 0;
-    private ArrayList<TextureButton> textureButtons = new ArrayList<>();
-    
+    private final Tileset tileSet;
+    private int selectedTextureId;
+    private final ArrayList<TextureButton> textureButtons = new ArrayList<>();    
 
     public ObjectSelectionPanel(EditorPanel parent, Tileset tileSet){
         super();
@@ -21,8 +20,10 @@ public class ObjectSelectionPanel extends JPanel {
 
         this.tileSet = tileSet;
 
+        this.selectedTextureId = 0;
+
         for(int i=0; i<tileSet.getNbTextures(); i++){
-            TextureButton tb = new TextureButton(this, i, tileSet.getTexture(i));
+            TextureButton tb = new TextureButton(this, i);
             textureButtons.add(tb);
             add(tb);
         }
@@ -34,16 +35,17 @@ public class ObjectSelectionPanel extends JPanel {
 
     public void setSelectedTextureId(int id){
         selectedTextureId = id;
-        System.out.println("Texture selected : " + selectedTextureId);
         updateButtons();
     }
 
-    private void updateButtons(){
-        for(int i=0; i<tileSet.getNbTextures(); i++){
-            textureButtons.get(i).setSelected(false);
-        }
-        textureButtons.get(selectedTextureId).setSelected(true);
+    public Tileset getTileSet(){
+        return tileSet;
     }
-    
+
+    public void updateButtons(){
+        for(TextureButton tb : textureButtons){
+            tb.repaint();
+        }
+    }
 
 }

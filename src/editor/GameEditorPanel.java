@@ -12,8 +12,7 @@ import javax.swing.SwingUtilities;
 public class GameEditorPanel extends JComponent {
     private final EditorPanel parent;
 
-    private Tilemap tileMap;
-    private Tileset tileSet;
+    private final Tilemap tileMap;
 
     private Point2D lastPoint = new Point2D.Double(0, 0);
 
@@ -22,7 +21,6 @@ public class GameEditorPanel extends JComponent {
     public GameEditorPanel(EditorPanel parent, int width, int height, Tileset tileSet, Tilemap tileMap) {
         this.parent = parent;
 
-        this.tileSet = tileSet;
         this.tileMap = tileMap;
 
         addMouseListener(new MouseAdapter() {

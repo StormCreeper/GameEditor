@@ -53,7 +53,7 @@ public class Character {
     }
 
     public void drawSelf(Graphics2D g) {
-        g.drawImage(image, (int) x, (int) y, 100, 100, null);
+        g.drawImage(image, (int)x - 50, (int)y - 50, 100, 100, null);
     }
 
     public void keyPressed(KeyEvent e) {
