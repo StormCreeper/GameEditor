@@ -26,14 +26,7 @@ public class Tilemap {
         tileMap = new Tile[numTilesX][numTilesY];
         for (int i = 0; i < numTilesX; i++) {
             for (int j = 0; j < numTilesY; j++) {
-                tileMap[i][j] = new Tile();
-            }
-        }
-
-        for (int j = 0; j < numTilesY; j++) {
-            for (int i = 0; i < numTilesX; i++) {
-                // Init tilemap with different tiles
-                setTile(i, j, (i + j) % 7);
+                tileMap[i][j] = new Tile((i + j) % 30, 0, 0);
             }
         }
     }

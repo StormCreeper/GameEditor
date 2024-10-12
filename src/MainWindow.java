@@ -44,7 +44,7 @@ public class MainWindow  extends JFrame{
         setJMenuBar(menuBar);
 
         //Init variables that are useful for both modes :
-        tileSet = new Tileset(16,7);
+        tileSet = new Tileset(16,30);
         tileSet.loadTextures();
         tileMap = new Tilemap(mapWidth, mapHeight, 50, tileSet);
 

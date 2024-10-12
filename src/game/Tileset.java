@@ -26,13 +26,15 @@ public class Tileset {
     }
 
     public void loadTextures() {
+        System.out.println("The dimension of the tile texture is " + tileTexture.getWidth()/tileSize + "x" + tileTexture.getHeight()/tileSize);
 
         for (int n = 0; n < nbTextures; n++) {
             int i = n % (tileTexture.getWidth() / tileSize);
-            int j = n / (tileTexture.getHeight() / tileSize);
+            int j = n / (tileTexture.getWidth() / tileSize); // Correction of the formula
 
             BufferedImage tex = tileTexture.getSubimage(i * tileSize, j * tileSize, tileSize, tileSize);
             textureArray.add(tex);
+            System.out.println("Extracting texture " + textureArray.size() + " at position i = " + i + " j = " + j);
         }
 
     }
