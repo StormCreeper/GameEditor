@@ -276,9 +276,7 @@ public class Tilemap {
                                     }
                                 }
                             }
-                        }
-                        
-                        else { //No ground above
+                        } else { //No ground above
                             if(j!=numTilesY-1 && tileMap[i][j+1].getBaseTile() == Type.ground) { //Ground below
                                 
                                 if(i!=0 && tileMap[i-1][j].getBaseTile() == Type.ground) { //Ground below and left
@@ -293,8 +291,7 @@ public class Tilemap {
                                 }
                                 else { //No ground above or left, ground below
                                     if(i!=numTilesX-1 && tileMap[i+1][j].getBaseTile() == Type.ground) {//Ground below and right
-                                        tile.addBaseTexture(9
-                                        );
+                                        tile.addBaseTexture(9);
                                     }
                                     else { //Ground only below
                                         tile.addBaseTexture(17);
@@ -322,13 +319,28 @@ public class Tilemap {
                             }
                         }
 
-                    }
+                        if(i>0 && j>0 && tileMap[i-1][j-1].getBaseTile() == Type.ground && tileMap[i-1][j].getBaseTile() != Type.ground && tileMap[i][j-1].getBaseTile() != Type.ground) { //Ground top left
+                            tile.addBaseTexture(28);
+                        }
+
+                        if(i<numTilesX-1 && j>0 && tileMap[i+1][j-1].getBaseTile() == Type.ground && tileMap[i+1][j].getBaseTile() != Type.ground && tileMap[i][j-1].getBaseTile() != Type.ground) { //Ground top left
+                            tile.addBaseTexture(20);
+                        }
+
+                        if(i>0 && j<numTilesY-1 && tileMap[i-1][j+1].getBaseTile() == Type.ground && tileMap[i-1][j].getBaseTile() != Type.ground && tileMap[i][j+1].getBaseTile() != Type.ground) { //Ground top left
+                            tile.addBaseTexture(4);
+                        }
+
+                        if(i<numTilesX-1 && j<numTilesY-1 && tileMap[i+1][j+1].getBaseTile() == Type.ground && tileMap[i+1][j].getBaseTile() != Type.ground && tileMap[i][j+1].getBaseTile() != Type.ground) { //Ground top left
+                            tile.addBaseTexture(12);
+                        }
 
                 }
-            }
 
+            }
+        }
             //TODO : misc corners
                 
-        }
+    }
 }
 

@@ -52,6 +52,7 @@ public class GameLogic {
         for(Bullet b : bullets){
             b.update(deltaTime);
         }
+        bullets.removeIf(Bullet::isDead);
         camera.update(deltaTime);
     }
 
@@ -86,7 +87,7 @@ public class GameLogic {
             character.keyPressed(key);
         } else if(key == KeyEvent.VK_S){
             Point2D p = character.getPosition();
-            bullets.add(new Bullet(p.getX(), p.getY(), 0, 50, 10));
+            bullets.add(new Bullet(p.getX(), p.getY(), 0, 50, 10, tilemap));
         }
     }
 
