@@ -3,6 +3,8 @@ package game;
 import game.Character;
 import java.awt.Graphics2D;
 import java.awt.event.*;
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
@@ -16,6 +18,8 @@ public class GameLogic {
     private final Tilemap tilemap;
 
     private final Character character;
+
+    private final ArrayList<Bullet> bullets = new ArrayList<>();
 
     private final Camera camera;
 
@@ -45,6 +49,9 @@ public class GameLogic {
     public void update(double currentTime, double deltaTime) {
         // System.out.println("Delta time : " + deltaTime);
         character.update(deltaTime);
+        for(Bullet b : bullets){
+            b.update(deltaTime);
+        }
         camera.update(deltaTime);
     }
 
@@ -63,6 +70,9 @@ public class GameLogic {
         tilemap.drawSelf(g);
 
         character.drawSelf(g);
+        for(Bullet b : bullets){
+            b.drawSelf(g);
+        }
     }
 
     /**
@@ -71,7 +81,13 @@ public class GameLogic {
      * @param e the event object
      */
     public void keyPressed(KeyEvent e) {
-        character.keyPressed(e);
+        int key = e.getKeyCode();
+        if(key == KeyEvent.VK_UP || key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_DOWN || key == KeyEvent.VK_LEFT){
+            character.keyPressed(key);
+        } else if(key == KeyEvent.VK_S){
+            Point2D p = character.getPosition();
+            bullets.add(new Bullet(p.getX(), p.getY(), 0, 50, 10));
+        }
     }
 
     /**
@@ -80,7 +96,10 @@ public class GameLogic {
      * @param e the event object
      */
     public void keyReleased(KeyEvent e) {
-        character.keyReleased(e);
+        int key = e.getKeyCode();
+        if(key == KeyEvent.VK_UP || key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_DOWN || key == KeyEvent.VK_LEFT){
+            character.keyReleased(key);
+        }
     }
 
     public void mousePressed(MouseEvent e){
