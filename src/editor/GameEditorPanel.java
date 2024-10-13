@@ -29,6 +29,7 @@ public class GameEditorPanel extends JComponent {
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     Point p = e.getPoint();
                     mousePressedOn((int) (p.x - offset.x), (int) (p.y - offset.y));
+                    tileMap.doBorders();
                     repaint();
                 } else {
                     lastPoint = e.getPoint();
@@ -42,12 +43,14 @@ public class GameEditorPanel extends JComponent {
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     Point p = e.getPoint();
                     mousePressedOn((int) (p.x - offset.x), (int) (p.y - offset.y));
+                    tileMap.doBorders();
                     repaint();
                 } else {
                     offset.x += (e.getX() - lastPoint.getX());
                     offset.y += (e.getY() - lastPoint.getY());
                     lastPoint = e.getPoint();
 
+                    tileMap.doBorders();
                     repaint();
                 }
             }

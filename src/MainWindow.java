@@ -47,6 +47,7 @@ public class MainWindow  extends JFrame{
         tileSet = new Tileset(16,29);
         tileSet.loadTextures();
         tileMap = new Tilemap(mapWidth, mapHeight, 50, tileSet);
+        tileMap.doBorders();
 
         gameMode.addActionListener(new ActionListener(){
             @Override
