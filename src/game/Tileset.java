@@ -19,14 +19,13 @@ public class Tileset {
         this.nbTextures = nbTextures;
 
         try {
-            tileTexture = ImageIO.read(new File("textures/tileSet.png"));
+            tileTexture = ImageIO.read(new File("textures/tileSet_new.png"));
         } catch (IOException e) {
             System.out.println("Could not load tile textures");
         }
     }
 
     public void loadTextures() {
-        System.out.println("The dimension of the tile texture is " + tileTexture.getWidth()/tileSize + "x" + tileTexture.getHeight()/tileSize);
 
         for (int n = 0; n < nbTextures; n++) {
             int i = n % (tileTexture.getWidth() / tileSize);
@@ -34,7 +33,6 @@ public class Tileset {
 
             BufferedImage tex = tileTexture.getSubimage(i * tileSize, j * tileSize, tileSize, tileSize);
             textureArray.add(tex);
-            System.out.println("Extracting texture " + textureArray.size() + " at position i = " + i + " j = " + j);
         }
 
     }

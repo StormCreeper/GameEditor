@@ -10,6 +10,8 @@ import javax.imageio.ImageIO;
 
 public class Character {
 
+    private int size; // The size of the character on the screen
+
     private double x;
     private double y;
 
@@ -23,11 +25,13 @@ public class Character {
 
     private BufferedImage image;
 
-    public Character(String imagePath) {
+    public Character(int size) {
         try {
-            image = ImageIO.read(new File("textures/chara.png"));
+            image = ImageIO.read(new File("textures/chara_new.png"));
         } catch (IOException ex) {
         }
+
+        this.size = size;
 
         x = 0;
         y = 0;
@@ -53,7 +57,7 @@ public class Character {
     }
 
     public void drawSelf(Graphics2D g) {
-        g.drawImage(image, (int)x - 50, (int)y - 50, 100, 100, null);
+        g.drawImage(image, (int)x - size/2, (int)y - size/2, size, size, null);
     }
 
     public void keyPressed(KeyEvent e) {

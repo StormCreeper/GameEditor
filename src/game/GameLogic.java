@@ -30,7 +30,7 @@ public class GameLogic {
         this.tileset = tileset;
         this.tilemap = tilemap;
 
-        character = new Character("textures/chara.png");
+        character = new Character(tilemap.getTileSize());
 
         camera = new Camera(character, 10.0);
 
