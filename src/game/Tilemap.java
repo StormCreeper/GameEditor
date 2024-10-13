@@ -71,7 +71,7 @@ public class Tilemap {
 
         String[] lines = data.split("\n");
 
-        numTilesX = lines[1].length() / 2; // We divide by 2 to account for the spaces
+        numTilesX = lines[1].split(" ").length ; // We divide by 2 to account for the spaces
         numTilesY = lines.length - 1; // -1 for empty line at beginning
 
         tileMap = new Tile[numTilesX][numTilesY];

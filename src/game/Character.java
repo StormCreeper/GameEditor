@@ -39,7 +39,8 @@ public class Character {
         velY = 0;
     }
 
-    public void update(double deltaTime) {
+    public void update(double deltaTime) {        
+
         if (rightPressed)
             velX += 1;
         if (leftPressed)
@@ -48,6 +49,13 @@ public class Character {
             velY -= 1;
         if (downPressed)
             velY += 1;
+
+        // To correct the speed when the character goes diagonally (so it doesn't go faster)
+        double speed = Math.sqrt(velX * velX + velY * velY);
+        if (speed > 1) {
+            velX /= speed;
+            velY /= speed;
+        }
 
         x += deltaTime * 300 * velX;
         y += deltaTime * 300 * velY;
