@@ -20,6 +20,7 @@ public class GameLogic {
     private final Character character;
 
     private final ArrayList<Bullet> bullets = new ArrayList<>();
+    private final Gun gun = new Gun();
 
     private final Camera camera;
 
