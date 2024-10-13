@@ -1,11 +1,15 @@
 package game;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 
 public class Character {
@@ -25,7 +29,10 @@ public class Character {
 
     private BufferedImage image;
 
-    public Character(int size) {
+    private Tilemap map;
+
+    public Character(int size, Tilemap map) {
+        this.map = map;
         try {
             image = ImageIO.read(new File("textures/chara_new.png"));
         } catch (IOException ex) {
@@ -33,8 +40,8 @@ public class Character {
 
         this.size = size;
 
-        x = 0;
-        y = 0;
+        x = -50;
+        y = -50;
         velX = 0;
         velY = 0;
     }
@@ -58,14 +65,35 @@ public class Character {
         }
 
         x += deltaTime * 300 * velX;
+        if(collide()) {
+            // Don't
+            x -= deltaTime * 300 * velX;
+        }
+
         y += deltaTime * 300 * velY;
+        if(collide()) {
+            // Don't
+            y -= deltaTime * 300 * velY;
+        }
 
         velX = 0;
         velY = 0;
     }
 
     public void drawSelf(Graphics2D g) {
+        
+        g.setColor(Color.red);
+        
+        ArrayList<Rectangle2D> collisions = map.getCollisions(new Point2D.Double(x, y));
+
+        for(Rectangle2D r : collisions) {
+            g.drawRect((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
+        }
         g.drawImage(image, (int)x - size/2, (int)y - size/2, size, size, null);
+        
+        Rectangle2D bounds = getBounds();
+        g.setColor(Color.blue);
+        g.drawRect((int) bounds.getX(), (int) bounds.getY(), (int) bounds.getWidth(), (int) bounds.getHeight());
     }
 
     public void keyPressed(KeyEvent e) {
@@ -88,13 +116,28 @@ public class Character {
             rightPressed = false;
         if (e.getKeyCode() == KeyEvent.VK_DOWN)
             downPressed = false;
+    }
 
+    private boolean collide() {
+        ArrayList<Rectangle2D> collisions = map.getCollisions(new Point2D.Double(x, y));
+
+        for(Rectangle2D r : collisions) {
+            if(r.intersects(getBounds())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     // Getters and Setters
 
     public Point2D getPosition() {
         return new Point2D.Double(x, y);
+    }
+
+    public Rectangle2D getBounds() {
+        return new Rectangle2D.Double((int)x - size/2, (int)y - size/2, size, size);
     }
 
 }

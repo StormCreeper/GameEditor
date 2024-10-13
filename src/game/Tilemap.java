@@ -1,11 +1,14 @@
 package game;
 
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Tilemap {
@@ -54,6 +57,33 @@ public class Tilemap {
 
     public int getTileSize() {
         return tileSize;
+    }
+
+    public Rectangle2D getBoundingBoxWorld(int i, int j) {
+        Rectangle2D rect = getTile(i, j).getBoundingBoxNorm();
+        if(rect != null) {
+            rect.setRect(new Rectangle2D.Double(rect.getX() * tileSize, rect.getY() * tileSize, rect.getWidth() * tileSize, rect.getHeight() * tileSize));
+            rect.setRect(new Rectangle2D.Double(rect.getX() + i * tileSize, rect.getY() + j * tileSize, rect.getWidth(), rect.getHeight()));
+        }
+
+        return rect;
+    }
+
+    public ArrayList<Rectangle2D> getCollisions(Point2D center) {
+        int center_i = (int)(center.getX() / tileSize);
+        int center_j = (int)(center.getY() / tileSize);
+
+        ArrayList<Rectangle2D> collisions = new ArrayList<>();
+
+        for(int i = Math.max(center_i-1, 0); i<=Math.min(center_i+1, numTilesX-1);i++) {
+            for(int j = Math.max(center_j-1, 0); j<=Math.min(center_j+1, numTilesY-1);j++) {
+                Rectangle2D rect = getBoundingBoxWorld(i, j);
+                if(rect != null)
+                    collisions.add(rect);
+            }
+        }
+
+        return collisions;
     }
 
     public void loadFromFile(String filename) {
