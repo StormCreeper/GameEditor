@@ -68,25 +68,25 @@ public class Character {
         g.drawImage(image, (int)x - size/2, (int)y - size/2, size, size, null);
     }
 
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_LEFT)
+    public void keyPressed(int key) {
+        if (key == KeyEvent.VK_LEFT)
             leftPressed = true;
-        if (e.getKeyCode() == KeyEvent.VK_UP)
+        if (key == KeyEvent.VK_UP)
             upPressed = true;
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+        if (key == KeyEvent.VK_RIGHT)
             rightPressed = true;
-        if (e.getKeyCode() == KeyEvent.VK_DOWN)
+        if (key == KeyEvent.VK_DOWN)
             downPressed = true;
     }
 
-    public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_LEFT)
+    public void keyReleased(int key) {
+        if (key == KeyEvent.VK_LEFT)
             leftPressed = false;
-        if (e.getKeyCode() == KeyEvent.VK_UP)
+        if (key == KeyEvent.VK_UP)
             upPressed = false;
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+        if (key == KeyEvent.VK_RIGHT)
             rightPressed = false;
-        if (e.getKeyCode() == KeyEvent.VK_DOWN)
+        if (key == KeyEvent.VK_DOWN)
             downPressed = false;
 
     }
