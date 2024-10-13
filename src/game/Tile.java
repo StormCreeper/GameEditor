@@ -11,7 +11,7 @@ public class Tile {
     private ArrayList<Integer> baseTextures = new ArrayList<Integer>();
     public enum Type {ground, water, lava};
 
-    private Type baseTile = Type.water; 
+    private Type baseTile;
 
     public Tile() {
         this(0,0,0);

@@ -196,6 +196,22 @@ public class Tilemap {
         for (int j = 0; j < numTilesY; j++) {
             for (int i = 0; i < numTilesX; i++) {
                 Tile tile = tileMap[i][j];
+
+                // ***** A ENLEVER : random pour tester *****
+                int rand = (int) (Math.random()*3);
+                switch(rand){
+                    case 0:
+                        tile.setBaseTile(Type.ground);
+                        break;
+                    case 1:
+                        tile.setBaseTile(Type.water);
+                        break;
+                    case 2:
+                        tile.setBaseTile(Type.lava);
+                        break;
+                }
+                // *********
+
                 tile.resetBaseTexture();
                 switch(tile.getBaseTile()) {
                     case ground:
@@ -219,13 +235,13 @@ public class Tilemap {
                 //We only need to add borders on water or lava :
                 if(tile.getBaseTile() == Type.water || tile.getBaseTile() == Type.lava) {
 
-                        if(i!=0 && tileMap[i-1][j].getBaseTile() == Type.ground) { //Ground above
+                        if(j!=0 && tileMap[i][j-1].getBaseTile() == Type.ground) { //Ground above
 
-                            if(i!=numTilesX-1 && tileMap[i+1][j].getBaseTile() == Type.ground) { //Ground above and below
+                            if(j!=numTilesY-1 && tileMap[i][j+1].getBaseTile() == Type.ground) { //Ground above and below
                                
-                                if(j!=0 && tileMap[i][j-1].getBaseTile() == Type.ground) { //Ground above, below, and left
+                                if(i!=0 && tileMap[i-1][j].getBaseTile() == Type.ground) { //Ground above, below, and left
                                
-                                    if(j!=numTilesY-1 && tileMap[i][j+1].getBaseTile() == Type.ground) { //Ground all around
+                                    if(i!=numTilesX-1 && tileMap[i+1][j].getBaseTile() == Type.ground) { //Ground all around
                                         tile.addBaseTexture(1);
                                     }
                                     else { //Ground around, below and left
@@ -233,7 +249,7 @@ public class Tilemap {
                                     }
                                 }
                                 else {
-                                    if(j!=numTilesY-1 && tileMap[i][j+1].getBaseTile() == Type.ground) { //Ground above, below and right
+                                    if(i!=numTilesX-1 && tileMap[i+1][j].getBaseTile() == Type.ground) { //Ground above, below and right
                                         tile.addBaseTexture(27);
                                     }
                                     else { //Ground above and below
@@ -243,8 +259,8 @@ public class Tilemap {
                             }
 
                             else { //Ground above, no ground below
-                                if(j!=0 && tileMap[i][j-1].getBaseTile() == Type.ground) { //Ground above and left
-                                    if(j!=numTilesY-1 && tileMap[i][j+1].getBaseTile() == Type.ground) { //Ground above, left and right
+                                if(i!=0 && tileMap[i-1][j].getBaseTile() == Type.ground) { //Ground above and left
+                                    if(i!=numTilesX-1 && tileMap[i+1][j].getBaseTile() == Type.ground) { //Ground above, left and right
                                         tile.addBaseTexture(26);
                                     }
                                     else { //Ground above and left
@@ -252,7 +268,7 @@ public class Tilemap {
                                     }
                                 }
                                 else {
-                                    if(j!=numTilesY-1 && tileMap[i][j+1].getBaseTile() == Type.ground) {//Ground above and right
+                                    if(i!=numTilesX-1 && tileMap[i+1][j].getBaseTile() == Type.ground) {//Ground above and right
                                         tile.addBaseTexture(10);
                                     }
                                     else { //Ground only above
@@ -263,11 +279,11 @@ public class Tilemap {
                         }
                         
                         else { //No ground above
-                            if(i!=numTilesX-1 && tileMap[i+1][j].getBaseTile() == Type.ground) { //Ground below
+                            if(j!=numTilesY-1 && tileMap[i][j+1].getBaseTile() == Type.ground) { //Ground below
                                 
-                                if(j!=0 && tileMap[i][j-1].getBaseTile() == Type.ground) { //Ground below and left
+                                if(i!=0 && tileMap[i-1][j].getBaseTile() == Type.ground) { //Ground below and left
 
-                                    if(j!=numTilesY-1 && tileMap[i][j+1].getBaseTile() == Type.ground) { //Ground below, left and right
+                                    if(i!=numTilesX-1 && tileMap[i+1][j].getBaseTile() == Type.ground) { //Ground below, left and right
                                         tile.addBaseTexture(24);
                                     }
                                     else{ //Ground below and left
@@ -276,7 +292,7 @@ public class Tilemap {
 
                                 }
                                 else { //No ground above or left, ground below
-                                    if(j!=numTilesY-1 && tileMap[i][j+1].getBaseTile() == Type.ground) {//Ground below and right
+                                    if(i!=numTilesX-1 && tileMap[i+1][j].getBaseTile() == Type.ground) {//Ground below and right
                                         tile.addBaseTexture(9
                                         );
                                     }
@@ -288,8 +304,8 @@ public class Tilemap {
 
                             else { //No ground above or below
 
-                                if(j!=0 && tileMap[i][j-1].getBaseTile() == Type.ground) { //Ground left
-                                    if(j!=numTilesY-1 && tileMap[i][j+1].getBaseTile() == Type.ground) { //Ground left and right
+                                if(i!=0 && tileMap[i-1][j].getBaseTile() == Type.ground) { //Ground left
+                                    if(i!=numTilesX-1 && tileMap[i+1][j].getBaseTile() == Type.ground) { //Ground left and right
                                         tile.addBaseTexture(2);
                                     }
                                     else {// Ground only left
@@ -298,7 +314,7 @@ public class Tilemap {
                                 }
 
                                 else { //No ground above, below, or left
-                                    if(j!=numTilesY-1 && tileMap[i][j+1].getBaseTile() == Type.ground) { //Ground only right
+                                    if(i!=numTilesX-1 && tileMap[i+1][j].getBaseTile() == Type.ground) { //Ground only right
                                         tile.addBaseTexture(18);
                                     }
                                 }
