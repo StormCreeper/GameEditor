@@ -50,7 +50,6 @@ public class GameEditorPanel extends JComponent {
                     offset.y += (e.getY() - lastPoint.getY());
                     lastPoint = e.getPoint();
 
-                    tileMap.doBorders();
                     repaint();
                 }
             }
@@ -61,7 +60,7 @@ public class GameEditorPanel extends JComponent {
         int tileSize = tileMap.getTileSize();
         int i = px / tileSize;
         int j = py / tileSize;
-        tileMap.setTile(i, j, parent.getSelectedTextureId());
+        tileMap.setTile(i, j, parent.getSelectedType());
     }
 
     @Override

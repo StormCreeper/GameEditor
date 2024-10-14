@@ -1,38 +1,41 @@
 package game;
 
 import java.awt.geom.Rectangle2D;
-
 import java.util.ArrayList;
 
 public class Tile {
 
-    // The tile texture ids for each layer : floor, collision, decoration
-    private int[] tileTextureIds = new int[3]; 
-    private ArrayList<Integer> baseTextures = new ArrayList<Integer>();
-    public enum Type {ground, water, lava};
+    public enum Type {
+        ground, 
+        water, 
+        lava
+    };
 
-    private Type baseTile;
+    private Type type;
+
+    private ArrayList<Integer> baseTextures = new ArrayList<>(); // The texture ids that are used to create the first layer of the tile
+
+    // The tile texture ids for each layer : floor, collision, decoration
+    // private int[] tileTextureIds = new int[3]; 
 
     public Tile() {
-        this(0,0,0);
+        this(Type.ground);
     }
 
-    public Tile(int floorTextureId, int collisionTextureId, int decorationTextureId) {
-        tileTextureIds[0] = floorTextureId;
-        tileTextureIds[1] = collisionTextureId;
-        tileTextureIds[2] = decorationTextureId;
+    public Tile(Type type) {
+        this.type = type;
     }
 
-    public void setTextureID(int layer, int id) {
-        tileTextureIds[layer] = id;
+    public void setType(Type type) {
+        this.type = type;
     }
 
-    public int getTextureID(int layer) {
-        return tileTextureIds[layer];
+    public Type getType() {
+        return type;
     }
 
     public Rectangle2D getBoundingBoxNorm() {
-        if(tileTextureIds[0] == 13 || tileTextureIds[0] == 14 || tileTextureIds[0] == 15) return null;
+        if(type == Type.ground) return null;
         return new Rectangle2D.Double(0, 0, 1, 1);
     }
 
@@ -45,14 +48,14 @@ public class Tile {
     }
 
     public void resetBaseTexture() {
-        baseTextures = new ArrayList<Integer>();
+        baseTextures = new ArrayList<>();
     }
 
-    public Type getBaseTile() {
-        return baseTile;
-    }
-
-    public void setBaseTile(Type base) {
-        baseTile = base;
+    public int typeToInt() {
+        return switch (type) {
+            case ground -> 0;
+            case water -> 1;
+            case lava -> 2;
+        };
     }
 }

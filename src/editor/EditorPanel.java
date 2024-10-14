@@ -1,5 +1,6 @@
 package editor;
 
+import game.Tile.Type;
 import game.Tilemap;
 import game.Tileset;
 import java.awt.BorderLayout;
@@ -28,8 +29,8 @@ public class EditorPanel extends JPanel {
         add(toolBar = new ToolBar(this), BorderLayout.EAST);
     }
 
-    public int getSelectedTextureId() {
-        return objectSelectionPanel.getSelectedTextureId();
+    public Type getSelectedType() {
+        return objectSelectionPanel.getSelectedType();
     }
 
     public void addLine() {
