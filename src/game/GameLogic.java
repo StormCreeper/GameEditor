@@ -1,6 +1,5 @@
 package game;
 
-import game.Character;
 import game.Tile.Type;
 
 import java.awt.Graphics2D;
@@ -15,8 +14,6 @@ import javax.swing.JPanel;
  * This is to focus on the game logic only
  */
 public class GameLogic {
-
-    private final Tileset tileset;
     private final Tilemap tilemap;
 
     private final Character character;
@@ -31,10 +28,8 @@ public class GameLogic {
      */
     private final JPanel parent;
 
-    public GameLogic(JPanel parent, Tileset tileset, Tilemap tilemap) {
+    public GameLogic(JPanel parent, Tilemap tilemap) {
         this.parent = parent;
-
-        this.tileset = tileset;
         this.tilemap = tilemap;
 
         character = new Character(tilemap.getTileSize(), tilemap);

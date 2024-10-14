@@ -19,7 +19,7 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener {
 	boolean isRunning = true;
 
 	public InGamePanel(Tileset tileset, Tilemap tileMap) {
-		gameLogic = new GameLogic(this, tileset, tileMap);
+		gameLogic = new GameLogic(this, tileMap);
 		addMouseListener(new MouseAdapter(){
 			@Override
 			public void mousePressed(MouseEvent e){

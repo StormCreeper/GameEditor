@@ -5,16 +5,12 @@ import javax.swing.JPanel;
 
 public class ToolBar extends JPanel {
 
-    private final EditorPanel parent;
-
     private final JButton addLineButton = new JButton("Add Line");
     private final JButton addColumnButton = new JButton("Add Column");
     private final JButton centerViewButton = new JButton("Center");
 
     ToolBar(
             EditorPanel parent) {
-        this.parent = parent;
-
         addLineButton.addActionListener(e -> {
             parent.addLine();
         });

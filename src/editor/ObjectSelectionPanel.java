@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 public class ObjectSelectionPanel extends JPanel {
-    private final EditorPanel parent;
-
     private final Tileset tileSet;
     private Type selectedType;
     private final ArrayList<TextureButton> textureButtons = new ArrayList<>();    
@@ -17,8 +15,6 @@ public class ObjectSelectionPanel extends JPanel {
         super();
         setLayout(new FlowLayout());
         
-        this.parent = parent;
-
         this.tileSet = tileSet;
 
         this.selectedType = Type.ground;
