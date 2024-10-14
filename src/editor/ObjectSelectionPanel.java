@@ -2,7 +2,7 @@ package editor;
 
 import game.Tile.Type;
 import game.Tileset;
-import java.awt.GridLayout;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -15,7 +15,7 @@ public class ObjectSelectionPanel extends JPanel {
 
     public ObjectSelectionPanel(EditorPanel parent, Tileset tileSet){
         super();
-        setLayout(new GridLayout(1,0,5,5));
+        setLayout(new FlowLayout());
         
         this.parent = parent;
 
