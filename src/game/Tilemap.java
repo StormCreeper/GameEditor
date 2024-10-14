@@ -61,6 +61,8 @@ public class Tilemap {
     }
 
     public Rectangle2D getBoundingBoxWorld(int i, int j) {
+        Tile tile = getTile(i, j);
+        if(tile == null) return null;
         Rectangle2D rect = getTile(i, j).getBoundingBoxNorm();
         if(rect != null) {
             rect.setRect(new Rectangle2D.Double(rect.getX() * tileSize, rect.getY() * tileSize, rect.getWidth() * tileSize, rect.getHeight() * tileSize));
@@ -102,7 +104,7 @@ public class Tilemap {
 
         String[] lines = data.split("\n");
 
-        numTilesX = lines[1].split(" ").length ; // We divide by 2 to account for the spaces
+        numTilesX = lines[1].split(" ").length ;
         numTilesY = lines.length - 1; // -1 for empty line at beginning
 
         tileMap = new Tile[numTilesX][numTilesY];
@@ -119,6 +121,7 @@ public class Tilemap {
                 }
             }
         }
+        doBorders();
 
     }
 
