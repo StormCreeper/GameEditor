@@ -1,6 +1,8 @@
 package game;
 
 import game.Character;
+import game.Tile.Type;
+
 import java.awt.Graphics2D;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
@@ -39,6 +41,12 @@ public class GameLogic {
 
         camera = new Camera(character, 10.0);
 
+        for(int i=0; i<10; i++) {
+            gun.addBullet(Type.water);
+            gun.addBullet(Type.lava);
+            gun.addBullet(Type.ground);
+        }
+
     }
 
     /**
@@ -55,6 +63,11 @@ public class GameLogic {
         }
         bullets.removeIf(Bullet::isDead);
         camera.update(deltaTime);
+
+        if(gun.isFiring()) {
+            Point2D p = character.getPosition();
+            bullets.add(new Bullet(p.getX(), p.getY(), 0, 50, 10, tilemap, gun.getNextBullet()));
+        }
     }
 
     /**
@@ -87,8 +100,9 @@ public class GameLogic {
         if(key == KeyEvent.VK_UP || key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_DOWN || key == KeyEvent.VK_LEFT){
             character.keyPressed(key);
         } else if(key == KeyEvent.VK_S){
-            Point2D p = character.getPosition();
-            bullets.add(new Bullet(p.getX(), p.getY(), 0, 50, 10, tilemap));
+            if(!gun.isEmpty()) {
+                gun.fire();
+            }
         }
     }
 

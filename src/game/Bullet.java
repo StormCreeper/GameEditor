@@ -16,10 +16,12 @@ public class Bullet {
     double vx;
     double vy;
 
+    Tile.Type type;
+
     private final Tilemap map;
     private boolean isDead = false;
 
-    public Bullet(double x, double y, double vx, double vy, int size, Tilemap map) {
+    public Bullet(double x, double y, double vx, double vy, int size, Tilemap map, Tile.Type type) {
         this.size = size;
         this.map = map;
 
@@ -27,6 +29,8 @@ public class Bullet {
         this.y = y;
         this.vx = vx;
         this.vy = vy;
+
+        this.type = type;
     }
 
     public void update(double deltaTime) {
@@ -43,7 +47,14 @@ public class Bullet {
     }
 
     public void drawSelf(Graphics2D g){
-        g.setColor(Color.RED);
+        switch (type) {
+            case water
+                -> g.setColor(Color.blue);
+            case lava
+                -> g.setColor(Color.red);
+            case ground
+                -> g.setColor(Color.gray);
+        }
         g.fillOval((int) x - size/2, (int) y - size/2, size, size);
     }
 

@@ -2,16 +2,31 @@ package game;
 import java.util.ArrayList;
 
 public class Gun {
-    public ArrayList<Tile.Type> bullets = new ArrayList<>();
+    private ArrayList<Tile.Type> bullets = new ArrayList<>();
+    
+    private boolean firing = false;
 
     public Gun() {
-        for(int i=0; i<5; i++) {
-            bullets.add(Tile.Type.water);
-        }
+    }
+
+    public boolean isEmpty() {
+        return bullets.isEmpty();
+    }
+
+    public void fire() {
+        firing = true;
+    }
+
+    public boolean isFiring() {
+        return firing;
     }
 
     public Tile.Type getNextBullet() {
-        
-        return bullets.get(0);
+        firing = false;
+        return bullets.remove(0);
+    }
+
+    public void addBullet(Tile.Type type) {
+        bullets.add(type);
     }
 }
