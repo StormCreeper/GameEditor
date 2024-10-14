@@ -63,6 +63,8 @@ public class GameEditorPanel extends JComponent {
 
     @Override
     public void paintComponent(Graphics g) {
+        g.setColor(new Color(220, 220, 220));
+        g.fillRect(0, 0, parent.getWidth(), parent.getHeight());
         g.translate((int) offset.x, (int) offset.y);
         tileMap.drawSelf((Graphics2D) g);
     }
