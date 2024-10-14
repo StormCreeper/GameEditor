@@ -17,12 +17,10 @@ public class ToolBar extends JPanel {
 
         addLineButton.addActionListener(e -> {
             parent.addLine();
-            parent.repaint();
         });
 
         addColumnButton.addActionListener(e -> {
             parent.addColumn();
-            parent.repaint();
         });
 
         centerViewButton.addActionListener(e -> {
