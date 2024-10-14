@@ -113,12 +113,7 @@ public class Tilemap {
             String[] tileList = lines[1 + j].split(" "); // + 1 for empty line at beginning
 
             for (int i = 0; i < numTilesX; i++) {
-                tileMap[i][j] = new Tile();
-                switch(Integer.parseInt(tileList[i])){
-                    case 0 -> tileMap[i][j].setType(Type.ground);
-                    case 1 -> tileMap[i][j].setType(Type.water);
-                    case 2 -> tileMap[i][j].setType(Type.lava);
-                }
+                tileMap[i][j] = new Tile(Integer.parseInt(tileList[i])); // Use encoded representation of the tile 
             }
         }
         doBorders();
@@ -141,11 +136,11 @@ public class Tilemap {
 
     public void save(String filePath) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + ".txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
 
             for (int j = 0; j < numTilesY; j++) {
                 for (int i = 0; i < numTilesX; i++) {
-                    writer.write(String.valueOf(tileMap[i][j].typeToInt()));
+                    writer.write(String.valueOf(tileMap[i][j].repr()));
                     writer.write(" ");
                 }
                 writer.write('\n');
