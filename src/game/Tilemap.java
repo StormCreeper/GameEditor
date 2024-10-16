@@ -142,10 +142,10 @@ public class Tilemap {
                 ArrayList<Integer> firstLayerIDs = tileMap[i][j].getBaseTextures();
                 
                 for(int k=0; k<firstLayerIDs.size(); k++) {
-                    g.drawImage(tileset.getTexture(firstLayerIDs.get(k)), i * tileSize, j * tileSize, tileSize, tileSize, null);
+                    g.drawImage(tileset.getTexture(firstLayerIDs.get(k)), i * tileSize, j * tileSize, null);
                 }
                 for(int ID : tileMap[i][j].getLayersTextures()) {
-                    g.drawImage(tileset.getTexture(ID), i * tileSize, j * tileSize, tileSize, tileSize, null);
+                    g.drawImage(tileset.getTexture(ID), i * tileSize, j * tileSize, null);
                 }
  
             }

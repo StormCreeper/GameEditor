@@ -46,6 +46,7 @@ public class MainWindow  extends JFrame{
         //Init variables that are useful for both modes :
         tileSet = new Tileset(16,64);
         tileSet.loadTextures();
+        tileSet.resizeTextures(50);
         tileMap = new Tilemap(mapWidth, mapHeight, 50, tileSet);
         tileMap.doBorders();
 

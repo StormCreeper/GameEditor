@@ -43,6 +43,8 @@ public class Character {
         y = -50;
         velX = 0;
         velY = 0;
+
+        image = Tileset.getScaledInstance(image, size, size);
     }
 
     public void update(double deltaTime) {        
@@ -88,7 +90,7 @@ public class Character {
         for(Rectangle2D r : collisions) {
             g.drawRect((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
         }
-        g.drawImage(image, (int)x - size/2, (int)y - size/2, size, size, null);
+        g.drawImage(image, (int)x - size/2, (int)y - size/2, null);
         
         Rectangle2D bounds = getBounds();
         g.setColor(Color.blue);
