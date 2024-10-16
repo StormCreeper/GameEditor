@@ -203,9 +203,9 @@ public class Tilemap {
 
                 tile.resetBaseTexture();
                 switch(tile.getType()) {
-                    case ground -> tile.addBaseTexture(5+rd.nextInt(3));
-                    case water -> tile.addBaseTexture(13+rd.nextInt(3));
-                    case lava -> tile.addBaseTexture(21+rd.nextInt(3));
+                    case ground -> tile.addBaseTexture(5);
+                    case water -> tile.addBaseTexture(13);
+                    case lava -> tile.addBaseTexture(21);
                 }
             }
         }
