@@ -24,9 +24,15 @@ public class EditorPanel extends JPanel {
         add(gamePanel, BorderLayout.CENTER);
         add(objectSelectionPanel = new ObjectSelectionPanel(this, tileSet), BorderLayout.SOUTH); 
         add(toolBar = new ToolBar(this), BorderLayout.EAST);
+
+        toolBar.addLayerChangeListener(e -> {
+            objectSelectionPanel.replaceButtons();
+            repaint();
+        });
     }
 
     public int getSelectedLayer() {
+        if(toolBar == null) return 0;
         return toolBar.getSelectedLayer();
     }
 

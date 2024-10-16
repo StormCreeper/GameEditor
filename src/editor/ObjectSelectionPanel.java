@@ -1,46 +1,81 @@
 package editor;
 
 import game.Tile.Type;
+import game.Tile;
 import game.Tileset;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.swing.*;
 
 public class ObjectSelectionPanel extends JPanel {
     private final Tileset tileSet;
-    private Type selectedType;
-    private final ArrayList<TextureButton> textureButtons = new ArrayList<>();    
+    private final ArrayList<TextureButton> textureButtons = new ArrayList<>();
+
+    private final ArrayList<ArrayList<Integer>> layerElements =  new ArrayList<>();
+
+    private EditorPanel parent;
+
+    private int tool = 0;
 
     public ObjectSelectionPanel(EditorPanel parent, Tileset tileSet){
         super();
+        this.parent = parent;
         setLayout(new FlowLayout());
+
+        layerElements.add(new ArrayList<>());
+        layerElements.get(0).addAll(Arrays.asList(5, 13, 21));
+
+        layerElements.add(new ArrayList<>());
+        layerElements.get(1).addAll(Arrays.asList(29));
+
+        layerElements.add(new ArrayList<>());
+        layerElements.get(2).addAll(Arrays.asList(30, 31));
+        
         
         this.tileSet = tileSet;
 
-        this.selectedType = Type.ground;
+        replaceButtons();
+    }
 
-        for(Type type : Type.values()){
-            TextureButton tb = new TextureButton(this, type);
+    public void replaceButtons() {
+        int layer = parent.getSelectedLayer();
+
+        for(TextureButton tb : textureButtons) {
+            remove(tb);
+        }
+        textureButtons.clear();
+
+        for(Integer el : layerElements.get(layer)) {
+            TextureButton tb = new TextureButton(this, tileSet.getTexture(el), el);
             textureButtons.add(tb);
             add(tb);
         }
+
+        repaintButtons();
     }
 
     public Type getSelectedType(){
-        return selectedType;
+        if(tool == 5) return Tile.Type.ground;
+        if(tool == 13) return Tile.Type.water;
+        if(tool == 21) return Tile.Type.lava;
+
+        return Tile.Type.ground;
     }
 
-    public void setSelectedType(Type type){
-        selectedType = type;
-        updateButtons();
+    public void setSelectedTool(int i) {
+        tool = i;
+        repaintButtons();
     }
 
-    public Tileset getTileSet(){
-        return tileSet;
+    public int getSelectedTool() {
+        return tool;
     }
 
-    public void updateButtons(){
+    public void repaintButtons(){
         for(TextureButton tb : textureButtons){
+            revalidate();
             tb.repaint();
         }
     }
