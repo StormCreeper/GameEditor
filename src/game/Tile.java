@@ -36,10 +36,12 @@ public class Tile {
 
     public void setType(Type type) {
         this.type = type;
+        fixThings();
     }
 
     public void setLayer(int ID, int layer) {
         layersTexturesID[layer] = ID;
+        fixThings();
     }
 
     public int[] getLayersTextures() {
@@ -48,6 +50,13 @@ public class Tile {
 
     public Type getType() {
         return type;
+    }
+
+    private void fixThings() {
+        if(type != Type.ground) { // Cannot put things on water or lava
+            layersTexturesID[0] = 0;
+            layersTexturesID[1] = 0;
+        }
     }
 
     public Rectangle2D getBoundingBoxNorm(boolean isCharacter) {
