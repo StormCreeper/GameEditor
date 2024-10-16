@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Tilemap {
@@ -195,6 +196,7 @@ public class Tilemap {
     public void doBorders() {
         
         //Base Texture
+        Random rd = new Random();
         for (int j = 0; j < numTilesY; j++) {
             for (int i = 0; i < numTilesX; i++) {
                 Tile tile = tileMap[i][j];

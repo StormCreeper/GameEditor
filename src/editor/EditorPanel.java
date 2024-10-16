@@ -10,6 +10,7 @@ public class EditorPanel extends JPanel {
 
     private GameEditorPanel gamePanel;
     private ObjectSelectionPanel objectSelectionPanel;
+    private ToolBar toolBar;
     private Tilemap tileMap;
 
     public EditorPanel(int width, int height, Tileset tileSet, Tilemap tileMap) {
@@ -22,7 +23,11 @@ public class EditorPanel extends JPanel {
 
         add(gamePanel, BorderLayout.CENTER);
         add(objectSelectionPanel = new ObjectSelectionPanel(this, tileSet), BorderLayout.SOUTH); 
-        add(new ToolBar(this), BorderLayout.EAST);
+        add(toolBar = new ToolBar(this), BorderLayout.EAST);
+    }
+
+    public int getSelectedLayer() {
+        return toolBar.getSelectedLayer();
     }
 
     public Type getSelectedType() {

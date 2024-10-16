@@ -12,9 +12,9 @@ public class Tile {
     };
 
     private Type type;
-    private int[] layersTexturesID = {0, 0};
-
     private ArrayList<Integer> baseTextures = new ArrayList<>(); // The texture ids that are used to create the first layer of the tile
+
+    private int[] layersTexturesID = {0, 0};    
 
     // The tile texture ids for each layer : floor, collision, decoration
     // private int[] tileTextureIds = new int[3]; 
