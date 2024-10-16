@@ -44,20 +44,38 @@ public class Bullet {
             Point pos = new Point((int)(x+vx), (int)(y+vy));
             Type tileType = map.getType(pos.x, pos.y);
 
+            int i = pos.x/map.getTileSize();
+            int j = pos.y/map.getTileSize();
             //If water bullet collides lava, the lava becomes ground
             if (tileType==Type.lava && type==Tile.Type.water) {
-                map.setType(pos.x/map.getTileSize(), pos.y/map.getTileSize(), Type.ground);
+                map.setType(i, j, Type.ground);
             } 
 
             //If ground bullet collides water, the water becomes ground
             if (tileType==Tile.Type.water && type==Tile.Type.ground) {
-                map.setType(pos.x/map.getTileSize(), pos.y/map.getTileSize(), Type.ground);
+                map.setType(i, j, Type.ground);
+            }
+
+            int[] layerTextures = map.getTile(i, j).getLayersTextures();
+            for(int k = 0; k<layerTextures.length ; k++) {
+
+                //If lava bullet collides tree, tree disappear
+                if(layerTextures[k]==31 && type==Tile.Type.lava) {
+                    layerTextures[k] = 0;
+                }
+
+                //If water bullet collapses crack, it feels the crack with water
+                if(layerTextures[k]==30 && type==Tile.Type.water) {
+                    layerTextures[k] = 0;
+                    map.setType(i, j, Tile.Type.water);
+                }
             }
 
             //Whatever the result is, the bullet disappear after the collision
             isDead = true;
         }
-    }
+                     
+        }
 
     public boolean isDead() {
         return isDead;
@@ -76,7 +94,7 @@ public class Bullet {
     }
 
     private boolean collide() {
-        ArrayList<Rectangle2D> collisions = map.getCollisions(new Point2D.Double(x, y));
+        ArrayList<Rectangle2D> collisions = map.getCollisions(new Point2D.Double(x, y), false);
 
         for(Rectangle2D r : collisions) {
             if(r.intersects(getBounds())) {

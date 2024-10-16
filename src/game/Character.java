@@ -83,7 +83,7 @@ public class Character {
         
         g.setColor(Color.red);
         
-        ArrayList<Rectangle2D> collisions = map.getCollisions(new Point2D.Double(x, y));
+        ArrayList<Rectangle2D> collisions = map.getCollisions(new Point2D.Double(x, y), true);
 
         for(Rectangle2D r : collisions) {
             g.drawRect((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
@@ -118,7 +118,7 @@ public class Character {
     }
 
     private boolean collide() {
-        ArrayList<Rectangle2D> collisions = map.getCollisions(new Point2D.Double(x, y));
+        ArrayList<Rectangle2D> collisions = map.getCollisions(new Point2D.Double(x, y), true);
 
         for(Rectangle2D r : collisions) {
             if(r.intersects(getBounds())) {

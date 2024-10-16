@@ -50,9 +50,20 @@ public class Tile {
         return type;
     }
 
-    public Rectangle2D getBoundingBoxNorm() {
-        if(type == Type.ground) return null;
-        return new Rectangle2D.Double(0, 0, 1, 1);
+    public Rectangle2D getBoundingBoxNorm(boolean isCharacter) {
+        if(type != Tile.Type.ground) {
+            return new Rectangle2D.Double(0, 0, 1, 1);
+        }
+
+        if(!isCharacter) {
+            for(int i=0; i<layersTexturesID.length; i++) {
+                if(layersTexturesID[i]==31 || layersTexturesID[i]==30) { //Collides tree
+                    return new Rectangle2D.Double(0, 0, 1, 1);
+                }
+            }
+        }
+        
+        return null;
     }
 
     public ArrayList<Integer> getBaseTextures() {
