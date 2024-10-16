@@ -19,6 +19,8 @@ public class Tilemap {
     private int numTilesX, numTilesY;
     private int tileSize;
 
+    private boolean hasChanged = false;
+
     public Tilemap(int numTilesX, int numTilesY, int tileSize, Tileset tileset) {
         this.tileset = tileset;
 
@@ -47,6 +49,7 @@ public class Tilemap {
             return;
         }
         tileMap[i][j] = tile;
+        hasChanged = true;
     }
 
     public void setTile(int i, int j, Type type) {
@@ -54,6 +57,15 @@ public class Tilemap {
             return;
         }
         tileMap[i][j].setType(type);
+        hasChanged = true;
+    }
+
+    public boolean hasChanged() {
+        return hasChanged;
+    }
+
+    public void setHasChanged(boolean bool) {
+        hasChanged = bool;
     }
 
     public int getTileSize() {
@@ -190,6 +202,13 @@ public class Tilemap {
 
     public int getNumY() {
         return numTilesY;
+    }
+
+    public Type getType(int x, int y) {
+        int i = x/tileSize;
+        int j = y/tileSize;
+
+        return tileMap[i][j].getType();
     }
 
     public void doBorders() {
