@@ -1,7 +1,6 @@
 package game;
 
 import game.Tile.Type;
-
 import java.awt.Graphics2D;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
@@ -36,7 +35,7 @@ public class GameLogic {
 
         camera = new Camera(character, 10.0);
 
-        for(int i=0; i<10; i++) {
+        for(int i=0; i<2; i++) {
             gun.addBullet(Type.water);
             gun.addBullet(Type.lava);
             gun.addBullet(Type.ground);
