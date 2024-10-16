@@ -83,6 +83,8 @@ public class GameLogic {
         for(Bullet b : bullets){
             b.drawSelf(g);
         }
+
+        gun.drawLoad(character.getPosition(), g);
     }
 
     /**
