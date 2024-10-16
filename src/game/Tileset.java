@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -7,6 +9,17 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class Tileset {
+
+    public static BufferedImage getScaledInstance(BufferedImage img, int width, int height) {
+        Image tex = img.getScaledInstance(width, height, Image.SCALE_DEFAULT);
+        BufferedImage newTex = new BufferedImage(width, height, img.getType());
+
+        Graphics g = newTex.getGraphics();
+        g.drawImage(tex, 0, 0, null);
+        g.dispose();
+
+        return newTex;
+    }
 
     private int tileSize; // A changer quand on aura la vraie map
     private BufferedImage tileTexture;
@@ -35,6 +48,12 @@ public class Tileset {
             textureArray.add(tex);
         }
 
+    }
+
+    public void resizeTextures(int imageSize) {
+        for(int n = 0; n < nbTextures; n++) {
+            textureArray.set(n, getScaledInstance(textureArray.get(n), imageSize, imageSize));
+        }
     }
 
     public int getNbTextures(){
