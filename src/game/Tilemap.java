@@ -10,7 +10,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Tilemap {
@@ -19,6 +18,8 @@ public class Tilemap {
 
     private int numTilesX, numTilesY;
     private int tileSize;
+
+    private boolean hasChanged = false;
 
     public Tilemap(int numTilesX, int numTilesY, int tileSize, Tileset tileset) {
         this.tileset = tileset;
@@ -48,6 +49,7 @@ public class Tilemap {
             return;
         }
         tileMap[i][j] = tile;
+        hasChanged = true;
     }
 
     public void setTile(int i, int j, Type type) {
@@ -55,6 +57,15 @@ public class Tilemap {
             return;
         }
         tileMap[i][j].setType(type);
+        hasChanged = true;
+    }
+
+    public boolean hasChanged() {
+        return hasChanged;
+    }
+
+    public void setHasChanged(boolean bool) {
+        hasChanged = bool;
     }
 
     public int getTileSize() {
@@ -193,10 +204,16 @@ public class Tilemap {
         return numTilesY;
     }
 
+    public Type getType(int x, int y) {
+        int i = x/tileSize;
+        int j = y/tileSize;
+
+        return tileMap[i][j].getType();
+    }
+
     public void doBorders() {
         
         //Base Texture
-        Random rd = new Random();
         for (int j = 0; j < numTilesY; j++) {
             for (int i = 0; i < numTilesX; i++) {
                 Tile tile = tileMap[i][j];

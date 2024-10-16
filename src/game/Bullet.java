@@ -1,7 +1,9 @@
 package game;
 
+import game.Tile.Type;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -38,6 +40,15 @@ public class Bullet {
         y += vy * deltaTime;
 
         if (collide()) {
+
+            //If water bullet collides lava, the lava becomes ground
+            Point pos = new Point((int)(x+vx), (int)(y+vy));
+
+            Type tileType = map.getType(pos.x, pos.y);
+            if (tileType==Type.lava && type==Tile.Type.water) {
+                map.setTile(pos.x/map.getTileSize(), pos.y/map.getTileSize(), Type.ground);
+            } 
+
             isDead = true;
         }
     }
