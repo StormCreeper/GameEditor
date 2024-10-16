@@ -41,14 +41,20 @@ public class Bullet {
 
         if (collide()) {
 
-            //If water bullet collides lava, the lava becomes ground
             Point pos = new Point((int)(x+vx), (int)(y+vy));
-
             Type tileType = map.getType(pos.x, pos.y);
+
+            //If water bullet collides lava, the lava becomes ground
             if (tileType==Type.lava && type==Tile.Type.water) {
                 map.setTile(pos.x/map.getTileSize(), pos.y/map.getTileSize(), Type.ground);
             } 
 
+            //If ground bullet collides water, the water becomes ground
+            if (tileType==Tile.Type.water && type==Tile.Type.ground) {
+                map.setTile(pos.x/map.getTileSize(), pos.y/map.getTileSize(), Type.ground);
+            }
+
+            //Whatever the result is, the bullet disappear after the collision
             isDead = true;
         }
     }
