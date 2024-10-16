@@ -52,7 +52,7 @@ public class Tilemap {
         hasChanged = true;
     }
 
-    public void setTile(int i, int j, Type type) {
+    public void setType(int i, int j, Type type) {
         if (i < 0 || i >= numTilesX || j < 0 || j >= numTilesY) {
             return;
         }
@@ -60,12 +60,11 @@ public class Tilemap {
         hasChanged = true;
     }
 
-    public boolean hasChanged() {
-        return hasChanged;
-    }
-
-    public void setHasChanged(boolean bool) {
-        hasChanged = bool;
+    public void setTileLayers(int i, int j, int ID, int layer) {
+        if (i < 0 || i >= numTilesX || j < 0 || j >= numTilesY) {
+            return;
+        }
+        tileMap[i][j].setLayer(ID, layer);
     }
 
     public int getTileSize() {
@@ -133,6 +132,10 @@ public class Tilemap {
     }
 
     public void drawSelf(Graphics2D g) {
+        if(hasChanged) {
+            hasChanged = false;
+            doBorders();
+        }
         for (int j = 0; j < numTilesY; j++) {
             for (int i = 0; i < numTilesX; i++) {
 
@@ -141,7 +144,10 @@ public class Tilemap {
                 for(int k=0; k<firstLayerIDs.size(); k++) {
                     g.drawImage(tileset.getTexture(firstLayerIDs.get(k)), i * tileSize, j * tileSize, tileSize, tileSize, null);
                 }
-
+                for(int ID : tileMap[i][j].getLayersTextures()) {
+                    g.drawImage(tileset.getTexture(ID), i * tileSize, j * tileSize, tileSize, tileSize, null);
+                }
+ 
             }
         }
     }

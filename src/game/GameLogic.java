@@ -84,11 +84,6 @@ public class GameLogic {
         }
 
         gun.drawLoad(character.getPosition(), g);
-
-        if(tilemap.hasChanged()) {
-            tilemap.doBorders();
-            tilemap.setHasChanged(false);
-        }
     }
 
     /**

@@ -38,6 +38,14 @@ public class Tile {
         this.type = type;
     }
 
+    public void setLayer(int ID, int layer) {
+        layersTexturesID[layer] = ID;
+    }
+
+    public int[] getLayersTextures() {
+        return layersTexturesID;
+    }
+
     public Type getType() {
         return type;
     }

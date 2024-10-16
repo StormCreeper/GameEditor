@@ -40,6 +40,10 @@ public class EditorPanel extends JPanel {
         return objectSelectionPanel.getSelectedType();
     }
 
+    public int getSelectedTool() {
+        return objectSelectionPanel.getSelectedTool();
+    }
+
     public void addLine() {
         tileMap.addLine();
         tileMap.doBorders();

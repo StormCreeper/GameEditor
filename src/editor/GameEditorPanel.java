@@ -56,8 +56,11 @@ public class GameEditorPanel extends JComponent {
         int tileSize = tileMap.getTileSize();
         int i = px / tileSize;
         int j = py / tileSize;
-        tileMap.setTile(i, j, parent.getSelectedType());
-        tileMap.doBorders();
+        int layer = parent.getSelectedLayer();
+        if(layer == 0) 
+            tileMap.setType(i, j, parent.getSelectedType());
+        else
+            tileMap.setTileLayers(i, j, parent.getSelectedTool(), layer-1);
         repaint();
     }
 
