@@ -54,10 +54,12 @@ public class Tile {
         if(type != Tile.Type.ground) {
             return new Rectangle2D.Double(0, 0, 1, 1);
         }
-
-        if(!isCharacter) {
-            for(int i=0; i<layersTexturesID.length; i++) {
-                if(layersTexturesID[i]==31 || layersTexturesID[i]==30) { //Collides tree
+        else for(int i = 0; i<layersTexturesID.length; i++) {
+            if(layersTexturesID[i] == 31 || layersTexturesID[i]==29) {
+                return new Rectangle2D.Double(0, 0, 1, 1);
+            }
+            if(!isCharacter) {
+                if(layersTexturesID[i]==30) {
                     return new Rectangle2D.Double(0, 0, 1, 1);
                 }
             }
