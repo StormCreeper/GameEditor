@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -24,6 +25,7 @@ public class ToolBar extends JPanel {
 
     private int layer = 0;
 
+    private final JCheckBox automaticFillingCheckBox = new JCheckBox("Automatic filling");
 
     private ArrayList<ActionListener> layerChangeListeners = new ArrayList<ActionListener>();
 
@@ -72,6 +74,14 @@ public class ToolBar extends JPanel {
         layer1RadioButton.addActionListener(e -> changeLayer());
         layer2RadioButton.addActionListener(e -> changeLayer());
         layer3RadioButton.addActionListener(e -> changeLayer());
+
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.weightx = 3;
+        this.add(automaticFillingCheckBox, gbc);
+
+        automaticFillingCheckBox.addActionListener(e -> parent.setAutomaticFilling(automaticFillingCheckBox.isSelected()));
+        
     }
 
     public int getSelectedLayer() {

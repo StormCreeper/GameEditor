@@ -13,9 +13,18 @@ public class GameEditorPanel extends JComponent {
     private final EditorPanel parent;
 
     private final Tilemap tileMap;
+    
+    // Last pressed Tile on editing
+    private int lastX= -1;
+    private int lastY= -1;
 
+    // If the automatic filling is selected
+    boolean automaticFilling = false;
+    // Array of selected indexes for automatic filling
+    private boolean[][] indexesForFilling;
+
+    // Variables for dragging the map
     private Point2D lastPoint = new Point2D.Double(0, 0);
-
     private Point2D.Double offset = new Point2D.Double(0, 0);
 
     public GameEditorPanel(EditorPanel parent, int width, int height, Tileset tileSet, Tilemap tileMap) {
@@ -32,6 +41,12 @@ public class GameEditorPanel extends JComponent {
                 } else {
                     lastPoint = e.getPoint();
                 }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                lastX = -1;
+                lastY = -1;
             }
         });
 
@@ -56,12 +71,16 @@ public class GameEditorPanel extends JComponent {
         int tileSize = tileMap.getTileSize();
         int i = px / tileSize;
         int j = py / tileSize;
-        int layer = parent.getSelectedLayer();
-        if(layer == 0) 
-            tileMap.setType(i, j, parent.getSelectedType());
-        else
-            tileMap.setTileLayers(i, j, parent.getSelectedTool(), layer-1);
-        repaint();
+        if(i != lastX || j != lastY) {
+            lastX = i;
+            lastY = j;
+            int layer = parent.getSelectedLayer();
+            if(layer == 0) 
+                tileMap.setType(i, j, parent.getSelectedType());
+            else
+                tileMap.setTileLayers(i, j, parent.getSelectedTool(), layer-1);
+            repaint();
+        }
     }
 
     @Override
@@ -75,5 +94,9 @@ public class GameEditorPanel extends JComponent {
     public void centerView() {
         offset = new Point2D.Double(0, 0);
         repaint();
+    }
+
+    public void setAutomaticFilling(boolean b){
+        automaticFilling = b;
     }
 }
