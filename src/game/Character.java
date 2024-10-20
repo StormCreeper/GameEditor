@@ -26,6 +26,8 @@ public class Character {
     private boolean leftPressed;
     private boolean rightPressed;
 
+    private int direction = 0; // 0: down, 1: left, 2: up, 3: right
+
     private BufferedImage image;
 
     private Tilemap map;
@@ -79,6 +81,18 @@ public class Character {
 
         velX = 0;
         velY = 0;
+
+        // Update direction: if only one of the arrow keys is pressed, the character looks in that direction
+
+        if (downPressed && !upPressed && !leftPressed && !rightPressed)
+            direction = 0;
+        if (leftPressed && !rightPressed && !upPressed && !downPressed)
+            direction = 1;
+        if (upPressed && !downPressed && !leftPressed && !rightPressed)
+            direction = 2;
+        if (rightPressed && !leftPressed && !upPressed && !downPressed)
+            direction = 3;
+        
     }
 
     public void drawSelf(Graphics2D g) {
@@ -95,6 +109,24 @@ public class Character {
         Rectangle2D bounds = getBounds();
         g.setColor(Color.blue);
         g.drawRect((int) bounds.getX(), (int) bounds.getY(), (int) bounds.getWidth(), (int) bounds.getHeight());
+
+        // Show the direction of the character
+
+        g.setColor(Color.blue);
+        switch (direction) {
+            case 0:
+                g.drawLine((int) x, (int) y, (int) x, (int) y + size);
+                break;
+            case 1:
+                g.drawLine((int) x, (int) y, (int) x - size, (int) y);
+                break;
+            case 2:
+                g.drawLine((int) x, (int) y, (int) x, (int) y - size);
+                break;
+            case 3:
+                g.drawLine((int) x, (int) y, (int) x + size, (int) y);
+                break;
+        }
     }
 
     public void keyPressed(int key) {
