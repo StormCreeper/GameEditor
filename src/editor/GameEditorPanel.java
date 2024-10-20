@@ -14,8 +14,11 @@ public class GameEditorPanel extends JComponent {
 
     private final Tilemap tileMap;
 
-    private Point2D lastPoint = new Point2D.Double(0, 0);
+    private int currentX= -1;
+    private int currentY= -1;
 
+    // Variables for dragging the map
+    private Point2D lastPoint = new Point2D.Double(0, 0);
     private Point2D.Double offset = new Point2D.Double(0, 0);
 
     public GameEditorPanel(EditorPanel parent, int width, int height, Tileset tileSet, Tilemap tileMap) {
@@ -32,6 +35,12 @@ public class GameEditorPanel extends JComponent {
                 } else {
                     lastPoint = e.getPoint();
                 }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                currentX = -1;
+                currentY = -1;
             }
         });
 
@@ -56,12 +65,17 @@ public class GameEditorPanel extends JComponent {
         int tileSize = tileMap.getTileSize();
         int i = px / tileSize;
         int j = py / tileSize;
-        int layer = parent.getSelectedLayer();
-        if(layer == 0) 
-            tileMap.setType(i, j, parent.getSelectedType());
-        else
-            tileMap.setTileLayers(i, j, parent.getSelectedTool(), layer-1);
-        repaint();
+        if(i != currentX || j != currentY) {
+            System.out.println("Changing the tile at " + i + ", " + j);
+            currentX = i;
+            currentY = j;
+            int layer = parent.getSelectedLayer();
+            if(layer == 0) 
+                tileMap.setType(i, j, parent.getSelectedType());
+            else
+                tileMap.setTileLayers(i, j, parent.getSelectedTool(), layer-1);
+            repaint();
+        }
     }
 
     @Override
