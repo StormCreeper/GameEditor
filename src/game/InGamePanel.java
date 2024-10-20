@@ -64,10 +64,12 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener {
 		while (isRunning) {
 			long currentNanoTime = System.nanoTime() - startingNanoTime;
 			deltaTime = (currentNanoTime - lastNanoTime) * 1e-9f;
-			currentTime = currentNanoTime * 1e-9f;
-			lastNanoTime = currentNanoTime;
-			updateGame();
-			repaint();
+			if (deltaTime > 1 / 60.0) {
+				currentTime = currentNanoTime * 1e-9f;
+				lastNanoTime = currentNanoTime;
+				updateGame();
+				repaint();
+			}
 		}
 	}
 
