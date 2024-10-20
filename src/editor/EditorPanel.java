@@ -46,13 +46,13 @@ public class EditorPanel extends JPanel {
 
     public void addLine() {
         tileMap.addLine();
-        tileMap.doBorders();
+        tileMap.change();
         gamePanel.repaint();
     }
 
     public void addColumn() {
         tileMap.addColumn();
-        tileMap.doBorders();
+        tileMap.change();
         gamePanel.repaint();
     }
 

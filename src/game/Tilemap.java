@@ -37,6 +37,10 @@ public class Tilemap {
         }
     }
 
+    public void change() {
+        hasChanged = true;
+    }
+
     public Tile getTile(int i, int j) {
         if (i < 0 || i >= numTilesX || j < 0 || j >= numTilesY) {
             return null;
@@ -127,7 +131,8 @@ public class Tilemap {
                 tileMap[i][j] = new Tile(Integer.parseInt(tileList[i])); // Use encoded representation of the tile 
             }
         }
-        doBorders();
+
+        hasChanged = true;
 
     }
 
@@ -136,6 +141,7 @@ public class Tilemap {
             hasChanged = false;
             doBorders();
         }
+
         for (int j = 0; j < numTilesY; j++) {
             for (int i = 0; i < numTilesX; i++) {
 
@@ -150,6 +156,7 @@ public class Tilemap {
  
             }
         }
+        
     }
 
     public void save(String filePath) {
@@ -184,6 +191,7 @@ public class Tilemap {
                 }
             }
         }
+        hasChanged = true;
     }
 
     public void addColumn() {
@@ -200,6 +208,8 @@ public class Tilemap {
                 }
             }
         }
+
+        hasChanged = true;
     }
 
     public int getNumX() {
