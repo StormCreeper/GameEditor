@@ -173,4 +173,8 @@ public class Character {
         return new Rectangle2D.Double((int)x - size/2, (int)y - size/2, size, size);
     }
 
+    public int getDirection() {
+        return direction;
+    }
+
 }
