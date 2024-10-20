@@ -60,4 +60,9 @@ public class EditorPanel extends JPanel {
         gamePanel.centerView();
     }
 
+
+    public void setAutomaticFilling(boolean b){
+        gamePanel.setAutomaticFilling(b);
+    }
+
 }
