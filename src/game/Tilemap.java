@@ -82,6 +82,20 @@ public class Tilemap {
         return tileSize;
     }
 
+    public void newEmptyMap(int numTilesX, int numTilesY) {
+        this.numTilesX = numTilesX;
+        this.numTilesY = numTilesY;
+
+        tileMap = new Tile[numTilesX][numTilesY];
+        for (int i = 0; i < numTilesX; i++) {
+            for (int j = 0; j < numTilesY; j++) {
+                tileMap[i][j] = new Tile(Type.ground);
+            }
+        }
+
+        hasChanged = true;
+    }
+
     public Rectangle2D getBoundingBoxWorld(int i, int j, boolean isCharacter) {
         Tile tile = getTile(i, j);
         if(tile == null) return null;
@@ -144,9 +158,7 @@ public class Tilemap {
     }
 
     public void save(String filePath) {
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (int j = 0; j < numTilesY; j++) {
                 for (int i = 0; i < numTilesX; i++) {
                     writer.write(String.valueOf(tileMap[i][j].repr()));
@@ -154,8 +166,6 @@ public class Tilemap {
                 }
                 writer.write('\n');
             }
-
-            writer.close();
         } catch (IOException e) {
             System.out.println("Could not save to file" + filePath);
         }
