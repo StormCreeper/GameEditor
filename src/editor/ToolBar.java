@@ -5,18 +5,22 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
+import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 public class ToolBar extends JPanel {
+    private final EditorPanel parent;
 
     private final JButton addLineButton = new JButton("Add Line");
     private final JButton addColumnButton = new JButton("Add Column");
+    private final JButton newEmptyMapButton = new JButton("New Empty Map");
     private final JButton centerViewButton = new JButton("Center");
 
     private final JRadioButton layer1RadioButton = new JRadioButton("Layer 1");
@@ -27,9 +31,11 @@ public class ToolBar extends JPanel {
 
     private final JCheckBox automaticFillingCheckBox = new JCheckBox("Automatic filling");
 
-    private ArrayList<ActionListener> layerChangeListeners = new ArrayList<ActionListener>();
+    private final ArrayList<ActionListener> layerChangeListeners = new ArrayList<>();
 
     ToolBar(EditorPanel parent) {
+        this.parent = parent;
+
         addLineButton.addActionListener(e -> {
             parent.addLine();
         });
@@ -42,8 +48,27 @@ public class ToolBar extends JPanel {
             parent.centerView();
         });
 
+        newEmptyMapButton.addActionListener(e -> {
+            JTextField xField = new JTextField(5);
+            JTextField yField = new JTextField(5);
+
+            JPanel myPanel = new JPanel();
+            myPanel.add(new JLabel("width:"));
+            myPanel.add(xField);
+            myPanel.add(Box.createHorizontalStrut(15)); // a spacer
+            myPanel.add(new JLabel("height:"));
+            myPanel.add(yField);
+            int response = JOptionPane.showConfirmDialog(null, myPanel, "Please Enter X and Y Values", JOptionPane.OK_CANCEL_OPTION);
+            if(response==JOptionPane.OK_OPTION){
+                parent.newEmptyMap(Integer.parseInt(xField.getText()), Integer.parseInt(yField.getText()));
+            } 
+            
+        });
+
         setLayout(new GridBagLayout());
+
         GridBagConstraints gbc = new GridBagConstraints();
+
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.NORTH;
@@ -52,10 +77,11 @@ public class ToolBar extends JPanel {
         this.add(addColumnButton, gbc);
         gbc.gridx = 2;
         this.add(centerViewButton, gbc);
+
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 3;
-        this.add(new JLabel("Right click drag to pan around"), gbc);
+        this.add(newEmptyMapButton, gbc);
 
         gbc.gridy = 2;
         layer1RadioButton.setSelected(true);

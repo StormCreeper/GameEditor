@@ -8,10 +8,10 @@ import javax.swing.JPanel;
 
 public class EditorPanel extends JPanel {
 
-    private GameEditorPanel gamePanel;
+    private final GameEditorPanel gamePanel;
     private ObjectSelectionPanel objectSelectionPanel;
-    private ToolBar toolBar;
-    private Tilemap tileMap;
+    private final ToolBar toolBar;
+    private final Tilemap tileMap;
 
     public EditorPanel(int width, int height, Tileset tileSet, Tilemap tileMap) {
         super();
@@ -58,6 +58,12 @@ public class EditorPanel extends JPanel {
 
     public void centerView() {
         gamePanel.centerView();
+    }
+
+    public void newEmptyMap(int width, int height) {
+        tileMap.newEmptyMap(width, height);
+        tileMap.change();
+        gamePanel.repaint();
     }
 
 
