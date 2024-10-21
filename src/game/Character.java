@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
+import main.MainWindow;
+
 public class Character {
 
     private int size; // The size of the character on the screen
@@ -95,37 +97,39 @@ public class Character {
         
     }
 
-    public void drawSelf(Graphics2D g) {
-        
-        g.setColor(Color.red);
-        
+    public void drawSelf(Graphics2D g) {    
         ArrayList<Rectangle2D> collisions = map.getCollisions(new Point2D.Double(x, y), true);
 
-        for(Rectangle2D r : collisions) {
-            g.drawRect((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
-        }
         g.drawImage(image, (int)x - size/2, (int)y - size/2, null);
-        
-        Rectangle2D bounds = getBounds();
-        g.setColor(Color.blue);
-        g.drawRect((int) bounds.getX(), (int) bounds.getY(), (int) bounds.getWidth(), (int) bounds.getHeight());
 
         // Show the direction of the character
 
-        g.setColor(Color.blue);
-        switch (direction) {
-            case 0:
-                g.drawLine((int) x, (int) y, (int) x, (int) y + size);
-                break;
-            case 1:
-                g.drawLine((int) x, (int) y, (int) x - size, (int) y);
-                break;
-            case 2:
-                g.drawLine((int) x, (int) y, (int) x, (int) y - size);
-                break;
-            case 3:
-                g.drawLine((int) x, (int) y, (int) x + size, (int) y);
-                break;
+        if(MainWindow.instance.isDebug()) {
+            
+            Rectangle2D bounds = getBounds();
+            g.setColor(Color.blue);
+            g.drawRect((int) bounds.getX(), (int) bounds.getY(), (int) bounds.getWidth(), (int) bounds.getHeight());
+            
+            g.setColor(Color.red);
+            for(Rectangle2D r : collisions) {
+                g.drawRect((int) r.getX(), (int) r.getY(), (int) r.getWidth(), (int) r.getHeight());
+            }
+
+            g.setColor(Color.blue);
+            switch (direction) {
+                case 0:
+                    g.drawLine((int) x, (int) y, (int) x, (int) y + size);
+                    break;
+                case 1:
+                    g.drawLine((int) x, (int) y, (int) x - size, (int) y);
+                    break;
+                case 2:
+                    g.drawLine((int) x, (int) y, (int) x, (int) y - size);
+                    break;
+                case 3:
+                    g.drawLine((int) x, (int) y, (int) x + size, (int) y);
+                    break;
+            }
         }
     }
 

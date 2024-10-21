@@ -31,7 +31,7 @@ public class GameLogic {
         this.parent = parent;
         this.tilemap = tilemap;
 
-        character = new Character(tilemap.getTileSize(), tilemap);
+        character = new Character(tilemap.getTileSize() - 4, tilemap);
 
         camera = new Camera(character, 10.0);
 
@@ -40,7 +40,6 @@ public class GameLogic {
             gun.addBullet(Type.lava);
             gun.addBullet(Type.ground);
         }
-
     }
 
     /**

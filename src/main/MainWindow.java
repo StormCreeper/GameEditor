@@ -1,14 +1,16 @@
+package main;
 import editor.EditorPanel;
 import game.InGamePanel;
 import game.Tilemap;
 import game.Tileset;
 import java.awt.Dimension;
-import java.awt.event.*;
 import java.io.File;
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 
 public class MainWindow  extends JFrame{
+
+    public static MainWindow instance;
 
     private enum Mode {
         GAME,
@@ -22,7 +24,11 @@ public class MainWindow  extends JFrame{
     private int mapWidth = 10;
     private int mapHeight = 10;
 
+    private boolean debug = false;
+
     public MainWindow() {
+
+        instance = this;
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -33,8 +39,10 @@ public class MainWindow  extends JFrame{
         JMenu fileMenu = new JMenu("File");
         JMenuItem gameMode = new JMenuItem("Game");
         JMenuItem editorMode = new JMenuItem("Editor");
+        JCheckBoxMenuItem debugMode = new JCheckBoxMenuItem("Toogle Debug");
         modeMenu.add(gameMode);
         modeMenu.add(editorMode);
+        modeMenu.add(debugMode);
         JMenuItem saveFile = new JMenuItem("Save");
         JMenuItem loadFile = new JMenuItem("Load");
         fileMenu.add(saveFile);
@@ -50,58 +58,45 @@ public class MainWindow  extends JFrame{
         tileMap = new Tilemap(mapWidth, mapHeight, 50, tileSet);
         tileMap.change();
 
-        gameMode.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                switchMode(Mode.GAME);
+        debugMode.addActionListener(e -> setDebug(debugMode.isSelected()));
+
+        gameMode.addActionListener(e -> switchMode(Mode.GAME));
+
+        editorMode.addActionListener(e -> switchMode(Mode.EDITOR));
+
+        saveFile.addActionListener(e -> {
+            System.out.println("Saving level");
+
+            JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView());
+            fileChooser.setCurrentDirectory(new File("maps/"));
+            int returnValue = fileChooser.showSaveDialog(null);
+            
+            String filePath = null;
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+                filePath = file.getAbsolutePath();
             }
+            tileMap.save(filePath);
         });
 
-        editorMode.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                switchMode(Mode.EDITOR);
+        loadFile.addActionListener(e -> {
+            System.out.println("Loading level");
+
+            JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView());
+            fileChooser.setCurrentDirectory(new File("maps/"));
+
+            int returnValue = fileChooser.showOpenDialog(null);
+
+            String filePath=null;
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+                filePath = file.getAbsolutePath();
+                tileMap.loadFromFile(filePath);
             }
-        });
+    
 
-        saveFile.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-                System.out.println("Saving level");
-
-                JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView());
-                fileChooser.setCurrentDirectory(new File("maps/"));
-                int returnValue = fileChooser.showSaveDialog(null);
-                
-                String filePath = null;
-                if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    File file = fileChooser.getSelectedFile();
-                    filePath = file.getAbsolutePath();
-                }
-                tileMap.save(filePath);
-            }
-        });
-
-        loadFile.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-                System.out.println("Loading level");
-
-                JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView());
-                fileChooser.setCurrentDirectory(new File("maps/"));
-
-		        int returnValue = fileChooser.showOpenDialog(null);
-
-		        String filePath=null;
-		        if (returnValue == JFileChooser.APPROVE_OPTION) {
-			        File file = fileChooser.getSelectedFile();
-			        filePath = file.getAbsolutePath();
-                    tileMap.loadFromFile(filePath);
-		        }
-     
-
-                repaint();
-            }
+            repaint();
+            
         });
 
         setContentPane(new InGamePanel(tileSet, tileMap));
@@ -127,7 +122,6 @@ public class MainWindow  extends JFrame{
         setContentPane(new InGamePanel(tileSet, tileMap));
         revalidate();
         repaint();
-        
     }
 
     private void switchToEditor(){
@@ -137,7 +131,14 @@ public class MainWindow  extends JFrame{
         setContentPane(new EditorPanel(mapWidth,mapHeight, tileSet, tileMap));
         revalidate();
         repaint();
-        
+    }
+
+    public boolean isDebug(){
+        return debug;
+    }
+
+    public void setDebug(boolean debug){
+        this.debug = debug;
     }
 
 }
