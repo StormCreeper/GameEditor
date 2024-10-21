@@ -97,15 +97,11 @@ public class Bullet {
         ArrayList<Rectangle2D> collisions = map.getCollisions(new Point2D.Double(x, y), false);
 
         for(Rectangle2D r : collisions) {
-            if(r.intersects(getBounds())) {
+            if(r.contains(x, y)) {
                 return true;
             }
         }
 
         return false;
-    }
-
-    private Rectangle2D getBounds(){
-        return new Rectangle2D.Double(x - size/2, y - size/2, size, size);
     }
 }
