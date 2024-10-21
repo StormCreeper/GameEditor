@@ -99,9 +99,10 @@ public class GameLogic {
      */
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        if(key == KeyEvent.VK_UP || key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_DOWN || key == KeyEvent.VK_LEFT){
-            character.keyPressed(key);
-        } else if(key == KeyEvent.VK_S){
+
+        character.keyPressed(key);
+        
+        if(key == KeyEvent.VK_S){
             if(!gun.isEmpty()) {
                 gun.fire();
             }
@@ -115,9 +116,7 @@ public class GameLogic {
      */
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
-        if(key == KeyEvent.VK_UP || key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_DOWN || key == KeyEvent.VK_LEFT){
-            character.keyReleased(key);
-        }
+        character.keyReleased(key);
     }
 
     public void mousePressed(MouseEvent e){

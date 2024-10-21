@@ -23,10 +23,14 @@ public class Character {
     private double velX;
     private double velY;
 
+    private int boxSelX;
+    private int boxSelY;
+
     private boolean upPressed;
     private boolean downPressed;
     private boolean leftPressed;
     private boolean rightPressed;
+    private boolean dPressed;
 
     private int direction = 0; // 0: down, 1: left, 2: up, 3: right
 
@@ -84,6 +88,26 @@ public class Character {
         velX = 0;
         velY = 0;
 
+        // Get selection box pos
+        if(dPressed) {
+            boxSelX = (int) (x / map.getTileSize());
+            boxSelY = (int) (y / map.getTileSize());
+            switch (direction) {
+                case 0:
+                    boxSelY++;
+                    break;
+                case 1:
+                    boxSelX--;
+                    break;
+                case 2:
+                    boxSelY--;
+                    break;
+                case 3:
+                    boxSelX++;
+                    break;
+            }
+        }
+
         // Update direction: if only one of the arrow keys is pressed, the character looks in that direction
 
         if (downPressed && !upPressed && !leftPressed && !rightPressed)
@@ -101,6 +125,11 @@ public class Character {
         ArrayList<Rectangle2D> collisions = map.getCollisions(new Point2D.Double(x, y), true);
 
         g.drawImage(image, (int)x - size/2, (int)y - size/2, null);
+
+        if(dPressed) {
+            g.setColor(Color.green);
+            g.drawRect(boxSelX * map.getTileSize(), boxSelY * map.getTileSize(), map.getTileSize(), map.getTileSize());
+        }
 
         // Show the direction of the character
 
@@ -142,6 +171,8 @@ public class Character {
             rightPressed = true;
         if (key == KeyEvent.VK_DOWN)
             downPressed = true;
+        if (key == KeyEvent.VK_D)
+            dPressed = true;
     }
 
     public void keyReleased(int key) {
@@ -153,6 +184,10 @@ public class Character {
             rightPressed = false;
         if (key == KeyEvent.VK_DOWN)
             downPressed = false;
+        if (key == KeyEvent.VK_D) {
+            
+            dPressed = false;
+        }
     }
 
     private boolean collide() {
