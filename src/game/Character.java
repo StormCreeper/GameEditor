@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
+import game.Tile.Type;
 import main.MainWindow;
 
 public class Character {
@@ -36,10 +37,13 @@ public class Character {
 
     private BufferedImage image;
 
-    private Tilemap map;
+    private Tilemap tilemap;
+
+    private final ArrayList<Bullet> bullets = new ArrayList<>();
+    private final Gun gun = new Gun();
 
     public Character(int size, Tilemap map) {
-        this.map = map;
+        this.tilemap = map;
         try {
             image = ImageIO.read(new File("textures/chara_new.png"));
         } catch (IOException ex) {
@@ -53,9 +57,36 @@ public class Character {
         velY = 0;
 
         image = Tileset.getScaledInstance(image, size, size);
+
+        for(int i=0; i<2; i++) {
+            gun.addBullet(Type.water);
+            gun.addBullet(Type.lava);
+            gun.addBullet(Type.ground);
+        }
     }
 
-    public void update(double deltaTime) {        
+    private void updateGun(double deltaTime) {
+        for(Bullet b : bullets){
+            b.update(deltaTime);
+        }
+        bullets.removeIf(Bullet::isDead);
+
+        if(gun.isFiring()) {
+            Point2D p = getPosition();
+            int direction = getDirection();
+            switch(direction){
+                case 0 -> bullets.add(new Bullet(p.getX(), p.getY(), 0, 50, 10, tilemap, gun.getNextBullet()));
+                case 1 -> bullets.add(new Bullet(p.getX(), p.getY(), -50, 0, 10, tilemap, gun.getNextBullet()));
+                case 2 -> bullets.add(new Bullet(p.getX(), p.getY(), 0, -50, 10, tilemap, gun.getNextBullet()));
+                case 3 -> bullets.add(new Bullet(p.getX(), p.getY(), 50, 0, 10, tilemap, gun.getNextBullet()));
+            }
+            //bullets.add(new Bullet(p.getX(), p.getY(), 0, 50, 10, tilemap, gun.getNextBullet()));
+        }
+    }
+
+    public void update(double deltaTime) {  
+        
+        updateGun(deltaTime);
 
         if (rightPressed)
             velX += 1;
@@ -90,8 +121,8 @@ public class Character {
 
         // Get selection box pos
         if(dPressed) {
-            boxSelX = (int) (x / map.getTileSize());
-            boxSelY = (int) (y / map.getTileSize());
+            boxSelX = (int) (x / tilemap.getTileSize());
+            boxSelY = (int) (y / tilemap.getTileSize());
             switch (direction) {
                 case 0:
                     boxSelY++;
@@ -122,13 +153,13 @@ public class Character {
     }
 
     public void drawSelf(Graphics2D g) {    
-        ArrayList<Rectangle2D> collisions = map.getCollisions(new Point2D.Double(x, y), true);
+        ArrayList<Rectangle2D> collisions = tilemap.getCollisions(new Point2D.Double(x, y), true);
 
         g.drawImage(image, (int)x - size/2, (int)y - size/2, null);
 
         if(dPressed) {
             g.setColor(Color.green);
-            g.drawRect(boxSelX * map.getTileSize(), boxSelY * map.getTileSize(), map.getTileSize(), map.getTileSize());
+            g.drawRect(boxSelX * tilemap.getTileSize(), boxSelY * tilemap.getTileSize(), tilemap.getTileSize(), tilemap.getTileSize());
         }
 
         // Show the direction of the character
@@ -160,6 +191,12 @@ public class Character {
                     break;
             }
         }
+
+        for(Bullet b : bullets){
+            b.drawSelf(g);
+        }
+
+        gun.drawLoad(getPosition(), g);
     }
 
     public void keyPressed(int key) {
@@ -173,6 +210,13 @@ public class Character {
             downPressed = true;
         if (key == KeyEvent.VK_D)
             dPressed = true;
+        
+        
+        if(key == KeyEvent.VK_S){
+            if(!gun.isEmpty()) {
+                gun.fire();
+            }
+        }
     }
 
     public void keyReleased(int key) {
@@ -185,13 +229,13 @@ public class Character {
         if (key == KeyEvent.VK_DOWN)
             downPressed = false;
         if (key == KeyEvent.VK_D) {
-            
+
             dPressed = false;
         }
     }
 
     private boolean collide() {
-        ArrayList<Rectangle2D> collisions = map.getCollisions(new Point2D.Double(x, y), true);
+        ArrayList<Rectangle2D> collisions = tilemap.getCollisions(new Point2D.Double(x, y), true);
 
         for(Rectangle2D r : collisions) {
             if(r.intersects(getBounds())) {

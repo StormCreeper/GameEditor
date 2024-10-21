@@ -17,9 +17,6 @@ public class GameLogic {
 
     private final Character character;
 
-    private final ArrayList<Bullet> bullets = new ArrayList<>();
-    private final Gun gun = new Gun();
-
     private final Camera camera;
 
     /**
@@ -34,12 +31,6 @@ public class GameLogic {
         character = new Character(tilemap.getTileSize() - 4, tilemap);
 
         camera = new Camera(character, 10.0);
-
-        for(int i=0; i<2; i++) {
-            gun.addBullet(Type.water);
-            gun.addBullet(Type.lava);
-            gun.addBullet(Type.ground);
-        }
     }
 
     /**
@@ -51,23 +42,8 @@ public class GameLogic {
     public void update(double currentTime, double deltaTime) {
         // System.out.println("Delta time : " + deltaTime);
         character.update(deltaTime);
-        for(Bullet b : bullets){
-            b.update(deltaTime);
-        }
-        bullets.removeIf(Bullet::isDead);
+        
         camera.update(deltaTime);
-
-        if(gun.isFiring()) {
-            Point2D p = character.getPosition();
-            int direction = character.getDirection();
-            switch(direction){
-                case 0 -> bullets.add(new Bullet(p.getX(), p.getY(), 0, 50, 10, tilemap, gun.getNextBullet()));
-                case 1 -> bullets.add(new Bullet(p.getX(), p.getY(), -50, 0, 10, tilemap, gun.getNextBullet()));
-                case 2 -> bullets.add(new Bullet(p.getX(), p.getY(), 0, -50, 10, tilemap, gun.getNextBullet()));
-                case 3 -> bullets.add(new Bullet(p.getX(), p.getY(), 50, 0, 10, tilemap, gun.getNextBullet()));
-            }
-            //bullets.add(new Bullet(p.getX(), p.getY(), 0, 50, 10, tilemap, gun.getNextBullet()));
-        }
     }
 
     /**
@@ -85,11 +61,6 @@ public class GameLogic {
         tilemap.drawSelf(g);
 
         character.drawSelf(g);
-        for(Bullet b : bullets){
-            b.drawSelf(g);
-        }
-
-        gun.drawLoad(character.getPosition(), g);
     }
 
     /**
@@ -101,12 +72,6 @@ public class GameLogic {
         int key = e.getKeyCode();
 
         character.keyPressed(key);
-        
-        if(key == KeyEvent.VK_S){
-            if(!gun.isEmpty()) {
-                gun.fire();
-            }
-        }
     }
 
     /**
