@@ -27,6 +27,10 @@ public class Character {
     private int boxSelX;
     private int boxSelY;
 
+    private boolean selectionOk = false;
+    private Type selectedType = Type.ground;
+
+
     private boolean upPressed;
     private boolean downPressed;
     private boolean leftPressed;
@@ -137,6 +141,15 @@ public class Character {
                     boxSelX++;
                     break;
             }
+
+            // Print type
+            Tile tile = tilemap.getTile(boxSelX, boxSelY);
+            if(tile != null) {
+                selectedType = tile.getType();
+                selectionOk = true;
+            } else {
+                selectionOk = false;
+            }
         }
 
         // Update direction: if only one of the arrow keys is pressed, the character looks in that direction
@@ -229,7 +242,8 @@ public class Character {
         if (key == KeyEvent.VK_DOWN)
             downPressed = false;
         if (key == KeyEvent.VK_D) {
-
+            if(selectionOk)
+                gun.addBullet(selectedType);
             dPressed = false;
         }
     }

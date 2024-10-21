@@ -38,9 +38,9 @@ public class Gun {
 
         Point loadPos = new Point((int) playerPos.getX()+25, (int) playerPos.getY());
 
-        for(Tile.Type b : bullets) {
+        for(Tile.Type bulletType : bullets) {
 
-            switch(b) {
+            switch(bulletType) {
                 case ground -> g2d.setColor(Color.gray);
                 case water -> g2d.setColor(Color.blue);
                 case lava -> g2d.setColor(Color.red);
