@@ -71,6 +71,13 @@ public class Tilemap {
         tileMap[i][j].setLayer(ID, layer);
     }
 
+    public void setTileHighlighted(int i, int j, boolean highlight) {
+        if (i < 0 || i >= numTilesX || j < 0 || j >= numTilesY) {
+            return;
+        }
+        tileMap[i][j].setHighlighted(highlight);
+    }
+
     public int getTileSize() {
         return tileSize;
     }
@@ -355,6 +362,10 @@ public class Tilemap {
                 }
                 for(int ID : tileMap[i][j].getLayersTextures()) {
                     g.drawImage(tileset.getTexture(ID), i * tileSize, j * tileSize, null);
+                }
+
+                if(tileMap[i][j].isHighlighted()){
+                    g.drawImage(tileset.getTexture(32), i * tileSize, j * tileSize, null);
                 }
  
             }

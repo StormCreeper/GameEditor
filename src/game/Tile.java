@@ -16,8 +16,7 @@ public class Tile {
 
     private int[] layersTexturesID = {0, 0};    
 
-    // The tile texture ids for each layer : floor, collision, decoration
-    // private int[] tileTextureIds = new int[3]; 
+    private boolean highlighted = false;
 
     public Tile() {
         this(Type.ground);
@@ -32,6 +31,14 @@ public class Tile {
         this.type = intToType(repr & 0b11);
         this.layersTexturesID[0] = (repr >> 2) & 0b111111111111111;
         this.layersTexturesID[1] = (repr >> 17) & 0b111111111111111;
+    }
+
+    public void setHighlighted(boolean highlighted) {
+        this.highlighted = highlighted;
+    }
+
+    public boolean isHighlighted() {
+        return highlighted;
     }
 
     public void setType(Type type) {

@@ -48,7 +48,15 @@ public class GameEditorPanel extends JComponent {
             public void mouseReleased(MouseEvent e) {
                 lastX = -1;
                 lastY = -1;
-                if(automaticFilling) completeFilling();
+                if(automaticFilling){
+                    completeFilling();
+                    indexesForFilling = null;
+                    for (int i = 0; i < tileMap.getNumX(); i++) {
+                        for (int j = 0; j < tileMap.getNumY(); j++) {
+                            tileMap.setTileHighlighted(i, j, false);
+                        }
+                    }
+                } 
             }
         });
 
@@ -78,7 +86,10 @@ public class GameEditorPanel extends JComponent {
             lastX = i;
             lastY = j;
             changeTile(i,j);
-            if(automaticFilling) indexesForFilling[i][j] = true;
+            if(automaticFilling){
+                indexesForFilling[i][j] = true;
+                tileMap.setTileHighlighted(i, j, true);
+            }
             repaint();
         }
     }
