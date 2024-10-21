@@ -1,10 +1,7 @@
 package game;
 
-import game.Tile.Type;
 import java.awt.Graphics2D;
 import java.awt.event.*;
-import java.awt.geom.Point2D;
-import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
