@@ -79,10 +79,10 @@ public class Character {
             Point2D p = getPosition();
             int direction = getDirection();
             switch(direction){
-                case 0 -> bullets.add(new Bullet(p.getX(), p.getY(), 0, 50, 10, tilemap, gun.getNextBullet()));
-                case 1 -> bullets.add(new Bullet(p.getX(), p.getY(), -50, 0, 10, tilemap, gun.getNextBullet()));
-                case 2 -> bullets.add(new Bullet(p.getX(), p.getY(), 0, -50, 10, tilemap, gun.getNextBullet()));
-                case 3 -> bullets.add(new Bullet(p.getX(), p.getY(), 50, 0, 10, tilemap, gun.getNextBullet()));
+                case 0 -> bullets.add(new Bullet(p.getX(), p.getY(), 0, 500, 10, tilemap, gun.getNextBullet()));
+                case 1 -> bullets.add(new Bullet(p.getX(), p.getY(), -500, 0, 10, tilemap, gun.getNextBullet()));
+                case 2 -> bullets.add(new Bullet(p.getX(), p.getY(), 0, -500, 10, tilemap, gun.getNextBullet()));
+                case 3 -> bullets.add(new Bullet(p.getX(), p.getY(), 500, 0, 10, tilemap, gun.getNextBullet()));
             }
             //bullets.add(new Bullet(p.getX(), p.getY(), 0, 50, 10, tilemap, gun.getNextBullet()));
         }

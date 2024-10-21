@@ -41,7 +41,7 @@ public class Bullet {
 
         if (collide()) {
 
-            Point pos = new Point((int)(x+vx), (int)(y+vy));
+            Point pos = new Point((int)(x), (int)(y));
             Type tileType = map.getType(pos.x, pos.y);
 
             int i = pos.x/map.getTileSize();
