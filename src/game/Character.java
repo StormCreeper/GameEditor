@@ -78,12 +78,26 @@ public class Character {
         if(gun.isFiring()) {
             Point2D p = getPosition();
             int direction = getDirection();
+            int shakeIntensity = 500;
             switch(direction){
-                case 0 -> bullets.add(new Bullet(p.getX(), p.getY(), 0, 500, 10, tilemap, gun.getNextBullet()));
-                case 1 -> bullets.add(new Bullet(p.getX(), p.getY(), -500, 0, 10, tilemap, gun.getNextBullet()));
-                case 2 -> bullets.add(new Bullet(p.getX(), p.getY(), 0, -500, 10, tilemap, gun.getNextBullet()));
-                case 3 -> bullets.add(new Bullet(p.getX(), p.getY(), 500, 0, 10, tilemap, gun.getNextBullet()));
+                case 0 -> {
+                    bullets.add(new Bullet(p.getX(), p.getY(), 0, 500, 10, tilemap, gun.getNextBullet()));
+                    Camera.instance.shake(new Point2D.Double(0, -shakeIntensity));
+                }
+                case 1 -> {
+                    bullets.add(new Bullet(p.getX(), p.getY(), -500, 0, 10, tilemap, gun.getNextBullet()));
+                    Camera.instance.shake(new Point2D.Double(-shakeIntensity, 0));
+                }
+                case 2 -> {
+                    bullets.add(new Bullet(p.getX(), p.getY(), 0, -500, 10, tilemap, gun.getNextBullet()));
+                    Camera.instance.shake(new Point2D.Double(0, shakeIntensity));
+                }
+                case 3 -> {
+                    bullets.add(new Bullet(p.getX(), p.getY(), 500, 0, 10, tilemap, gun.getNextBullet()));
+                    Camera.instance.shake(new Point2D.Double(shakeIntensity, 0));
+                }
             }
+
             //bullets.add(new Bullet(p.getX(), p.getY(), 0, 50, 10, tilemap, gun.getNextBullet()));
         }
     }
