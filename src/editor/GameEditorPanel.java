@@ -108,6 +108,9 @@ public class GameEditorPanel extends JComponent {
         automaticFilling = b;
     }
 
+    /**
+     * Computes the automatic filling of the selected area
+     */
     private void completeFilling(){
         int[][] boundsOnLines = new int[2][tileMap.getNumY()];
         for(int j = 0; j<tileMap.getNumY(); j++) {
