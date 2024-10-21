@@ -37,6 +37,7 @@ public class GameEditorPanel extends JComponent {
             public void mousePressed(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     Point p = e.getPoint();
+                    if(automaticFilling) indexesForFilling = new boolean[tileMap.getNumX()][tileMap.getNumY()];
                     mousePressedOn((int) (p.x - offset.x), (int) (p.y - offset.y));
                 } else {
                     lastPoint = e.getPoint();
@@ -47,6 +48,7 @@ public class GameEditorPanel extends JComponent {
             public void mouseReleased(MouseEvent e) {
                 lastX = -1;
                 lastY = -1;
+                if(automaticFilling) completeFilling();
             }
         });
 
@@ -71,16 +73,22 @@ public class GameEditorPanel extends JComponent {
         int tileSize = tileMap.getTileSize();
         int i = px / tileSize;
         int j = py / tileSize;
+        if(i<0 || i>=tileMap.getNumX() || j<0 || j>=tileMap.getNumY()) return;
         if(i != lastX || j != lastY) {
             lastX = i;
             lastY = j;
-            int layer = parent.getSelectedLayer();
+            changeTile(i,j);
+            if(automaticFilling) indexesForFilling[i][j] = true;
+            repaint();
+        }
+    }
+
+    private void changeTile(int i,int j){
+        int layer = parent.getSelectedLayer();
             if(layer == 0) 
                 tileMap.setType(i, j, parent.getSelectedType());
             else
                 tileMap.setTileLayers(i, j, parent.getSelectedTool(), layer-1);
-            repaint();
-        }
     }
 
     @Override
@@ -99,4 +107,42 @@ public class GameEditorPanel extends JComponent {
     public void setAutomaticFilling(boolean b){
         automaticFilling = b;
     }
+
+    private void completeFilling(){
+        int[][] boundsOnLines = new int[2][tileMap.getNumY()];
+        for(int j = 0; j<tileMap.getNumY(); j++) {
+            boundsOnLines[0][j] = tileMap.getNumX();
+            boundsOnLines[1][j] = -1;
+            for(int i = 0; i<tileMap.getNumX(); i++) {
+                if(indexesForFilling[i][j]) {
+                    boundsOnLines[0][j] = Math.min(boundsOnLines[0][j], i);
+                    boundsOnLines[1][j] = Math.max(boundsOnLines[1][j], i);
+                }
+            }
+        }
+        for (int j = 0; j < tileMap.getNumY(); j++) {
+            for(int i=boundsOnLines[0][j]; i<=boundsOnLines[1][j]; i++) {
+                changeTile(i, j);
+            }
+        }
+        int[][] boundsOnColumns = new int[tileMap.getNumX()][2];
+        for(int i = 0; i<tileMap.getNumX(); i++) {
+            boundsOnColumns[i][0] = tileMap.getNumY();
+            boundsOnColumns[i][1] = -1;
+            for(int j = 0; j<tileMap.getNumY(); j++) {
+                if(indexesForFilling[i][j]) {
+                    boundsOnColumns[i][0] = Math.min(boundsOnColumns[i][0], j);
+                    boundsOnColumns[i][1] = Math.max(boundsOnColumns[i][1], j);
+                }
+            }
+        }
+        for (int i = 0; i < tileMap.getNumX(); i++) {
+            for(int j=boundsOnColumns[i][0]; j<=boundsOnColumns[i][1]; j++) {
+                changeTile(i, j);
+            }
+        }
+
+        repaint();
+    }
+    
 }
