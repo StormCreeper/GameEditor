@@ -136,29 +136,6 @@ public class Tilemap {
 
     }
 
-    public void drawSelf(Graphics2D g) {
-        if(hasChanged) {
-            hasChanged = false;
-            doBorders();
-        }
-
-        for (int j = 0; j < numTilesY; j++) {
-            for (int i = 0; i < numTilesX; i++) {
-
-                ArrayList<Integer> firstLayerIDs = tileMap[i][j].getBaseTextures();
-                
-                for(int k=0; k<firstLayerIDs.size(); k++) {
-                    g.drawImage(tileset.getTexture(firstLayerIDs.get(k)), i * tileSize, j * tileSize, null);
-                }
-                for(int ID : tileMap[i][j].getLayersTextures()) {
-                    g.drawImage(tileset.getTexture(ID), i * tileSize, j * tileSize, null);
-                }
- 
-            }
-        }
-        
-    }
-
     public void save(String filePath) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
@@ -360,6 +337,29 @@ public class Tilemap {
             }
         }
                 
+    }
+
+    public void drawSelf(Graphics2D g) {
+        if(hasChanged) {
+            hasChanged = false;
+            doBorders();
+        }
+
+        for (int j = 0; j < numTilesY; j++) {
+            for (int i = 0; i < numTilesX; i++) {
+
+                ArrayList<Integer> firstLayerIDs = tileMap[i][j].getBaseTextures();
+                
+                for(int k=0; k<firstLayerIDs.size(); k++) {
+                    g.drawImage(tileset.getTexture(firstLayerIDs.get(k)), i * tileSize, j * tileSize, null);
+                }
+                for(int ID : tileMap[i][j].getLayersTextures()) {
+                    g.drawImage(tileset.getTexture(ID), i * tileSize, j * tileSize, null);
+                }
+ 
+            }
+        }
+        
     }
 }
 

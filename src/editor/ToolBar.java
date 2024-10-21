@@ -63,7 +63,6 @@ public class ToolBar extends JPanel {
         gbc.gridy = 3;
         this.add(layer2RadioButton, gbc);
         gbc.gridy = 4;
-        gbc.weighty = 1;
         this.add(layer3RadioButton, gbc);
 
         ButtonGroup group = new ButtonGroup();
@@ -78,6 +77,7 @@ public class ToolBar extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.weightx = 3;
+        gbc.weighty = 1;
         this.add(automaticFillingCheckBox, gbc);
 
         automaticFillingCheckBox.addActionListener(e -> parent.setAutomaticFilling(automaticFillingCheckBox.isSelected()));
