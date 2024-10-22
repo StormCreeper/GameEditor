@@ -27,7 +27,7 @@ public class ObjectSelectionPanel extends JPanel {
         layerElements.get(0).addAll(Arrays.asList(5, 13, 21));
 
         layerElements.add(new ArrayList<>());
-        layerElements.get(1).addAll(Arrays.asList(29));
+        layerElements.get(1).addAll(Arrays.asList(29, 34, 35));
 
         layerElements.add(new ArrayList<>());
         layerElements.get(2).addAll(Arrays.asList(30, 31));

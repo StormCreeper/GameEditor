@@ -2,6 +2,7 @@ package game;
 
 import game.Tile.Type;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.BufferedWriter;
@@ -20,6 +21,8 @@ public class Tilemap {
     private int tileSize;
 
     private boolean hasChanged = false;
+
+    private Point startPos = new Point(-1,-1);
 
     public Tilemap(int numTilesX, int numTilesY, int tileSize, Tileset tileset) {
         this.tileset = tileset;
@@ -68,6 +71,10 @@ public class Tilemap {
         if (i < 0 || i >= numTilesX || j < 0 || j >= numTilesY) {
             return;
         }
+        if(ID==35) {
+            tileMap[startPos.x][startPos.y].setLayer(0, layer);
+            startPos = new Point(i, j);
+        }
         tileMap[i][j].setLayer(ID, layer);
     }
 
@@ -87,6 +94,10 @@ public class Tilemap {
 
     public int getTileSize() {
         return tileSize;
+    }
+
+    public Point getStartPos() {
+        return startPos;
     }
 
     public void newEmptyMap(int numTilesX, int numTilesY) {
@@ -125,6 +136,24 @@ public class Tilemap {
             for(int j = Math.max(center_j-1, 0); j<=Math.min(center_j+1, numTilesY-1);j++) {
                 Rectangle2D rect = getBoundingBoxWorld(i, j, isCharacter);
                 if(rect != null)
+                    collisions.add(rect);
+            }
+        }
+
+        return collisions;
+    }
+
+    public ArrayList<Rectangle2D> getCollisions(Point2D center, int tileID) {
+        int center_i = (int)(center.getX() / tileSize);
+        int center_j = (int)(center.getY() / tileSize);
+
+        ArrayList<Rectangle2D> collisions = new ArrayList<>();
+
+        for(int i = Math.max(center_i-1, 0); i<=Math.min(center_i+1, numTilesX-1);i++) {
+            for(int j = Math.max(center_j-1, 0); j<=Math.min(center_j+1, numTilesY-1);j++) {
+                Rectangle2D rect = getBoundingBoxWorld(i, j, false);
+                Tile tile = getTile(i, j);
+                if(rect != null && (tile.getLayersTextures()[0] == tileID || tile.getLayersTextures()[1] == tileID))
                     collisions.add(rect);
             }
         }
