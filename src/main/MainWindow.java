@@ -114,8 +114,6 @@ public class MainWindow  extends JFrame{
         } else {
             tileMap.loadFromFile(levelPath);
         }
-
-        switchToGame();
     }
 
     public void switchMode(Mode mode){
