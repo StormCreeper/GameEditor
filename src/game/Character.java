@@ -60,8 +60,8 @@ public class Character {
 
         this.size = size;
 
-        x = tilemap.getTileSize()*tilemap.getStartPos().x;
-        y = tilemap.getTileSize()*tilemap.getStartPos().y;
+        x = tilemap.getTileSize()*tilemap.getStartPos().x + tilemap.getTileSize()/2;
+        y = tilemap.getTileSize()*tilemap.getStartPos().y + tilemap.getTileSize()/2;
         velX = 0;
         velY = 0;
 
