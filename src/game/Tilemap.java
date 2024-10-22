@@ -71,8 +71,9 @@ public class Tilemap {
         if (i < 0 || i >= numTilesX || j < 0 || j >= numTilesY) {
             return;
         }
-        if(ID==35) {
-            tileMap[startPos.x][startPos.y].setLayer(0, layer);
+        if(ID==34) {
+            if(startPos.x >= 0 && startPos.y >= 0 && getTile(startPos.x, startPos.y).getLayersTextures()[0] == 34)
+                tileMap[startPos.x][startPos.y].setLayer(0, layer);
             startPos = new Point(i, j);
         }
         tileMap[i][j].setLayer(ID, layer);
