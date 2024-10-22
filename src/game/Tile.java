@@ -51,6 +51,10 @@ public class Tile {
         fixThings();
     }
 
+    public void clearLayer(int layer) {
+        layersTexturesID[layer] = 0;
+    }
+
     public int[] getLayersTextures() {
         return layersTexturesID;
     }

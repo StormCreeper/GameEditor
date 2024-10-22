@@ -52,6 +52,10 @@ public class ObjectSelectionPanel extends JPanel {
             add(tb);
         }
 
+        TextureButton tbEraser = new TextureButton(this, tileSet.getTexture(33), -1);
+        textureButtons.add(tbEraser);
+        add(tbEraser);
+
         repaintButtons();
     }
 

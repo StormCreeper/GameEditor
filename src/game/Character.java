@@ -45,6 +45,12 @@ public class Character {
     private final ArrayList<Bullet> bullets = new ArrayList<>();
     private final Gun gun = new Gun();
 
+    private boolean hasWon = false;
+
+    public boolean hasWon() {
+        return hasWon;
+    }
+
     public Character(int size, Tilemap map) {
         this.tilemap = map;
         try {
@@ -135,6 +141,9 @@ public class Character {
 
         velX = 0;
         velY = 0;
+
+        if(detectWin())
+            hasWon = true;
 
         // Get selection box pos
         if(dPressed) {
@@ -280,6 +289,18 @@ public class Character {
                 gun.addBullet(selectedType);
             dPressed = false;
         }
+    }
+
+    private boolean detectWin() {
+        ArrayList<Rectangle2D> collisions = tilemap.getCollisions(new Point2D.Double(x, y), 35);
+
+        for(Rectangle2D r : collisions) {
+            if(r.intersects(getBounds())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private boolean collide() {
