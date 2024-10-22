@@ -1,12 +1,11 @@
 package editor;
 
-import game.Tile.Type;
 import game.Tile;
+import game.Tile.Type;
 import game.Tileset;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import javax.swing.*;
 
 public class ObjectSelectionPanel extends JPanel {
@@ -52,6 +51,10 @@ public class ObjectSelectionPanel extends JPanel {
             textureButtons.add(tb);
             add(tb);
         }
+
+        TextureButton tbEraser = new TextureButton(this, tileSet.getTexture(33), -1);
+        textureButtons.add(tbEraser);
+        add(tbEraser);
 
         repaintButtons();
     }
