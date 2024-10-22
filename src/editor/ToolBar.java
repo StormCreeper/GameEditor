@@ -16,8 +16,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public class ToolBar extends JPanel {
-    private final EditorPanel parent;
-
     private final JButton addLineButton = new JButton("Add Line");
     private final JButton addColumnButton = new JButton("Add Column");
     private final JButton newEmptyMapButton = new JButton("New Empty Map");
@@ -34,8 +32,6 @@ public class ToolBar extends JPanel {
     private final ArrayList<ActionListener> layerChangeListeners = new ArrayList<>();
 
     ToolBar(EditorPanel parent) {
-        this.parent = parent;
-
         addLineButton.addActionListener(e -> {
             parent.addLine();
         });

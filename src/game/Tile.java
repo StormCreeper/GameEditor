@@ -79,7 +79,7 @@ public class Tile {
                 return new Rectangle2D.Double(0, 0, 1, 1);
             }
             if(!isCharacter) {
-                if(layersTexturesID[i]==30) {
+                if(layersTexturesID[i]==30 || layersTexturesID[i]==35 ) {
                     return new Rectangle2D.Double(0, 0, 1, 1);
                 }
             }

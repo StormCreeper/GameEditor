@@ -26,6 +26,8 @@ public class MainWindow  extends JFrame{
 
     private boolean debug = false;
 
+    private String levelPath = "";
+
     public MainWindow() {
 
         instance = this;
@@ -92,6 +94,7 @@ public class MainWindow  extends JFrame{
                 File file = fileChooser.getSelectedFile();
                 filePath = file.getAbsolutePath();
                 tileMap.loadFromFile(filePath);
+                levelPath = filePath;
             }
     
 
@@ -99,10 +102,20 @@ public class MainWindow  extends JFrame{
             
         });
 
-        setContentPane(new InGamePanel(tileSet, tileMap));
+        setContentPane(new InGamePanel(tileSet, tileMap, this));
         
         pack();
         setVisible(true);
+    }
+
+    public void resetLevel() {
+        if(levelPath == "") {
+            tileMap = new Tilemap(mapWidth, mapHeight, 50, tileSet);
+        } else {
+            tileMap.loadFromFile(levelPath);
+        }
+
+        switchToGame();
     }
 
     public void switchMode(Mode mode){
@@ -119,7 +132,7 @@ public class MainWindow  extends JFrame{
     private void switchToGame(){
         System.out.println("Switching to game");
         remove(getContentPane());
-        setContentPane(new InGamePanel(tileSet, tileMap));
+        setContentPane(new InGamePanel(tileSet, tileMap, this));
         revalidate();
         repaint();
     }

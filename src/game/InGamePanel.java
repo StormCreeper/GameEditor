@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.event.*;
 import javax.swing.JPanel;
 
+import main.MainWindow;
+
 public class InGamePanel extends JPanel implements Runnable, KeyListener {
 
 	private long startingNanoTime;
@@ -15,10 +17,13 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener {
 
 	private final GameLogic gameLogic;
 
+	private MainWindow parent;
+
 	Thread thread;
 	boolean isRunning = true;
 
-	public InGamePanel(Tileset tileset, Tilemap tileMap) {
+	public InGamePanel(Tileset tileset, Tilemap tileMap, MainWindow parent) {
+		this.parent = parent;
 		gameLogic = new GameLogic(this, tileMap);
 		addMouseListener(new MouseAdapter(){
 			@Override
@@ -41,6 +46,11 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener {
 				gameLogic.mouseDragged(e);
 			}
 		});
+	}
+
+	public void resetLevel() {
+		stopGame();
+		parent.resetLevel();
 	}
 
 	@Override

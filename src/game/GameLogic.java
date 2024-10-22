@@ -2,7 +2,8 @@ package game;
 
 import java.awt.Graphics2D;
 import java.awt.event.*;
-import javax.swing.JPanel;
+
+import javax.swing.JOptionPane;
 
 /**
  * "Interface" class to act as an entry point for the game logic only: all
@@ -19,9 +20,9 @@ public class GameLogic {
     /**
      * To have access to getWidth(), getHeight()
      */
-    private final JPanel parent;
+    private final InGamePanel parent;
 
-    public GameLogic(JPanel parent, Tilemap tilemap) {
+    public GameLogic(InGamePanel parent, Tilemap tilemap) {
         this.parent = parent;
         this.tilemap = tilemap;
 
@@ -43,7 +44,8 @@ public class GameLogic {
         camera.update(deltaTime);
 
         if(character.hasWon()) {
-            System.out.println("Wooooooonnnnnnnnnn :D :D :D :D :D :D :D :D");
+            JOptionPane.showMessageDialog(parent, "You won :D");
+            parent.resetLevel();
         }
     }
 
