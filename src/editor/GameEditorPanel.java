@@ -1,5 +1,6 @@
 package editor;
 
+import game.Tile;
 import game.Tilemap;
 import game.Tileset;
 import java.awt.*;
@@ -96,10 +97,17 @@ public class GameEditorPanel extends JComponent {
 
     private void changeTile(int i,int j){
         int layer = parent.getSelectedLayer();
+        if(parent.getSelectedTool() != -1){
             if(layer == 0) 
                 tileMap.setType(i, j, parent.getSelectedType());
             else
                 tileMap.setTileLayers(i, j, parent.getSelectedTool(), layer-1);
+        } else {
+            if(layer == 0) 
+                tileMap.setType(i, j, Tile.Type.ground);
+            else
+                tileMap.clearTileLayers(i, j, layer-1);
+        }
     }
 
     @Override

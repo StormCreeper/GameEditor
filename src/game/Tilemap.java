@@ -79,6 +79,13 @@ public class Tilemap {
         tileMap[i][j].setLayer(ID, layer);
     }
 
+    public void clearTileLayers(int i, int j, int layer) {
+        if (i < 0 || i >= numTilesX || j < 0 || j >= numTilesY) {
+            return;
+        }
+        tileMap[i][j].clearLayer(layer);
+    }
+
     public void setTileHighlighted(int i, int j, boolean highlight) {
         if (i < 0 || i >= numTilesX || j < 0 || j >= numTilesY) {
             return;
