@@ -41,6 +41,10 @@ public class GameLogic {
         character.update(deltaTime);
         
         camera.update(deltaTime);
+
+        if(character.hasWon()) {
+            System.out.println("Wooooooonnnnnnnnnn :D :D :D :D :D :D :D :D");
+        }
     }
 
     /**

@@ -125,6 +125,24 @@ public class Tilemap {
         return collisions;
     }
 
+    public ArrayList<Rectangle2D> getCollisions(Point2D center, int tileID) {
+        int center_i = (int)(center.getX() / tileSize);
+        int center_j = (int)(center.getY() / tileSize);
+
+        ArrayList<Rectangle2D> collisions = new ArrayList<>();
+
+        for(int i = Math.max(center_i-1, 0); i<=Math.min(center_i+1, numTilesX-1);i++) {
+            for(int j = Math.max(center_j-1, 0); j<=Math.min(center_j+1, numTilesY-1);j++) {
+                Rectangle2D rect = getBoundingBoxWorld(i, j, false);
+                Tile tile = getTile(i, j);
+                if(rect != null && (tile.getLayersTextures()[0] == tileID || tile.getLayersTextures()[1] == tileID))
+                    collisions.add(rect);
+            }
+        }
+
+        return collisions;
+    }
+
     public void loadFromFile(String filename) {
         File file = new File(filename);
 
