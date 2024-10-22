@@ -182,11 +182,32 @@ public class Character {
     public void drawSelf(Graphics2D g) {    
         ArrayList<Rectangle2D> collisions = tilemap.getCollisions(new Point2D.Double(x, y), true);
 
-        g.drawImage(image, (int)x - size/2, (int)y - size/2, null);
-
         if(dPressed) {
             g.setColor(Color.green);
             g.drawRect(boxSelX * tilemap.getTileSize(), boxSelY * tilemap.getTileSize(), tilemap.getTileSize(), tilemap.getTileSize());
+        }
+
+        // Draw gun
+        if(direction == 2) {
+            g.setColor(Color.black);
+            g.fillRect((int)x - 5, (int)y - 30, 10, 20);
+        }
+
+        // Draw character
+        g.drawImage(image, (int)x - size/2, (int)y - size/2, null);
+
+        // Draw gun (in front of the character)
+        if(direction == 0) {
+            g.setColor(Color.black);
+            g.fillRect((int)x - 5, (int)y + 15, 10, 20);
+        }
+        if(direction == 1) {
+            g.setColor(Color.black);
+            g.fillRect((int)x - 30, (int)y - 5, 20, 10);
+        }
+        if(direction == 3) {
+            g.setColor(Color.black);
+            g.fillRect((int)x + 10, (int)y - 5, 20, 10);
         }
 
         // Show the direction of the character
