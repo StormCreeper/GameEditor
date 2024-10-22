@@ -1,5 +1,6 @@
 package game;
 
+import game.Tile.Type;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -10,8 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
-
-import game.Tile.Type;
 import main.MainWindow;
 
 public class Character {
@@ -55,8 +54,8 @@ public class Character {
 
         this.size = size;
 
-        x = -50;
-        y = -50;
+        x = tilemap.getTileSize()*tilemap.getStartPos().x;
+        y = tilemap.getTileSize()*tilemap.getStartPos().y;
         velX = 0;
         velY = 0;
 
