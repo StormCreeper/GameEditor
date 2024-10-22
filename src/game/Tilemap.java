@@ -160,7 +160,10 @@ public class Tilemap {
             String[] tileList = lines[1 + j].split(" "); // + 1 for empty line at beginning
 
             for (int i = 0; i < numTilesX; i++) {
-                tileMap[i][j] = new Tile(Integer.parseInt(tileList[i])); // Use encoded representation of the tile 
+                tileMap[i][j] = new Tile(Integer.parseInt(tileList[i])); // Use encoded representation of the tile
+                if(tileMap[i][j].getLayersTextures()[0] == 34) {
+                    startPos = new Point(i,j);
+                }
             }
         }
 
