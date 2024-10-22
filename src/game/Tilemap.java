@@ -2,6 +2,7 @@ package game;
 
 import game.Tile.Type;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.BufferedWriter;
@@ -20,6 +21,8 @@ public class Tilemap {
     private int tileSize;
 
     private boolean hasChanged = false;
+
+    private Point startPos = new Point(-1,-1);
 
     public Tilemap(int numTilesX, int numTilesY, int tileSize, Tileset tileset) {
         this.tileset = tileset;
@@ -68,6 +71,10 @@ public class Tilemap {
         if (i < 0 || i >= numTilesX || j < 0 || j >= numTilesY) {
             return;
         }
+        if(ID==35) {
+            tileMap[startPos.x][startPos.y].setLayer(0, layer);
+            startPos = new Point(i, j);
+        }
         tileMap[i][j].setLayer(ID, layer);
     }
 
@@ -80,6 +87,10 @@ public class Tilemap {
 
     public int getTileSize() {
         return tileSize;
+    }
+
+    public Point getStartPos() {
+        return startPos;
     }
 
     public void newEmptyMap(int numTilesX, int numTilesY) {
