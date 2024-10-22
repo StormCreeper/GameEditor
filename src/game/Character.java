@@ -67,11 +67,7 @@ public class Character {
 
         image = Tileset.getScaledInstance(image, size, size);
 
-        for(int i=0; i<2; i++) {
-            gun.addBullet(Type.water);
-            gun.addBullet(Type.lava);
-            gun.addBullet(Type.ground);
-        }
+        gun.addBullet(Type.water);
     }
 
     private void updateGun(double deltaTime) {

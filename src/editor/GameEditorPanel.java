@@ -28,7 +28,7 @@ public class GameEditorPanel extends JComponent {
     private Point2D lastPoint = new Point2D.Double(0, 0);
     private Point2D.Double offset = new Point2D.Double(0, 0);
 
-    public GameEditorPanel(EditorPanel parent, int width, int height, Tileset tileSet, Tilemap tileMap) {
+    public GameEditorPanel(EditorPanel parent, Tileset tileSet, Tilemap tileMap) {
         this.parent = parent;
 
         this.tileMap = tileMap;
