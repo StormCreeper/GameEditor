@@ -90,10 +90,16 @@ public class MainWindow  extends JFrame{
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
                 levelPath = file.getAbsolutePath();
-                resetLevel();
+                switch(mode){
+                    case GAME -> resetLevel();
+                    case EDITOR -> {
+                        tileMap.loadFromFile(levelPath);
+                        ((EditorPanel)getContentPane()).repaint();
+                    }
+                }
             }
-    
 
+            revalidate();
             repaint();
             
         });
@@ -110,6 +116,8 @@ public class MainWindow  extends JFrame{
         } else {
             tileMap.loadFromFile(levelPath);
         }
+
+        switchToGame();
     }
 
     public void switchMode(Mode mode){

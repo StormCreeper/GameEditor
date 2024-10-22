@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -106,6 +107,7 @@ public class ToolBar extends JPanel {
         gbc.weighty = 1;
         this.add(automaticFillingCheckBox, gbc);
 
+        setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220), 2, true));
         setBackground(Color.WHITE);
     }
 
