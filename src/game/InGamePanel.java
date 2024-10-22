@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.*;
 import javax.swing.JPanel;
-
 import main.MainWindow;
 
 public class InGamePanel extends JPanel implements Runnable, KeyListener {
@@ -17,7 +16,7 @@ public class InGamePanel extends JPanel implements Runnable, KeyListener {
 
 	private final GameLogic gameLogic;
 
-	private MainWindow parent;
+	private final MainWindow parent;
 
 	Thread thread;
 	boolean isRunning = true;

@@ -10,7 +10,7 @@ public class TextureButton extends JToggleButton {
 
     private final BufferedImage image;
 
-    private int tool;
+    private final int tool;
 
     public TextureButton(ObjectSelectionPanel panel, BufferedImage image, int tool) { 
         super();

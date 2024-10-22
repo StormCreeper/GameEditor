@@ -15,7 +15,7 @@ import main.MainWindow;
 
 public class Character {
 
-    private int size; // The size of the character on the screen
+    private final int size; // The size of the character on the screen
 
     private double x;
     private double y;
@@ -78,7 +78,6 @@ public class Character {
 
         if(gun.isFiring()) {
             Point2D p = getPosition();
-            int direction = getDirection();
             int shakeIntensity = 500;
             switch(direction){
                 case 0 -> {
@@ -98,8 +97,6 @@ public class Character {
                     Camera.instance.shake(new Point2D.Double(shakeIntensity, 0));
                 }
             }
-
-            //bullets.add(new Bullet(p.getX(), p.getY(), 0, 50, 10, tilemap, gun.getNextBullet()));
         }
     }
 
@@ -146,18 +143,10 @@ public class Character {
             boxSelX = (int) (x / tilemap.getTileSize());
             boxSelY = (int) (y / tilemap.getTileSize());
             switch (direction) {
-                case 0:
-                    boxSelY++;
-                    break;
-                case 1:
-                    boxSelX--;
-                    break;
-                case 2:
-                    boxSelY--;
-                    break;
-                case 3:
-                    boxSelX++;
-                    break;
+                case 0 -> boxSelY++;
+                case 1 -> boxSelX--;
+                case 2 -> boxSelY--;
+                case 3 -> boxSelX++;
             }
 
             // Print type
@@ -229,18 +218,10 @@ public class Character {
 
             g.setColor(Color.blue);
             switch (direction) {
-                case 0:
-                    g.drawLine((int) x, (int) y, (int) x, (int) y + size);
-                    break;
-                case 1:
-                    g.drawLine((int) x, (int) y, (int) x - size, (int) y);
-                    break;
-                case 2:
-                    g.drawLine((int) x, (int) y, (int) x, (int) y - size);
-                    break;
-                case 3:
-                    g.drawLine((int) x, (int) y, (int) x + size, (int) y);
-                    break;
+                case 0 -> g.drawLine((int) x, (int) y, (int) x, (int) y + size);
+                case 1 -> g.drawLine((int) x, (int) y, (int) x - size, (int) y);
+                case 2 -> g.drawLine((int) x, (int) y, (int) x, (int) y - size);
+                case 3 -> g.drawLine((int) x, (int) y, (int) x + size, (int) y);
             }
         }
 

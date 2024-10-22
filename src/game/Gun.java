@@ -6,7 +6,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 public class Gun {
-    private ArrayList<Tile.Type> bullets = new ArrayList<>();
+    private final ArrayList<Tile.Type> bullets = new ArrayList<>();
     
     private boolean firing = false;
 

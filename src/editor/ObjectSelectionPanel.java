@@ -14,7 +14,7 @@ public class ObjectSelectionPanel extends JPanel {
 
     private final ArrayList<ArrayList<Integer>> layerElements =  new ArrayList<>();
 
-    private EditorPanel parent;
+    private final EditorPanel parent;
 
     private int tool = 0;
 

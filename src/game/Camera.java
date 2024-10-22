@@ -12,8 +12,8 @@ public class Camera {
     private final Character target;
     private final Point2D.Double position;
 
-    private Point2D.Double shakeOffset = new Point2D.Double(0, 0);
-    private Point2D.Double shakeVelocity = new Point2D.Double(0, 0);
+    private final Point2D.Double shakeOffset = new Point2D.Double(0, 0);
+    private final Point2D.Double shakeVelocity = new Point2D.Double(0, 0);
 
     private final double easeFactor;
 
@@ -29,8 +29,6 @@ public class Camera {
     }
 
     public void update(double deltaTime) {
-        // position.x = target.getPosition().getX();
-        // position.y = target.getPosition().getY();
 
         position.x = position.x + (target.getPosition().getX() - position.x) * easeFactor * deltaTime;
         position.y = position.y + (target.getPosition().getY() - position.y) * easeFactor * deltaTime;

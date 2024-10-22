@@ -1,5 +1,6 @@
 package editor;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -48,6 +49,7 @@ public class ToolBar extends JPanel {
             JTextField xField = new JTextField(5);
             JTextField yField = new JTextField(5);
 
+            // A JOptionPane to get the width and height of the new map asked by the user
             JPanel myPanel = new JPanel();
             myPanel.add(new JLabel("width:"));
             myPanel.add(xField);
@@ -60,6 +62,8 @@ public class ToolBar extends JPanel {
             } 
             
         });
+
+        automaticFillingCheckBox.addActionListener(e -> parent.setAutomaticFilling(automaticFillingCheckBox.isSelected()));
 
         setLayout(new GridBagLayout());
 
@@ -102,8 +106,7 @@ public class ToolBar extends JPanel {
         gbc.weighty = 1;
         this.add(automaticFillingCheckBox, gbc);
 
-        automaticFillingCheckBox.addActionListener(e -> parent.setAutomaticFilling(automaticFillingCheckBox.isSelected()));
-        
+        setBackground(Color.WHITE);
     }
 
     public int getSelectedLayer() {

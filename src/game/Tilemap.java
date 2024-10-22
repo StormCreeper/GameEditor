@@ -18,7 +18,7 @@ public class Tilemap {
     private final Tileset tileset;
 
     private int numTilesX, numTilesY;
-    private int tileSize;
+    private final int tileSize;
 
     private boolean hasChanged = false;
 

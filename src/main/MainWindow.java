@@ -72,12 +72,11 @@ public class MainWindow  extends JFrame{
             fileChooser.setCurrentDirectory(new File("maps/"));
             int returnValue = fileChooser.showSaveDialog(null);
             
-            String filePath = null;
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
-                filePath = file.getAbsolutePath();
+                levelPath = file.getAbsolutePath();
             }
-            tileMap.save(filePath);
+            tileMap.save(levelPath);
         });
 
         loadFile.addActionListener(e -> {
@@ -88,11 +87,9 @@ public class MainWindow  extends JFrame{
 
             int returnValue = fileChooser.showOpenDialog(null);
 
-            String filePath=null;
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
-                filePath = file.getAbsolutePath();
-                levelPath = filePath;
+                levelPath = file.getAbsolutePath();
                 resetLevel();
             }
     
@@ -108,7 +105,7 @@ public class MainWindow  extends JFrame{
     }
 
     public void resetLevel() {
-        if(levelPath == "") {
+        if("".equals(levelPath)) {
             tileMap = new Tilemap(0,0, 50, tileSet);
         } else {
             tileMap.loadFromFile(levelPath);
