@@ -98,7 +98,7 @@ public class Character implements GameDrawable, GameUpdatable{
 
             Point2D.Double bulletVel = Character.getScaledDirection(direction, 500);
             bullets.add(new Bullet(p.getX(), p.getY(), bulletVel.getX(), bulletVel.getY(), 10, tilemap, gun.getNextAmmo()));
-            
+
             Camera.instance.shake(Character.getScaledDirection(direction, -shakeIntensity));
         }
     }
@@ -127,7 +127,7 @@ public class Character implements GameDrawable, GameUpdatable{
         }
 
         velX *= PLAYER_SPEED * deltaTime;
-        velX *= PLAYER_SPEED * deltaTime;
+        velY *= PLAYER_SPEED * deltaTime;
 
         x += velX;
         if(collide()) {
