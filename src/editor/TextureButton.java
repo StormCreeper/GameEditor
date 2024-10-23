@@ -5,11 +5,17 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import javax.swing.JToggleButton;
 
+/**
+ * A button to select a texture
+ */
 public class TextureButton extends JToggleButton {
+    // The panel containing the button
     private final ObjectSelectionPanel objectSelectionPanel;
 
+    // The image representing the button
     private final BufferedImage image;
 
+    // The tool index associated to the button
     private final int tool;
 
     public TextureButton(ObjectSelectionPanel panel, BufferedImage image, int tool) { 
@@ -25,7 +31,10 @@ public class TextureButton extends JToggleButton {
         });
     }
 
-    public boolean isCurrentType(){
+    /**
+     * @return if the button is the current selected button
+     */
+    public boolean isCurrentTool(){
         return objectSelectionPanel.getSelectedTool() == tool;
     }
 
@@ -34,7 +43,7 @@ public class TextureButton extends JToggleButton {
         Graphics2D g2d = (Graphics2D) g;
         int strokeSize = 2;
 
-        if (isCurrentType())
+        if (isCurrentTool())
             g2d.setColor(Color.BLACK);
         else
             g2d.setColor(Color.WHITE);

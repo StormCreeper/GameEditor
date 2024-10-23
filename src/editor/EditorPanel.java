@@ -6,6 +6,12 @@ import game.Tileset;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
+/**
+ * The main panel of the editor, containing :
+ * - The game panel
+ * - The object selection panel
+ * - The tool bar
+ */
 public class EditorPanel extends JPanel {
 
     private final GameEditorPanel gamePanel;
@@ -31,11 +37,17 @@ public class EditorPanel extends JPanel {
         });
     }
 
+    /**
+     * @return the current edition layer
+     */
     public int getSelectedLayer() {
         if(toolBar == null) return 0;
         return toolBar.getSelectedLayer();
     }
 
+    /**
+     * 
+     */
     public Type getSelectedType() {
         return objectSelectionPanel.getSelectedType();
     }
@@ -44,29 +56,46 @@ public class EditorPanel extends JPanel {
         return objectSelectionPanel.getSelectedTool();
     }
 
+    /**
+     * Add a line to the tile map
+     */
     public void addLine() {
         tileMap.addLine();
         tileMap.change();
         gamePanel.repaint();
     }
 
+    /**
+     * Add a column to the tile map
+     */
     public void addColumn() {
         tileMap.addColumn();
         tileMap.change();
         gamePanel.repaint();
     }
 
+    /**
+     * Reset the view of the game editor panel
+     */
     public void centerView() {
         gamePanel.centerView();
     }
 
+    /**
+     * Replace the tileMap by a new map of the given width and height, covered with floor
+     * @param width
+     * @param height
+     */
     public void newEmptyMap(int width, int height) {
         tileMap.newEmptyMap(width, height);
         tileMap.change();
         gamePanel.repaint();
     }
 
-
+    /**
+     * Set the variable the manage automatic filling
+     * @param b
+     */
     public void setAutomaticFilling(boolean b){
         gamePanel.setAutomaticFilling(b);
     }
