@@ -48,13 +48,19 @@ public class MainWindow  extends JFrame{
         modeMenu.add(debugMode);
         JMenuItem saveFile = new JMenuItem("Save");
         JMenuItem loadFile = new JMenuItem("Load");
+        JMenuItem resetFile = new JMenuItem("Restart level");
         fileMenu.add(saveFile);
         fileMenu.add(loadFile);
+        fileMenu.add(resetFile);
         helpMenu.add(helpMenuItem);
         menuBar.add(modeMenu);
         menuBar.add(fileMenu);
         menuBar.add(helpMenu);
         setJMenuBar(menuBar);
+
+        resetFile.addActionListener(e -> {
+            resetLevel();
+        });
 
         //Init variables that are useful for both modes :
         tileSet = new Tileset(16,64);
