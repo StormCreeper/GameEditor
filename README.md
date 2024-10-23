@@ -34,15 +34,16 @@ The entry point is in App.java
 ## Code organisation
 ### UI elements
   The UI elements (in package editor) are JComponents that are used for the interface (especially for the editor): toolbar, tile selection panel...
+  The 
   
 ### Game elements
-  The game panel is a JPanel, where all game elements are drawn using the Graphics object.  
-  The game elements are java classes, that implement one or both of the interfaces GameDrawable and GameUpdatable. GameDrawable is for elements that can be drawn on the Graphics object, and GameUpdatable is for thoses that need to be updated each frame.  
-  The Tileset class load an image that contains all tile images in a grid pattern, get the sub images, rescale them and makes them accessible to the rest of the program  
-  The Tilemap contains all the tiles in a grid, and draw them in the correct order and place. It also provides the bounding boxes of the 9 tiles surrounding a point.
-  The Tile contains the IDs of the images used to draw it: the base material (ground/water/lava), the border tile(s), and the two other layers. It also provides its bounding box in local space.
-  The Character handles all the player movement and collisions, and controls the gun.
-  The Camera transforms the Graphics to simulate a 2D camera, and have an ease and a screen shake effect
+The game panel is a JPanel, where all game elements are drawn using the Graphics object. It instanciate GameLogic, which is class to abstract the actual game behaviour. The game loop is ran in a separate thread in order not to block the program's execution, computes the delta time, and calls GameLogic.update and GameLogic.draw, as well as all GameLogic events.  
+The game elements are java classes, that implement one or both of the interfaces GameDrawable and GameUpdatable. GameDrawable is for elements that can be drawn on the Graphics object, and GameUpdatable is for thoses that need to be updated each frame.  
+- The Tileset class load an image that contains all tile images in a grid pattern, get the sub images, rescale them and makes them accessible to the rest of the program  
+- The Tilemap contains all the tiles in a grid, and draw them in the correct order and place. It also provides the bounding boxes of the 9 tiles surrounding a point.
+- The Tile contains the IDs of the images used to draw it: the base material (ground/water/lava), the border tile(s), and the two other layers. It also provides its bounding box in local space.
+- The Character handles all the player movement and collisions, and controls the gun.
+- The Camera transforms the Graphics to simulate a 2D camera, and have an ease and a screen shake effect
 
 ## Extensions
 There are several thing we could add to the map editor to make it complete:
