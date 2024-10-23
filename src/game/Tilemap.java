@@ -18,7 +18,7 @@ public class Tilemap {
     private final Tileset tileset;
 
     private int numTilesX, numTilesY;
-    private int tileSize;
+    private final int tileSize;
 
     private boolean hasChanged = false;
 
@@ -221,7 +221,7 @@ public class Tilemap {
             for (int i = 0; i < numTilesX; i++) {
                 tileMap[i][j] = new Tile();
                 if (j != numTilesY - 1) {
-                    tileMap[i][j].setType(temp[i][j].getType());
+                    setTile(i, j, temp[i][j]);
                 }
             }
         }
@@ -238,7 +238,7 @@ public class Tilemap {
             for (int i = 0; i < numTilesX; i++) {
                 tileMap[i][j] = new Tile();
                 if (i != numTilesX - 1) {
-                    tileMap[i][j].setType(temp[i][j].getType());
+                    setTile(i, j, temp[i][j]);
                 }
             }
         }

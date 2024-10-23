@@ -14,7 +14,7 @@ public class Tile {
     private Type type;
     private ArrayList<Integer> baseTextures = new ArrayList<>(); // The texture ids that are used to create the first layer of the tile
 
-    private int[] layersTexturesID = {0, 0};    
+    private final int[] layersTexturesID = {0, 0};    
 
     private boolean highlighted = false;
 
@@ -100,7 +100,7 @@ public class Tile {
         baseTextures = new ArrayList<>();
     }
 
-    public Type intToType(int i) {
+    public static Type intToType(int i) {
         return switch (i) {
             case 0 -> Type.ground;
             case 1 -> Type.water;

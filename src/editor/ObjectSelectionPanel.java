@@ -3,6 +3,7 @@ package editor;
 import game.Tile;
 import game.Tile.Type;
 import game.Tileset;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +15,7 @@ public class ObjectSelectionPanel extends JPanel {
 
     private final ArrayList<ArrayList<Integer>> layerElements =  new ArrayList<>();
 
-    private EditorPanel parent;
+    private final EditorPanel parent;
 
     private int tool = 0;
 
@@ -34,6 +35,9 @@ public class ObjectSelectionPanel extends JPanel {
         
         
         this.tileSet = tileSet;
+
+        setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220), 2, true));
+        setBackground(Color.WHITE);
 
         replaceButtons();
     }

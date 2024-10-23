@@ -13,13 +13,13 @@ public class EditorPanel extends JPanel {
     private final ToolBar toolBar;
     private final Tilemap tileMap;
 
-    public EditorPanel(int width, int height, Tileset tileSet, Tilemap tileMap) {
+    public EditorPanel(Tileset tileSet, Tilemap tileMap) {
         super();
         setLayout(new BorderLayout());
 
         this.tileMap = tileMap;
 
-        gamePanel = new GameEditorPanel(this, width, height, tileSet, tileMap);
+        gamePanel = new GameEditorPanel(this, tileSet, tileMap);
 
         add(gamePanel, BorderLayout.CENTER);
         add(objectSelectionPanel = new ObjectSelectionPanel(this, tileSet), BorderLayout.SOUTH); 

@@ -12,21 +12,19 @@ public class MainWindow  extends JFrame{
 
     public static MainWindow instance;
 
-    private enum Mode {
+    public enum Mode {
         GAME,
         EDITOR
     }
 
     private Mode mode = Mode.GAME;
 
-    private Tileset tileSet;
+    private final Tileset tileSet;
     private Tilemap tileMap;
-    private int mapWidth = 10;
-    private int mapHeight = 10;
 
     private boolean debug = false;
 
-    private String levelPath = "";
+    private String levelPath = "maps/level_1.txt";
 
     public MainWindow() {
 
@@ -61,7 +59,8 @@ public class MainWindow  extends JFrame{
         tileSet = new Tileset(16,64);
         tileSet.loadTextures();
         tileSet.resizeTextures(50);
-        tileMap = new Tilemap(mapWidth, mapHeight, 50, tileSet);
+        tileMap = new Tilemap(0,0, 50, tileSet);
+        tileMap.loadFromFile(levelPath);
         tileMap.change();
 
         debugMode.addActionListener(e -> setDebug(debugMode.isSelected()));
@@ -77,12 +76,11 @@ public class MainWindow  extends JFrame{
             fileChooser.setCurrentDirectory(new File("maps/"));
             int returnValue = fileChooser.showSaveDialog(null);
             
-            String filePath = null;
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
-                filePath = file.getAbsolutePath();
+                levelPath = file.getAbsolutePath();
             }
-            tileMap.save(filePath);
+            tileMap.save(levelPath);
         });
 
         loadFile.addActionListener(e -> {
@@ -93,15 +91,19 @@ public class MainWindow  extends JFrame{
 
             int returnValue = fileChooser.showOpenDialog(null);
 
-            String filePath=null;
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
-                filePath = file.getAbsolutePath();
-                levelPath = filePath;
-                resetLevel();
+                levelPath = file.getAbsolutePath();
+                switch(mode){
+                    case GAME -> resetLevel();
+                    case EDITOR -> {
+                        tileMap.loadFromFile(levelPath);
+                        ((EditorPanel)getContentPane()).repaint();
+                    }
+                }
             }
-    
 
+            revalidate();
             repaint();
             
         });
@@ -126,8 +128,8 @@ public class MainWindow  extends JFrame{
     }
 
     public void resetLevel() {
-        if(levelPath == "") {
-            tileMap = new Tilemap(mapWidth, mapHeight, 50, tileSet);
+        if("".equals(levelPath)) {
+            tileMap = new Tilemap(0,0, 50, tileSet);
         } else {
             tileMap.loadFromFile(levelPath);
         }
@@ -158,7 +160,7 @@ public class MainWindow  extends JFrame{
         System.out.println("Switching to editor");
         ((InGamePanel)getContentPane()).stopGame();
         remove(getContentPane());
-        setContentPane(new EditorPanel(mapWidth,mapHeight, tileSet, tileMap));
+        setContentPane(new EditorPanel(tileSet, tileMap));
         revalidate();
         repaint();
     }
