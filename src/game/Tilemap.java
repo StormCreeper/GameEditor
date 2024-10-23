@@ -1,6 +1,8 @@
 package game;
 
 import game.Tile.Type;
+import game.game_interfaces.GameDrawable;
+
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.Point2D;

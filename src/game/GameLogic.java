@@ -6,8 +6,8 @@ import java.awt.event.*;
 import javax.swing.JOptionPane;
 
 /**
- * "Interface" class to act as an entry point for the game logic only: all
- * functions in the class will be called by the system
+ * "Interface" class to act as an entry point for the game logic only: 
+ * all functions in the class will be called by the system
  * This is to focus on the game logic only
  */
 public class GameLogic {
@@ -32,7 +32,7 @@ public class GameLogic {
     }
 
     /**
-     * Call each frame before draw
+     * Call each frame before draw, to update the game state and game objects
      * 
      * @param currentTime time in seconds elapsed since the program start
      * @param deltaTime   time in seconds since last frame
@@ -50,7 +50,7 @@ public class GameLogic {
     }
 
     /**
-     * Called each frame after update
+     * Called each frame after update, for everything that needs to be drawn
      * 
      * @param g the graphics object used for drawing
      */

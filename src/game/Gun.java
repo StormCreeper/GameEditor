@@ -5,16 +5,20 @@ import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-public class Gun {
-    private final ArrayList<Tile.Type> bullets = new ArrayList<>();
+import game.game_interfaces.GameDrawable;
+
+public class Gun implements GameDrawable{
+    private final ArrayList<Tile.Type> ammoList = new ArrayList<>();
     
     private boolean firing = false;
+
+    Point2D.Double position;
 
     public Gun() {
     }
 
     public boolean isEmpty() {
-        return bullets.isEmpty();
+        return ammoList.isEmpty();
     }
 
     public void fire() {
@@ -25,20 +29,24 @@ public class Gun {
         return firing;
     }
 
-    public Tile.Type getNextBullet() {
+    public Tile.Type getNextAmmo() {
         firing = false;
-        return bullets.remove(0);
+        return ammoList.remove(0);
     }
 
-    public void addBullet(Tile.Type type) {
-        bullets.add(type);
+    public void addAmmo(Tile.Type type) {
+        ammoList.add(type);
     }
 
-    public void drawLoad(Point2D playerPos, Graphics2D g2d) {
+    public void setPosition(Point2D.Double position) {
+        this.position = position;
+    }
 
-        Point loadPos = new Point((int) playerPos.getX()+25, (int) playerPos.getY());
+    public void drawSelf(Graphics2D g2d) {
 
-        for(Tile.Type bulletType : bullets) {
+        Point loadPos = new Point((int) position.getX(), (int) position.getY());
+
+        for(Tile.Type bulletType : ammoList) {
 
             switch(bulletType) {
                 case ground -> g2d.setColor(new Color(168,150,150));

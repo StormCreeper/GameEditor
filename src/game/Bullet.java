@@ -1,6 +1,9 @@
 package game;
 
 import game.Tile.Type;
+import game.game_interfaces.GameDrawable;
+import game.game_interfaces.GameUpdatable;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -9,7 +12,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 
-public class Bullet implements GameDrawable {
+public class Bullet implements GameDrawable, GameUpdatable {
     int size;
 
     double x;

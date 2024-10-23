@@ -5,7 +5,10 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 
-public class Camera implements GameDrawable {
+import game.game_interfaces.GameDrawable;
+import game.game_interfaces.GameUpdatable;
+
+public class Camera implements GameDrawable, GameUpdatable {
 
     public static Camera instance;
 

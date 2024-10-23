@@ -1,6 +1,9 @@
 package game;
 
 import game.Tile.Type;
+import game.game_interfaces.GameDrawable;
+import game.game_interfaces.GameUpdatable;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -14,7 +17,7 @@ import javax.imageio.ImageIO;
 import main.MainWindow;
 import main.Utils;
 
-public class Character implements GameDrawable {
+public class Character implements GameDrawable, GameUpdatable{
 
     private final static Point2D.Double[] directions = {
         new Point2D.Double(0, 1),
@@ -78,7 +81,7 @@ public class Character implements GameDrawable {
 
         image = Utils.getScaledInstance(image, size, size);
 
-        gun.addBullet(Type.water);
+        gun.addAmmo(Type.water);
     }
 
     private void updateGun(double deltaTime) {
@@ -92,7 +95,7 @@ public class Character implements GameDrawable {
             int shakeIntensity = 500;
 
             Point2D.Double bulletVel = Character.getScaledDirection(direction, 500);
-            bullets.add(new Bullet(p.getX(), p.getY(), bulletVel.getX(), bulletVel.getY(), 10, tilemap, gun.getNextBullet()));
+            bullets.add(new Bullet(p.getX(), p.getY(), bulletVel.getX(), bulletVel.getY(), 10, tilemap, gun.getNextAmmo()));
             Camera.instance.shake(Character.getScaledDirection(direction, -shakeIntensity));
         }
     }
@@ -131,6 +134,8 @@ public class Character implements GameDrawable {
 
         velX = 0;
         velY = 0;
+
+        gun.setPosition(new Point2D.Double(x+25, y));
 
         if(detectWin())
             hasWon = true;
@@ -226,7 +231,7 @@ public class Character implements GameDrawable {
             b.drawSelf(g);
         }
 
-        gun.drawLoad(getPosition(), g);
+        gun.drawSelf(g);
     }
 
     public void keyPressed(int key) {
@@ -260,7 +265,7 @@ public class Character implements GameDrawable {
             downPressed = false;
         if (key == KeyEvent.VK_D) {
             if(selectionOk)
-                gun.addBullet(selectedType);
+                gun.addAmmo(selectedType);
             dPressed = false;
         }
     }
