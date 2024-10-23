@@ -33,6 +33,7 @@ public class MainWindow  extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         setPreferredSize(new Dimension(1000, 800));
+        setMinimumSize(new Dimension(650, 450));
 
         JMenuBar menuBar = new JMenuBar();
         JMenu modeMenu = new JMenu("Mode");
