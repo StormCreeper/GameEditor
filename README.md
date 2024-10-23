@@ -15,7 +15,6 @@ java -cp ./build/ App
 Import the project in your IDE, run from App.java
 
 
-
 ## Features
 - Load and save levels to the disk
 - Restart a level (reloads the current level from the disk)
