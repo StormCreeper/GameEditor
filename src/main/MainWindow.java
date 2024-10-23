@@ -113,7 +113,7 @@ public class MainWindow  extends JFrame{
             new JLabel("S to shoot"),
             new JLabel("D to pick a bullet"),
             new JLabel("Bullets can act on blocks:"),
-            new JLabel(new ImageIcon("textures/chara_new.png"))
+            new JLabel(new ImageIcon("textures/help.jpeg"))
         };
 
         helpMenuItem.addActionListener(e -> {
