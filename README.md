@@ -1,8 +1,17 @@
 # Game editor de la Muerta
 By Enzo, Lou and Telo.
 
-## How to run
+## Build instructions
 The entry point is in App.java
+### For unix systems:
+```
+javac -d ./build --class-path ./src `find . -name '*.java'`
+```
+```
+java -cp ./build/ App
+```
+
+
 
 ## Features
 - Load and save levels to the disk
