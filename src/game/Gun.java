@@ -41,7 +41,7 @@ public class Gun {
         for(Tile.Type bulletType : bullets) {
 
             switch(bulletType) {
-                case ground -> g2d.setColor(Color.gray);
+                case ground -> g2d.setColor(new Color(168,150,150));
                 case water -> g2d.setColor(Color.blue);
                 case lava -> g2d.setColor(Color.red);
            }
