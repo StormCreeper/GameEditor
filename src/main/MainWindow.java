@@ -36,8 +36,9 @@ public class MainWindow  extends JFrame{
 
         JMenuBar menuBar = new JMenuBar();
         JMenu modeMenu = new JMenu("Mode");
-        JMenu fileMenu = new JMenu("File");
-        
+        JMenu fileMenu = new JMenu("Level");
+        JMenu helpMenu = new JMenu("Help");
+        JMenuItem helpMenuItem = new JMenuItem("Help");
         JMenuItem gameMode = new JMenuItem("Game");
         JMenuItem editorMode = new JMenuItem("Editor");
         JCheckBoxMenuItem debugMode = new JCheckBoxMenuItem("Toogle Debug");
@@ -48,11 +49,10 @@ public class MainWindow  extends JFrame{
         JMenuItem loadFile = new JMenuItem("Load");
         fileMenu.add(saveFile);
         fileMenu.add(loadFile);
-
-
+        helpMenu.add(helpMenuItem);
         menuBar.add(modeMenu);
         menuBar.add(fileMenu);
-        
+        menuBar.add(helpMenu);
         setJMenuBar(menuBar);
 
         //Init variables that are useful for both modes :
@@ -107,6 +107,19 @@ public class MainWindow  extends JFrame{
             repaint();
             
         });
+
+        final JComponent[] inputs = new JComponent[] {
+            new JLabel("Arrow Keys to move"),
+            new JLabel("S to shoot"),
+            new JLabel("D to pick a bullet"),
+            new JLabel("Bullets can act on blocks:"),
+            new JLabel(new ImageIcon("textures/chara_new.png"))
+        };
+
+        helpMenuItem.addActionListener(e -> {
+            JOptionPane.showConfirmDialog(this, inputs, "Help menu", JOptionPane.PLAIN_MESSAGE);
+        });
+
 
         setContentPane(new InGamePanel(tileSet, tileMap, this));
         
