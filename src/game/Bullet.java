@@ -9,7 +9,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 
-public class Bullet {
+public class Bullet implements GameDrawable {
     int size;
 
     double x;

@@ -59,7 +59,7 @@ public class GameLogic {
 
         // All drawing goes here
 
-        camera.updateCanvas(g); // Center the graphics to the camera
+        camera.drawSelf(g); // Center the graphics to the camera
 
         tilemap.drawSelf(g);
 

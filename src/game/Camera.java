@@ -5,7 +5,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 
-public class Camera {
+public class Camera implements GameDrawable {
 
     public static Camera instance;
 
@@ -43,7 +43,7 @@ public class Camera {
         shakeVelocity.y -= shakeVelocity.y * 20 * deltaTime;
     }
 
-    public void updateCanvas(Graphics2D g) {
+    public void drawSelf(Graphics2D g) { 
         Rectangle bounds = g.getClipBounds();
         g.translate(-position.x + bounds.width / 2 + shakeOffset.x, -position.y + bounds.height / 2 + shakeOffset.y);
     }

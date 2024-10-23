@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 import main.MainWindow;
 import main.Utils;
 
-public class Character {
+public class Character implements GameDrawable {
 
     private final static Point2D.Double[] directions = {
         new Point2D.Double(0, 1),

@@ -16,7 +16,7 @@ import java.util.Scanner;
 /**
  * Represents the tilemap of the game, which is a 2D grid of tiles.
  */
-public class Tilemap {
+public class Tilemap implements GameDrawable {
     private Tile[][] tileGrid;
     private final Tileset tileset;
 
