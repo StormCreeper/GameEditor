@@ -30,6 +30,8 @@ public class Character implements GameDrawable, GameUpdatable{
         return new Point2D.Double(directions[direction].getX()*scale, directions[direction].getY()*scale);
     }
 
+    private static final int PLAYER_SPEED = 300;
+
     private final int size; // The size of the character on the screen
 
     private double x;
@@ -38,11 +40,7 @@ public class Character implements GameDrawable, GameUpdatable{
     private double velX;
     private double velY;
 
-    private int boxSelX;
-    private int boxSelY;
-
-    private boolean selectionOk = false;
-    private Type selectedType = Type.ground;
+    private int direction = 0; // 0: down, 1: left, 2: up, 3: right
 
     private boolean upPressed;
     private boolean downPressed;
@@ -50,7 +48,13 @@ public class Character implements GameDrawable, GameUpdatable{
     private boolean rightPressed;
     private boolean dPressed;
 
-    private int direction = 0; // 0: down, 1: left, 2: up, 3: right
+    private boolean hasWon = false;
+
+    private boolean selectionOk = false;
+    private Type selectedType = Type.ground;
+
+    private int boxSelX;
+    private int boxSelY;
 
     private BufferedImage image;
 
@@ -58,8 +62,6 @@ public class Character implements GameDrawable, GameUpdatable{
 
     private final ArrayList<Bullet> bullets = new ArrayList<>();
     private final Gun gun = new Gun();
-
-    private boolean hasWon = false;
 
     public boolean hasWon() {
         return hasWon;
@@ -96,6 +98,7 @@ public class Character implements GameDrawable, GameUpdatable{
 
             Point2D.Double bulletVel = Character.getScaledDirection(direction, 500);
             bullets.add(new Bullet(p.getX(), p.getY(), bulletVel.getX(), bulletVel.getY(), 10, tilemap, gun.getNextAmmo()));
+            
             Camera.instance.shake(Character.getScaledDirection(direction, -shakeIntensity));
         }
     }
@@ -103,6 +106,9 @@ public class Character implements GameDrawable, GameUpdatable{
     public void update(double deltaTime) {  
         
         updateGun(deltaTime);
+
+        velX = 0;
+        velY = 0;
 
         if (rightPressed)
             velX += 1;
@@ -120,20 +126,20 @@ public class Character implements GameDrawable, GameUpdatable{
             velY /= speed;
         }
 
-        x += deltaTime * 300 * velX;
+        velX *= PLAYER_SPEED * deltaTime;
+        velX *= PLAYER_SPEED * deltaTime;
+
+        x += velX;
         if(collide()) {
             // Don't
-            x -= deltaTime * 300 * velX;
+            x -= velX;
         }
 
-        y += deltaTime * 300 * velY;
+        y += velY;
         if(collide()) {
             // Don't
-            y -= deltaTime * 300 * velY;
+            y -= velY;
         }
-
-        velX = 0;
-        velY = 0;
 
         gun.setPosition(new Point2D.Double(x+25, y));
 
@@ -151,7 +157,7 @@ public class Character implements GameDrawable, GameUpdatable{
                 case 3 -> boxSelX++;
             }
 
-            // Print type
+            // Get the tile under the selection box
             Tile tile = tilemap.getTile(boxSelX, boxSelY);
             if(tile != null) {
                 selectedType = tile.getType();

@@ -28,7 +28,7 @@ public class GameLogic {
 
         character = new Character(tilemap.getTileSize() - 4, tilemap);
 
-        camera = new Camera(character, 10.0);
+        camera = new Camera(character);
     }
 
     /**
