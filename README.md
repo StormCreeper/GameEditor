@@ -3,13 +3,15 @@ By Enzo, Lou and Telo.
 
 ## Build instructions
 The entry point is in App.java
-### For unix systems:
+### Command line
 ```
 javac -d ./build --class-path ./src ./src/*.java
 ```
 ```
 java -cp ./build/ App
 ```
+### IDE
+Import the project in your IDE, run from App.java
 
 
 
