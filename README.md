@@ -5,7 +5,7 @@ By Enzo, Lou and Telo.
 The entry point is in App.java
 ### For unix systems:
 ```
-javac -d ./build --class-path ./src `find . -name '*.java'`
+javac -d ./build --class-path ./src ./src/*.java
 ```
 ```
 java -cp ./build/ App
