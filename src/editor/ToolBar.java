@@ -61,7 +61,7 @@ public class ToolBar extends JPanel {
             myPanel.add(Box.createHorizontalStrut(15)); // a spacer
             myPanel.add(new JLabel("height:"));
             myPanel.add(yField);
-            int response = JOptionPane.showConfirmDialog(null, myPanel, "Please Enter X and Y Values", JOptionPane.OK_CANCEL_OPTION);
+            int response = JOptionPane.showConfirmDialog(null, myPanel, "New map :", JOptionPane.OK_CANCEL_OPTION);
             if(response==JOptionPane.OK_OPTION){
                 parent.newEmptyMap(Integer.parseInt(xField.getText()), Integer.parseInt(yField.getText()));
             } 
