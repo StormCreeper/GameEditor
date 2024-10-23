@@ -4,6 +4,7 @@ By Enzo, Lou and Telo.
 ## Build instructions
 The entry point is in App.java
 ### Command line
+*Tested on Ubuntu and Windows*
 ```
 javac -d ./build --class-path ./src ./src/*.java
 ```
