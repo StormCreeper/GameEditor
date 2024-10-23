@@ -1,27 +1,19 @@
 package game;
 
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import main.Utils;
 
+/**
+ * A class to load and compute tiles from an image file and a tilesize
+ * The subimages are stored in an array and resized if needed
+ */
 public class Tileset {
 
-    public static BufferedImage getScaledInstance(BufferedImage img, int width, int height) {
-        Image tex = img.getScaledInstance(width, height, Image.SCALE_DEFAULT);
-        BufferedImage newTex = new BufferedImage(width, height, img.getType());
-
-        Graphics g = newTex.getGraphics();
-        g.drawImage(tex, 0, 0, null);
-        g.dispose();
-
-        return newTex;
-    }
-
-    private int tileSize; // A changer quand on aura la vraie map
+    private int tileSize;
     private BufferedImage tileTexture;
     private ArrayList<BufferedImage> textureArray = new ArrayList<>();
     private int nbTextures;
@@ -50,9 +42,10 @@ public class Tileset {
 
     }
 
+    
     public void resizeTextures(int imageSize) {
         for(int n = 0; n < nbTextures; n++) {
-            textureArray.set(n, getScaledInstance(textureArray.get(n), imageSize, imageSize));
+            textureArray.set(n, Utils.getScaledInstance(textureArray.get(n), imageSize, imageSize));
         }
     }
 

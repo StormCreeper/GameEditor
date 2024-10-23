@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import main.MainWindow;
+import main.Utils;
 
 public class Character {
 
@@ -65,7 +66,7 @@ public class Character {
         velX = 0;
         velY = 0;
 
-        image = Tileset.getScaledInstance(image, size, size);
+        image = Utils.getScaledInstance(image, size, size);
 
         gun.addBullet(Type.water);
     }
