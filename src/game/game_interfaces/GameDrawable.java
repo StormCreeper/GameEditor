@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 
 
 /**
- * Objects that game be drawn in the game canvas
+ * Objects that can be drawn in the game canvas
  */
 public interface GameDrawable {
 
