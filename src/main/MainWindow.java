@@ -37,6 +37,7 @@ public class MainWindow  extends JFrame{
         JMenuBar menuBar = new JMenuBar();
         JMenu modeMenu = new JMenu("Mode");
         JMenu fileMenu = new JMenu("File");
+        
         JMenuItem gameMode = new JMenuItem("Game");
         JMenuItem editorMode = new JMenuItem("Editor");
         JCheckBoxMenuItem debugMode = new JCheckBoxMenuItem("Toogle Debug");
@@ -47,8 +48,11 @@ public class MainWindow  extends JFrame{
         JMenuItem loadFile = new JMenuItem("Load");
         fileMenu.add(saveFile);
         fileMenu.add(loadFile);
+
+
         menuBar.add(modeMenu);
         menuBar.add(fileMenu);
+        
         setJMenuBar(menuBar);
 
         //Init variables that are useful for both modes :

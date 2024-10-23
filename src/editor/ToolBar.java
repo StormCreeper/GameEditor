@@ -103,7 +103,7 @@ public class ToolBar extends JPanel {
         this.add(addColumnButton, gbc);
 
         gbc.gridx = 0;
-        gbc.weightx = 2;
+        gbc.gridwidth = 2;
 
         gbc.gridy = 2;
         this.add(new JLabel(""), gbc);
@@ -122,7 +122,7 @@ public class ToolBar extends JPanel {
         this.add(layer3RadioButton, gbc);
 
         gbc.gridy = 8;
-        this.add(new JLabel("Fill tile automatically"), gbc);
+        this.add(new JLabel("Fill interior automatically :"), gbc);
 
         gbc.gridy = 9;
         this.add(automaticFillingCheckBox, gbc);
