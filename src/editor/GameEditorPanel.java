@@ -10,6 +10,9 @@ import java.awt.geom.Point2D;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
+/**
+ * The panel displaying the game map in edition
+ */
 public class GameEditorPanel extends JComponent {
     private final EditorPanel parent;
 
@@ -21,6 +24,7 @@ public class GameEditorPanel extends JComponent {
 
     // If the automatic filling is selected
     boolean automaticFilling = false;
+
     // Array of selected indexes for automatic filling
     private boolean[][] indexesForFilling;
 
@@ -28,11 +32,15 @@ public class GameEditorPanel extends JComponent {
     private Point2D lastPoint = new Point2D.Double(0, 0);
     private Point2D.Double offset = new Point2D.Double(0, 0);
 
+    /**
+     * The panel displaying the game map in edition
+     */
     public GameEditorPanel(EditorPanel parent, Tileset tileSet, Tilemap tileMap) {
         this.parent = parent;
 
         this.tileMap = tileMap;
 
+        // Mouse listeners
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -50,7 +58,7 @@ public class GameEditorPanel extends JComponent {
                 lastX = -1;
                 lastY = -1;
                 if(automaticFilling){
-                    completeFilling();
+                    updateFromFilling();
                     indexesForFilling = null;
                     for (int i = 0; i < tileMap.getNumX(); i++) {
                         for (int j = 0; j < tileMap.getNumY(); j++) {
@@ -67,6 +75,7 @@ public class GameEditorPanel extends JComponent {
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     Point p = e.getPoint();
                     mousePressedOn((int) (p.x - offset.x), (int) (p.y - offset.y));
+                    completeFilling();
                 } else {
                     offset.x += (e.getX() - lastPoint.getX());
                     offset.y += (e.getY() - lastPoint.getY());
@@ -78,6 +87,11 @@ public class GameEditorPanel extends JComponent {
         });
     }
 
+    /**
+     * Triggered when the mouse is pressed on a tile
+     * @param px the tile x coordinate
+     * @param py the tile y coordinate
+     */
     private void mousePressedOn(int px, int py) {
         int tileSize = tileMap.getTileSize();
         int i = px / tileSize;
@@ -95,6 +109,11 @@ public class GameEditorPanel extends JComponent {
         }
     }
 
+    /**
+     * Change a tile according to the current edition state
+     * @param i the tile x coordinate
+     * @param j the tile y coordinate
+     */
     private void changeTile(int i,int j){
         int layer = parent.getSelectedLayer();
         if(parent.getSelectedTool() != -1){
@@ -118,17 +137,24 @@ public class GameEditorPanel extends JComponent {
         tileMap.drawSelf((Graphics2D) g);
     }
 
+    /**
+     * Reset the camera position
+     */
     public void centerView() {
         offset = new Point2D.Double(0, 0);
         repaint();
     }
 
+    /**
+     * Set the variable the manage automatic filling
+     * @param b 
+     */
     public void setAutomaticFilling(boolean b){
         automaticFilling = b;
     }
 
     /**
-     * Computes the automatic filling of the selected area
+     * Computes the automatic filling of the selected area and store it in indexesForFilling
      */
     private void completeFilling(){
         int[][] boundsOnLines = new int[2][tileMap.getNumY()];
@@ -144,7 +170,8 @@ public class GameEditorPanel extends JComponent {
         }
         for (int j = 0; j < tileMap.getNumY(); j++) {
             for(int i=boundsOnLines[0][j]; i<=boundsOnLines[1][j]; i++) {
-                changeTile(i, j);
+                indexesForFilling[i][j] = true;
+                tileMap.setTileHighlighted(i, j, true);
             }
         }
         int[][] boundsOnColumns = new int[tileMap.getNumX()][2];
@@ -160,10 +187,23 @@ public class GameEditorPanel extends JComponent {
         }
         for (int i = 0; i < tileMap.getNumX(); i++) {
             for(int j=boundsOnColumns[i][0]; j<=boundsOnColumns[i][1]; j++) {
-                changeTile(i, j);
+                indexesForFilling[i][j] = true;
+                tileMap.setTileHighlighted(i, j, true);
             }
         }
 
+        repaint();
+    }
+
+    /**
+     * Update tiles according to the previous computed automatic filling
+     */
+    private void updateFromFilling(){
+        for(int i=0; i<tileMap.getNumX(); i++){
+            for(int j=0; j<tileMap.getNumY(); j++){
+                if(indexesForFilling[i][j]) changeTile(i,j);   
+            }
+        }
         repaint();
     }
     

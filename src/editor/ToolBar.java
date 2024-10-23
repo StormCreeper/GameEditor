@@ -18,19 +18,22 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public class ToolBar extends JPanel {
+    // Some edition buttons
     private final JButton addLineButton = new JButton("Add Line");
     private final JButton addColumnButton = new JButton("Add Column");
     private final JButton newEmptyMapButton = new JButton("New Empty Map");
     private final JButton centerViewButton = new JButton("Reset view");
 
+    // Part for the selection of layer
+    private int layer = 0;
     private final JRadioButton layer1RadioButton = new JRadioButton("Layer 1");
     private final JRadioButton layer2RadioButton = new JRadioButton("Layer 2");
-    private final JRadioButton layer3RadioButton = new JRadioButton("Layer 3");
+    private final JRadioButton layer3RadioButton = new JRadioButton("Layer 3");  
 
-    private int layer = 0;
-
+    // Checkbox to select the automatic filling or not
     private final JCheckBox automaticFillingCheckBox = new JCheckBox("Automatic filling");
 
+    // Change listeners for layer selection
     private final ArrayList<ActionListener> layerChangeListeners = new ArrayList<>();
 
     ToolBar(EditorPanel parent) {
@@ -135,6 +138,9 @@ public class ToolBar extends JPanel {
         setBackground(Color.WHITE);
     }
 
+    /**
+     * @return the selected layer
+     */
     public int getSelectedLayer() {
         if(layer1RadioButton.isSelected()) return 0;
         if(layer2RadioButton.isSelected()) return 1;
@@ -142,10 +148,17 @@ public class ToolBar extends JPanel {
         return -1; // Should not happen
     }
 
+    /**
+     * Add a listener for layer change
+     * @param listener
+     */
     public void addLayerChangeListener(ActionListener listener) {
         layerChangeListeners.add(listener);
     }
 
+    /**
+     * Change the current selected layer
+     */
     private void changeLayer() {
         int newLayer = getSelectedLayer();
 

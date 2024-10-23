@@ -8,15 +8,23 @@ import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.*;
-
+/**
+ * The panel where you can select the texture to draw
+ */
 public class ObjectSelectionPanel extends JPanel {
-    private final Tileset tileSet;
-    private final ArrayList<TextureButton> textureButtons = new ArrayList<>();
-
-    private final ArrayList<ArrayList<Integer>> layerElements =  new ArrayList<>();
-
+    // The parent editor panel
     private final EditorPanel parent;
 
+    // the tileset
+    private final Tileset tileSet;
+
+    // The buttons to select textures
+    private final ArrayList<TextureButton> textureButtons = new ArrayList<>();
+
+    // The possible textures for each layer
+    private final ArrayList<ArrayList<Integer>> layerElements =  new ArrayList<>();
+
+    // The current selected tool
     private int tool = 0;
 
     public ObjectSelectionPanel(EditorPanel parent, Tileset tileSet){
@@ -42,6 +50,9 @@ public class ObjectSelectionPanel extends JPanel {
         replaceButtons();
     }
 
+    /**
+     * Replace the buttons with the textures of the selected layer
+     */
     public void replaceButtons() {
         int layer = parent.getSelectedLayer();
 
@@ -66,6 +77,9 @@ public class ObjectSelectionPanel extends JPanel {
         repaintButtons();
     }
 
+    /**
+     * @return the selected type of tile (ONLY for first layer)
+     */
     public Type getSelectedType(){
         if(tool == 5) return Tile.Type.ground;
         if(tool == 13) return Tile.Type.water;
@@ -74,15 +88,25 @@ public class ObjectSelectionPanel extends JPanel {
         return Tile.Type.ground;
     }
 
+    /**
+     * Set the selected tool
+     * @param i the index of the selected tool
+     */
     public void setSelectedTool(int i) {
         tool = i;
         repaintButtons();
     }
 
+    /**
+     * @return the selected tool
+     */
     public int getSelectedTool() {
         return tool;
     }
 
+    /**
+     * Repaint all the buttons
+     */
     public void repaintButtons(){
         for(TextureButton tb : textureButtons){
             revalidate();
