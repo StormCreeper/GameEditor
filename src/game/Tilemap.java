@@ -414,7 +414,8 @@ public class Tilemap {
                     g.drawImage(tileset.getTexture(firstLayerIDs.get(k)), i * tileSize, j * tileSize, null);
                 }
                 for(int ID : tileGrid[i][j].getLayersTextures()) {
-                    g.drawImage(tileset.getTexture(ID), i * tileSize, j * tileSize, null);
+                    if(ID != 0) 
+                        g.drawImage(tileset.getTexture(ID), i * tileSize, j * tileSize, null);
                 }
 
                 if(tileGrid[i][j].isHighlighted()){

@@ -16,6 +16,17 @@ import main.Utils;
 
 public class Character {
 
+    private final static Point2D.Double[] directions = {
+        new Point2D.Double(0, 1),
+        new Point2D.Double(-1, 0),
+        new Point2D.Double(0, -1),
+        new Point2D.Double(1, 0)
+    };
+
+    public static Point2D.Double getScaledDirection(int direction, double scale) {
+        return new Point2D.Double(directions[direction].getX()*scale, directions[direction].getY()*scale);
+    }
+
     private final int size; // The size of the character on the screen
 
     private double x;
@@ -29,7 +40,6 @@ public class Character {
 
     private boolean selectionOk = false;
     private Type selectedType = Type.ground;
-
 
     private boolean upPressed;
     private boolean downPressed;
@@ -80,24 +90,10 @@ public class Character {
         if(gun.isFiring()) {
             Point2D p = getPosition();
             int shakeIntensity = 500;
-            switch(direction){
-                case 0 -> {
-                    bullets.add(new Bullet(p.getX(), p.getY(), 0, 500, 10, tilemap, gun.getNextBullet()));
-                    Camera.instance.shake(new Point2D.Double(0, -shakeIntensity));
-                }
-                case 1 -> {
-                    bullets.add(new Bullet(p.getX(), p.getY(), -500, 0, 10, tilemap, gun.getNextBullet()));
-                    Camera.instance.shake(new Point2D.Double(-shakeIntensity, 0));
-                }
-                case 2 -> {
-                    bullets.add(new Bullet(p.getX(), p.getY(), 0, -500, 10, tilemap, gun.getNextBullet()));
-                    Camera.instance.shake(new Point2D.Double(0, shakeIntensity));
-                }
-                case 3 -> {
-                    bullets.add(new Bullet(p.getX(), p.getY(), 500, 0, 10, tilemap, gun.getNextBullet()));
-                    Camera.instance.shake(new Point2D.Double(shakeIntensity, 0));
-                }
-            }
+
+            Point2D.Double bulletVel = Character.getScaledDirection(direction, 500);
+            bullets.add(new Bullet(p.getX(), p.getY(), bulletVel.getX(), bulletVel.getY(), 10, tilemap, gun.getNextBullet()));
+            Camera.instance.shake(Character.getScaledDirection(direction, -shakeIntensity));
         }
     }
 
